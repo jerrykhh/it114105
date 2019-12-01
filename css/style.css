@@ -1,0 +1,90 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a{
+	color: #FFF;
+}
+
+i.icon-brand, nav .brand-logo{
+	color: #26a69a;;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.sidenav-trigger {
+  color: #26a69a;
+}
+
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+.parallax-container .section {
+    width: 100%;
+}
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+.btn-large{
+	margin-top: 6px;
+}
+.page{
+	height: 20px;
+}
+
+footer.page-footer {
+  margin-top: 100px;
+}
+
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 1%;
+  }
+}
+.nav-moblie{	
+	  color: #fff;
+	  background-color: #FFF;
+	  width: 100%;
+	  height: 70px;
+	  line-height: 70px;
+}
+
+@media only screen and (max-width : 959px) {
+	nav{	
+	  color: #fff;
+	  background-color: #FFF;
+	  width: 100%;
+	  height: 70px;
+	  line-height: 70px;
+	}
+	nav .brand-logo{
+		font-size: 160%;
+		color: #80cbc4 ;
+	}
+	nav #btnLogin{
+		color: black;
+	}
+	
+}
+input{
+    z-index: 10000000;
+}
+
