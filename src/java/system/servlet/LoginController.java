@@ -46,7 +46,6 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
 
     }
 
@@ -78,12 +77,16 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        if ("authenticate".equals(action)) {
+        if (action == null) {
+            RequestDispatcher rd = this.getServletContext()
+                    .getRequestDispatcher("/login.jsp");
+            rd.forward(request, response);
+        } else if ("authenticate".equals(action)) {
             try {
                 doAuthenticate(request, response);
             } catch (SQLException ex) {
-               ex.printStackTrace();
-               ex = ex.getNextException();
+                ex.printStackTrace();
+                ex = ex.getNextException();
             }
         } else if ("logout".equals(action)) {
             doLogout(request, response);
@@ -100,7 +103,7 @@ public class LoginController extends HttpServlet {
         String role = request.getParameter("role");
         System.out.println(action + username + pwd + role);
         if (!role.equals("Teacher") && !role.equals("Student") && !role.equals("Admin")) {
-            response.sendRedirect("/index.jsp?roleError");
+            response.sendRedirect("/index?roleError");
         }
         LoginBean loginBean = new LoginBean();
         loginBean.setUsername(username);
@@ -108,22 +111,21 @@ public class LoginController extends HttpServlet {
         loginBean.setRole(role);
         loginBean = db.validateLogin(loginBean);
         if (loginBean == null) {
-            response.sendRedirect("login.jsp?loginError&role="+role);
+            response.sendRedirect("login?loginError&role=" + role);
             return;
         }
         String targetURL = null;
         HttpSession session = request.getSession();
+        session.setAttribute("username", loginBean.getName());
+        session.setAttribute("userrole", loginBean.getRole());
         switch (role) {
             case "Student":
-                session.setAttribute("username", loginBean.getName());
                 targetURL = "/show-class";
                 break;
             case "Teacher":
-                session.setAttribute("username", username);
                 targetURL = "teacher/dashboard";
                 break;
             case "Admin":
-                session.setAttribute("username", username);
                 targetURL = "admin/dashboard";
                 break;
         }
@@ -139,7 +141,6 @@ public class LoginController extends HttpServlet {
         return result;
     }
 
-
     private void doLogout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -147,7 +148,7 @@ public class LoginController extends HttpServlet {
             session.removeAttribute("username");
             session.invalidate();
         }
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("/index");
     }
 
     /**
