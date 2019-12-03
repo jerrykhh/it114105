@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author JerryKwok
  */
 public class StudentBean {
-
     private String id;
     private String fname;
     private String lname;
@@ -23,6 +22,7 @@ public class StudentBean {
     private double attendRate;
     private ArrayList<AttendBean> attendList;
 
+    
     public int getAttendDay() {
         return attendDay;
     }

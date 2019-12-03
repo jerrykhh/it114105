@@ -355,6 +355,7 @@ public class TeacherDB {
                 studentBean.setLname(result.getString("lname"));
                 studentBean.setGender(result.getString("gender"));
                 studentBean.setEmail(result.getString("email"));
+                studentBean.setBirthday(result.getString("birthday"));
                 studentBean.setId(result.getString("id"));
                 studentBean.setAttendDay(result.getInt("attendDay"));
                 list.add(studentBean);
@@ -396,7 +397,7 @@ public class TeacherDB {
         ArrayList<AttendBean> list = null;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT studentattend.*, class.termId FROM studentattend, class, semester WHERE studentattend.studentId = ? AND studentattend.attendDate >= semester.start_date AND studentattend.attendDate <= semester.end_date AND semester.year = ? AND semester.term = ?";
+            String preQuery = "SELECT studentattend.*, class.termId FROM studentattend, class, semester, studentclass WHERE studentattend.studentId = ? AND studentattend.attendDate >= semester.start_date AND studentattend.attendDate <= semester.end_date AND semester.year = ? AND semester.term = ? AND studentclass.studentId = studentattend.studentId AND studentclass.classId = class.id";
             PreparedStatement preStmnt = connt.prepareStatement(preQuery);
             preStmnt.setString(1, studentId);
             preStmnt.setString(2, year);

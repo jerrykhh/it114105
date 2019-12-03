@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import system.bean.AttendBean;
 import system.bean.SchedulerBean;
 import system.bean.SemesterBean;
 import system.bean.StudentBean;
@@ -122,6 +123,19 @@ public class TeacherReportController extends HttpServlet {
                 if (studentId != null) {
                     studentBean.setAttendList(db.getStudentAttendDetail(studentId, year, term));
                     request.setAttribute("studentDetials", studentBean);
+                    int totalAttendDay = 0;
+                    int presentDay = 0;
+                    int absDay = 0;
+                    for(AttendBean attend: studentBean.getAttendList()){
+                        if(attend.isAttend())
+                            presentDay++;
+                        else
+                            absDay++;
+                        totalAttendDay++;
+                    }
+                    request.setAttribute("presentDay", presentDay);
+                    request.setAttribute("absDay", absDay);
+                    request.setAttribute("totalAttendDay", totalAttendDay);
                 }
                 try {
                     avgStudentAttendDay = (allStudentCountDay / numberOfStudent);

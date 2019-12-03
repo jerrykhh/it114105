@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="list-group"> 
-                                <a href="#" class="list-group-item active main-color-bg-nav">
+                                <a href="dashboard" class="list-group-item active main-color-bg-nav">
                                     <i class="material-icons">dashboard</i> 
                                     <span>Dashboard</span>
                                 </a>
@@ -40,12 +40,6 @@
                                     <i class="material-icons">insert_drive_file</i>
                                     <span> Reports</span>
                                 </a>
-                                <a href="student" class="list-group-item">
-                                    <i class="material-icons">school</i>
-                                    <span> Student
-                                        <span class="badge">${studentCount}</span>
-                                </span>
-                            </a>
                             <a href="../login?action=logout" class="list-group-item text-right">
                                 <span>  Logout</span> 
                             </a>
