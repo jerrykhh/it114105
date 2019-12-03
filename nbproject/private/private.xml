@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/db/TeacherDB.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/web/teacher/report.jsp</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/bean/SchedulerBean.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/web/teacher/attendance.jsp</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/db/StudentDB.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/servlet/TeacherReportController.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/db/LoginValid.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/web/teacher/reportClass.jsp</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/bean/LoginBean.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/web/teacher/attendanceStudent.jsp</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/bean/StudentBean.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/bean/AttendBean.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/bean/SemesterBean.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/servlet/LoginController.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/servlet/TeacherAttendController.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/web/index.jsp</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/servlet/TeacherDashbaordController.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/bean/ClassBean.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/src/java/system/bean/TeacherBean.java</file>
+            <file>file:/C:/Users/jerry/Documents/NetBeansProjects/ITP4511Assignemnt/web/teacher/dashboard.jsp</file>
+        </group>
+    </open-files>
+</project-private>
