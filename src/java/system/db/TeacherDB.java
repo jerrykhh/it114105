@@ -99,7 +99,6 @@ public class TeacherDB {
             Statement stmnt = connt.createStatement();
             ResultSet result = stmnt.executeQuery(sql);
             while (result.next()) {
-
                 ClassBean bean = new ClassBean();
                 bean.getTeacherBean().setId(result.getString("id"));
                 bean.setClassName(result.getString("class"));

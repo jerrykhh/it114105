@@ -4,7 +4,7 @@
     Author     : JerryKwok
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="system.bean.LectureBean, system.bean.LectureDayBean, system.bean.LectureTimeBean"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="system.bean.StudentBean, system.bean.ClassBean"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,11 +28,11 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="list-group"> 
-                                <a href="dashboard" class="list-group-item active main-color-bg-nav">
+                                <a href="dashboard" class="list-group-item main-color-bg-nav">
                                     <i class="material-icons">dashboard</i> 
                                     <span>Dashboard</span>
                                 </a>
-                                <a href="class" class="list-group-item">
+                                <a href="class" class="list-group-item active">
                                     <i class="material-icons">class</i><span> Class</span>
                                 </a>
                                 <a href="user?Student" class="list-group-item">
@@ -47,7 +47,7 @@
                                 <a href="schedule" class="list-group-item">
                                     <i class="material-icons">schedule</i><span> Schedule</span>
                                 </a>
-                                
+
                                 <a href="attendance" class="list-group-item">
                                     <i class="material-icons">check_box</i
                                     ><span> Attendace</span>
@@ -66,23 +66,32 @@
                             <!-- Website Overview -->
                             <div class="card">
                                 <div class="card-header main-color-bg">
-                                    <h5 class="card-title">Overview</h5>
+                                    <h5 class="card-title">Edit Student Class</h5>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="card bg-light card-body mb-3 dash-box">
-                                                <h2><i class="material-icons">library_books</i> ${courseCount}</h2>
-                                            <h4>Class</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6  col-sm-12">
-                                        <div class="card bg-light card-body mb-3 dash-box">
-                                            <h2> <i class="material-icons">school</i> ${studentCount}</h2>
-                                            <h4>Student</h4>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <jsp:useBean id="studentDetials" scope="request" class="system.bean.StudentBean"/>
+                                    <table class="table">
+                                        <tr>
+                                            <th>Student Class ID</th>
+                                            <td>${studentClassID}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Student Name</th>
+                                            <td><jsp:getProperty name="studenBean" property="name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Student ID</th>
+                                            <td><jsp:getProperty name="studenBean" property="id"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Gender</th>
+                                            <td><jsp:getProperty name="studenBean" property="gender"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Birthday</th>
+                                            <td><jsp:getProperty name="studenBean" property="birthday"/></td>
+                                        </tr>
+                                    </table>
                             </div>
                         </div>
                         <!-- Latest Users -->

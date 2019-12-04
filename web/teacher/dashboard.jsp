@@ -110,13 +110,10 @@
                                                     for (int i = (countDay - countPrint); i > 0; i--) {
                                                         out.print("<td> </td>");
                                                     }
-
                                                 }
                                             }
                                             out.print("</tr>");
                                         }
-
-
                                     %>
 
 

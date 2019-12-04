@@ -4,7 +4,7 @@
     Author     : JerryKwok
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="system.bean.LectureBean, system.bean.LectureDayBean, system.bean.LectureTimeBean"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="system.bean.StudentBean, system.bean.ClassBean, system.bean.TeacherBean"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +47,7 @@
                                 <a href="schedule" class="list-group-item">
                                     <i class="material-icons">schedule</i><span> Schedule</span>
                                 </a>
-                                
+
                                 <a href="attendance" class="list-group-item">
                                     <i class="material-icons">check_box</i
                                     ><span> Attendace</span>
@@ -66,23 +66,48 @@
                             <!-- Website Overview -->
                             <div class="card">
                                 <div class="card-header main-color-bg">
-                                    <h5 class="card-title">Overview</h5>
+                                    <h5 class="card-title">Student Class</h5>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <div class="card bg-light card-body mb-3 dash-box">
-                                                <h2><i class="material-icons">library_books</i> ${courseCount}</h2>
-                                            <h4>Class</h4>
+                                    <button type="button" class="btn btn-primary">Add Student to Class</button>
+                                    
+                                    <form class="form-inline float-right" action="class" method="POST">
+                                        <div class="form-group mb-2">
+                                            <font>Search: </font>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6  col-sm-12">
-                                        <div class="card bg-light card-body mb-3 dash-box">
-                                            <h2> <i class="material-icons">school</i> ${studentCount}</h2>
-                                            <h4>Student</h4>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <label class="sr-only">Password</label>
+                                            <input type="text" class="form-control" name="searchVal" id="searchVal" placeholder="Search...">
                                         </div>
-                                    </div>
-                                </div>
+                                        <button type="submit" class="btn btn-dark mb-2">Search</button>
+                                    </form>
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Student Name</th>
+                                                <th>Class</th>
+                                                <th>Head Teacher</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                    <jsp:useBean id="studentClassList" scope="request" class="java.util.ArrayList<system.bean.StudentBean>"/>
+                                    <%
+                                        System.out.println(studentClassList.size());
+                                        for (StudentBean student : studentClassList) {
+                                            out.print("<tr>");
+                                            out.print("<td><a href='user?role=Student&id=" + student.getId() + "'>" + student.getId() + "</a></td>");
+                                            out.print("<td>" + student.getName() + "</td>");
+                                            out.print("<td>" + student.getClassName().getClassName() + "</td>");
+                                            out.print("<td><a href='user?role=Teacher&id=" + student.getClassName().getTeacherBean().getId() + "'>" + student.getClassName().getTeacherBean().getTeacherFormalName() + "</a></td>");
+                                            out.print("<td>");
+                                            out.print("<a href='class?id=" + student.getStudentClassid() + "'><button type='button' class='btn btn-info tableBtn'><i class='material-icons'>edit</i></button></a> ");
+                                            out.print("<a href='class?id=" + student.getStudentClassid() + "&action=delete'><button type='button' class='btn btn-danger tableBtn'><i class='material-icons'>delete</i></button></a>");
+                                            out.print("</td>");
+                                            out.print("</tr>");
+                                        }
+                                    %>
+                                </table>
                             </div>
                         </div>
                         <!-- Latest Users -->

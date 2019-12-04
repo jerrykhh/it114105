@@ -20,11 +20,30 @@ public class StudentBean {
     private String birthday;
     private int attendDay;
     private double attendRate;
+    private String studentClassid;
+    private ClassBean className;
     private ArrayList<AttendBean> attendList;
 
     
     public int getAttendDay() {
         return attendDay;
+    }
+
+    public ClassBean getClassName() {
+        return className;
+    }
+
+    public String getStudentClassid() {
+        return studentClassid;
+    }
+
+    public void setStudentClassid(String studentClassid) {
+        this.studentClassid = studentClassid;
+    }
+    
+
+    public void setClassName(ClassBean className) {
+        this.className = className;
     }
 
     public void setAttendDay(int attendDay) {

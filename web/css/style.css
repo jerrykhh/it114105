@@ -304,6 +304,13 @@ iframe {
 tr[data-href]{
     cursor: pointer;
 }
+.tableBtn {
+    width: 35px;
+    height: 35px;
+}
+.tableBtn i{
+    margin-left: -5px;
+}
 
 
 footer{

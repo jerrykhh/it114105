@@ -14,22 +14,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import system.db.TeacherDB;
+import system.db.AdminDB;
 
 /**
  *
  * @author JerryKwok
  */
-@WebServlet(name = "TeacherDashbaordController", urlPatterns = {"/teacher/dashboard"})
-public class TeacherDashbaordController extends HttpServlet {
+@WebServlet(name = "AdminClassController", urlPatterns = {"/admin/class"})
+public class AdminClassController extends HttpServlet {
 
-    private TeacherDB db;
+    AdminDB db;
 
     public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
-        db = new TeacherDB(dbUrl, dbUser, dbPassword);
+        db = new AdminDB(dbUrl, dbUser, dbPassword);
     }
 
     /**
@@ -46,24 +46,35 @@ public class TeacherDashbaordController extends HttpServlet {
         try {
             HttpSession session = request.getSession(false);
             if (session.getAttribute("username") == null) {
-                response.sendRedirect("/index");
+                response.sendRedirect("../index");
                 return;
             }
-            String teacherId = (String) session.getAttribute("username");
-            db.setTeacherId(teacherId);
-            request.setAttribute("courseCount", db.getCountClass());
-            request.setAttribute("studentCount", db.getCountStudent());
-            request.setAttribute("lectureList", db.getAllLecture(teacherId));
-            request.setAttribute("timeList", db.getAllTimeLecture());
-            request.setAttribute("dayList", db.getAllDayLecture());
+            String action = request.getParameter("action");
+            String studentClassID = request.getParameter("id"); // edit function
+            if (studentClassID != null) {
+                request.setAttribute("studenBean", db.getStudentClassDeital(studentClassID));
+                request.setAttribute("classList", db.getAllClass());
+                request.setAttribute("studentClassID", studentClassID);
+                RequestDispatcher rd = this.getServletContext()
+                        .getRequestDispatcher("/admin/classStudent.jsp");
+                rd.forward(request, response);
+            }
+            if (action != null && action.equals("delete")) {
+                db.deleteStudentClass(studentClassID);
+                request.setAttribute("actionMes", true);
+            } else if(action != null && action.equals("save")){
+                
+            }
+            request.setAttribute("studentClassList", db.getAllStudentClass());
+            System.out.println(db.getAllClass().size());
+            //  request.setAttribute("studentCount", db.getCountStudent());
             RequestDispatcher rd = this.getServletContext()
-                    .getRequestDispatcher("/teacher/dashboard.jsp");
+                    .getRequestDispatcher("/admin/class.jsp");
             rd.forward(request, response);
         } catch (NullPointerException e) {
-            response.sendRedirect("/index");
+            response.sendRedirect("../index");
             return;
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

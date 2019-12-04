@@ -14,22 +14,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import system.db.TeacherDB;
+import system.db.AdminDB;
 
 /**
  *
  * @author JerryKwok
  */
-@WebServlet(name = "TeacherDashbaordController", urlPatterns = {"/teacher/dashboard"})
-public class TeacherDashbaordController extends HttpServlet {
+@WebServlet(name = "AdminDashboard", urlPatterns = {"/admin/dashboard"})
+public class AdminDashboardController extends HttpServlet {
 
-    private TeacherDB db;
+    AdminDB db;
 
     public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
-        db = new TeacherDB(dbUrl, dbUser, dbPassword);
+        db = new AdminDB(dbUrl, dbUser, dbPassword);
     }
 
     /**
@@ -49,24 +49,21 @@ public class TeacherDashbaordController extends HttpServlet {
                 response.sendRedirect("/index");
                 return;
             }
-            String teacherId = (String) session.getAttribute("username");
-            db.setTeacherId(teacherId);
             request.setAttribute("courseCount", db.getCountClass());
             request.setAttribute("studentCount", db.getCountStudent());
-            request.setAttribute("lectureList", db.getAllLecture(teacherId));
-            request.setAttribute("timeList", db.getAllTimeLecture());
-            request.setAttribute("dayList", db.getAllDayLecture());
             RequestDispatcher rd = this.getServletContext()
-                    .getRequestDispatcher("/teacher/dashboard.jsp");
+                    .getRequestDispatcher("/admin/dashboard.jsp");
             rd.forward(request, response);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             response.sendRedirect("/index");
             return;
         }
-
+        
+        
+        
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
