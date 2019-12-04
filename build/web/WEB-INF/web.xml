@@ -24,9 +24,10 @@
      <servlet>
     <servlet-name>IndexController</servlet-name>
     <servlet-class>system.servlet.IndexController</servlet-class>
-  </servlet>
+     </servlet>
   <servlet-mapping>
     <servlet-name>IndexController</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/index</url-pattern>
   </servlet-mapping>
+
 </web-app>

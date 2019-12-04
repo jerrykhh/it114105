@@ -45,14 +45,21 @@ public class TeacherDashbaordController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("username") == null) {
-            response.sendRedirect("../index.jsp");
+            response.sendRedirect("/index");
             return;
         }
         String teacherId = (String) session.getAttribute("username");
         db.setTeacherId(teacherId);
         request.setAttribute("courseCount", db.getCountClass());
-        session.setAttribute("studentCount", db.getCountStudent());
 
+        request.setAttribute("studentCount", db.getCountStudent());
+
+        request.setAttribute("lectureList", db.getAllLecture(teacherId));
+
+        request.setAttribute("timeList", db.getAllTimeLecture());
+
+        request.setAttribute("dayList", db.getAllDayLecture());
+        
         RequestDispatcher rd = this.getServletContext()
                 .getRequestDispatcher("/teacher/dashboard.jsp");
         rd.forward(request, response);

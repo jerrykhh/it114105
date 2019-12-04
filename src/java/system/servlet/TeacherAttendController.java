@@ -51,11 +51,11 @@ public class TeacherAttendController extends HttpServlet {
         HttpSession session = request.getSession(false);
         try {
             if (session.getAttribute("username") == null) {
-                response.sendRedirect("../index.jsp");
+                response.sendRedirect("../index");
                 return;
             }
         } catch (Exception e) {
-            response.sendRedirect("../index.jsp");
+            response.sendRedirect("../index");
             return;
         }
         String teacherId = (String) session.getAttribute("username");

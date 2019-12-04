@@ -116,7 +116,7 @@ public class LoginController extends HttpServlet {
         }
         String targetURL = null;
         HttpSession session = request.getSession();
-        session.setAttribute("username", loginBean.getName());
+        session.setAttribute("username", username);
         session.setAttribute("userrole", loginBean.getRole());
         switch (role) {
             case "Student":
@@ -148,7 +148,7 @@ public class LoginController extends HttpServlet {
             session.removeAttribute("username");
             session.invalidate();
         }
-        response.sendRedirect("/index");
+        response.sendRedirect("index");
     }
 
     /**

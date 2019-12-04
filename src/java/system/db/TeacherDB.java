@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import system.bean.AttendBean;
 import system.bean.ClassBean;
+import system.bean.LectureBean;
+import system.bean.LectureDayBean;
+import system.bean.LectureTimeBean;
 import system.bean.SchedulerBean;
 import system.bean.SemesterBean;
 import system.bean.StudentBean;
@@ -404,7 +407,7 @@ public class TeacherDB {
             preStmnt.setInt(3, term);
             ResultSet result = preStmnt.executeQuery();
             list = new ArrayList<AttendBean>();
-            while(result.next()){
+            while (result.next()) {
                 AttendBean bean = new AttendBean();
                 bean.setId(result.getString("studentAttendanceId"));
                 bean.setDate(result.getString("attendDate"));
@@ -421,8 +424,8 @@ public class TeacherDB {
         }
         return list;
     }
-    
-     public ArrayList<StudentBean> getAllStudentAttendZero(String className) {
+
+    public ArrayList<StudentBean> getAllStudentAttendZero(String className) {
         ArrayList<StudentBean> list = new ArrayList<StudentBean>();
         try {
             Connection connt = getConnection();
@@ -452,6 +455,95 @@ public class TeacherDB {
         }
         return list;
     }
+
+    public ArrayList<LectureTimeBean> getAllTimeLecture() {
+        ArrayList<LectureTimeBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String sql = "SELECT * FROM timeTable ORDER BY timeTable.starttime ASC";
+            Statement stmnt = connt.createStatement();
+            ResultSet result = stmnt.executeQuery(sql);
+            list = new ArrayList<LectureTimeBean>();
+            while (result.next()) {
+                LectureTimeBean bean = new LectureTimeBean();
+                bean.setId(result.getString("timeId"));
+                bean.setStartTime(result.getString("starttime"));
+                bean.setEndTime(result.getString("endtime"));
+                list.add(bean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<LectureBean> getAllLecture(String teacherId) {
+        ArrayList<LectureBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String preQuery = "SELECT * FROM lecture, class, timetable, daytable WHERE lecture.classId = class.id AND lecture.timeId = timetable.timeId AND lecture.teacherId = ? and lecture.dayId = daytable.id";
+            PreparedStatement preStmnt = connt.prepareStatement(preQuery);
+            preStmnt.setString(1, teacherId);
+            ResultSet result = preStmnt.executeQuery();
+            list = new ArrayList<LectureBean>();
+            while (result.next()) {
+                LectureBean lectureBean = new LectureBean();
+                LectureTimeBean timeBean = new LectureTimeBean();
+                LectureDayBean dayBean = new LectureDayBean();
+                lectureBean.setLecture(result.getString("lecture"));
+                lectureBean.setDescription(result.getString("description"));
+                lectureBean.setClassName(result.getString("class"));
+                timeBean.setStartTime(result.getString("starttime"));
+                timeBean.setEndTime(result.getString("endtime"));
+                timeBean.setFullweek(result.getBoolean("fullday"));
+                lectureBean.setTime(timeBean);
+                dayBean.setDay(result.getString("day"));
+                lectureBean.setDay(dayBean);
+                lectureBean.setRoom(result.getString("room"));
+                list.add(lectureBean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+    
+        public ArrayList<LectureDayBean> getAllDayLecture() {
+        ArrayList<LectureDayBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String sql = "SELECT * FROM daytable ORDER BY day ASC";
+            Statement stmnt = connt.createStatement();
+            ResultSet result = stmnt.executeQuery(sql);
+            list = new ArrayList<LectureDayBean>();
+            while (result.next()) {
+                LectureDayBean bean = new LectureDayBean();
+                bean.setId(result.getString("id"));
+                bean.setDay(result.getString("day"));
+                list.add(bean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+    
+    
     //SELECT *, WEEKDAY(start_date) as start_day_week, WEEKDAY(end_date) as end_day_week FROM scheduler
     //SELECT *, WEEKDAY(start_date) as start_day_week, WEEKDAY(end_date) as end_day_week, end_date - start_date as countDate FROM scheduler WHERE holiday = true
 

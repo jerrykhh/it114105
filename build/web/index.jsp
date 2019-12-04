@@ -22,17 +22,17 @@
                     </span>
                     <p>Please select your role</p>
                     <div class="loginFormRole mx-auto">
-                        <a href="login.jsp?role=Student" class="blockquote text-center">
+                        <a href="login?role=Student" class="blockquote text-center">
                             <div class="bs-callout bs-callout-deflaut rounded">
                                 <h5>Student</h5>
                             </div>
                         </a>
-                        <a href="login.jsp?role=Teacher" class="blockquote text-center">
+                        <a href="login?role=Teacher" class="blockquote text-center">
                             <div class="bs-callout bs-callout-primary rounded">
                                 <h5>Teacher</h5>
                             </div>
                         </a>
-                        <a href="login.jsp?role=Admin" class="blockquote text-center">
+                        <a href="login?role=Admin" class="blockquote text-center">
                             <div class="bs-callout bs-callout-info rounded">
                                 <h5>Admin</h5>
                             </div>

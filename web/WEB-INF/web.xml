@@ -21,4 +21,13 @@
             30
         </session-timeout>
     </session-config>
+     <servlet>
+    <servlet-name>IndexController</servlet-name>
+    <servlet-class>system.servlet.IndexController</servlet-class>
+     </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexController</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
+
 </web-app>

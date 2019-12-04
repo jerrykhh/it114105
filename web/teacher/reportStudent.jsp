@@ -139,7 +139,6 @@
         <script>
             $(document).ready(function () {
                 $("#btnExportExcel").click(function () {
-                    
                     $(".exportExcel").table2excel({
                         exclude: ".excludeThisClass",
                         name: "Worksheet Name",

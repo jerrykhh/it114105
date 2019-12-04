@@ -53,31 +53,25 @@
                                     <i class="material-icons">check_box</i
                                     ><span> Attendace</span>
                                 </a>
-                                <a href="#" class="list-group-item active">
+                                <a href="report" class="list-group-item active">
                                     <i class="material-icons">insert_drive_file</i>
                                     <span> Reports</span>
                                 </a>
-                                <a href="student" class="list-group-item">
-                                    <i class="material-icons">school</i>
-                                    <span> Student
-                                        <span class="badge">${studentCount}</span>
-                                </span>
-                            </a>
-                            <a href="../login?action=logout" class="list-group-item text-right">
-                                <span>  Logout</span> 
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="card">
-                            <div class="card-header main-color-bg">
-                                <h5 class="card-title">SELECT Class to Generate Report</h5>
+                                <a href="../login?action=logout" class="list-group-item text-right">
+                                    <span>  Logout</span> 
+                                </a>
                             </div>
-                            <form action="report" method="GET">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>Class</label>
-                                        <select class="form-control" name="class">
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="card">
+                                <div class="card-header main-color-bg">
+                                    <h5 class="card-title">Select Class to Generate Report</h5>
+                                </div>
+                                <form action="report" method="GET">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Class</label>
+                                            <select class="form-control" name="class">
                                             <jsp:useBean id="classList" scope="request" class="java.util.ArrayList<system.bean.ClassBean>"/>
                                             <%                                                for (ClassBean classVal : classList) {
                                                     if (request.getParameter("class").equals(classVal.getClassName())) {
@@ -145,8 +139,10 @@
                         <!-- Website Overview -->
                         <div class="card">
                             <div class="card-body">
+                                <button type="button" id="btnExportExcel" class="btn btn-outline-info">Export Attendance Data to Excel</button>
+                                <br><br>
                                 <div class="form-group">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover exportExcel">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Student ID</th>
@@ -184,12 +180,21 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+        <script src="../js/jquery.tableToexcel.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function () {
                 $("tr[data-href]").click(function () {
                     window.location.href = $(this).attr("data-href");
-                })
+                });
+                 $("#btnExportExcel").click(function () {
+                    $(".exportExcel").table2excel({
+                        exclude: ".excludeThisClass",
+                        name: "Worksheet Name",
+                        filename: "<%= request.getParameter("studentId") + "_Report"%>.xls", // do include extension
+                        preserveColors: false // set to true if you want background colors and font colors preserved
+                    });
+                });
             });
         </script>
         <script>
