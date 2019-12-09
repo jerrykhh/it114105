@@ -5,20 +5,18 @@
  */
 package system.bean;
 
-import java.util.Date;
-
 /**
  *
  * @author JerryKwok
  */
-public class TeacherBean {
+public class AdminBean {
+
     private String id;
     private String fname;
     private String lname;
     private String gender;
     private String email;
     private String birthday;
-    private String title;
 
     public String getId() {
         return id;
@@ -47,18 +45,6 @@ public class TeacherBean {
     public String getGender() {
         return gender;
     }
-    
-    public String getTeacherFormalName() {
-        if (gender.equals("M")) {
-            return "Mr " + getName();
-        } else {
-            return "Miss " + getName();
-        }
-    }
-    
-    public String getName(){
-        return fname + " " + lname;
-    }
 
     public void setGender(String gender) {
         this.gender = gender;
@@ -75,17 +61,13 @@ public class TeacherBean {
     public String getBirthday() {
         return birthday;
     }
+    
+    public String getName(){
+        return fname + " " + lname;
+    }
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    
 }

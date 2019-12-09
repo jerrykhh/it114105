@@ -15,7 +15,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Admin Area | Dashboard</title>
         <!-- Bootstrap core CSS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
         <link href="../css/bootstrap.css" rel="stylesheet">
@@ -119,12 +118,9 @@
                                     </div>     
 
                                     <br>    
-                                    <a href="report">
-                                        <button type="button" class="btn btn-secondary">
-                                            Back
-                                        </button>
-                                    </a>
-                                    <button type="submit" class="btn btn-primary right">Generate</button>
+                                    <input type="hidden" name="report" id="report" value="">
+                                    <button type="button" id="btnGenReport" class="btn btn-primary right">Generate</button>
+                                    <button type="button" id="btnGenLowReport" class="btn btn-danger">Generate Low Attendance</button>
                                 </div>
                             </form>
                         </div>
@@ -134,6 +130,7 @@
                             </div>
                             <div class="card-body">
                                 <canvas id="reportChart" width="50px"></canvas>
+                                Average Attendance (%): ${attendAVG}
                             </div>
                         </div>
                         <!-- Website Overview -->
@@ -187,7 +184,15 @@
                 $("tr[data-href]").click(function () {
                     window.location.href = $(this).attr("data-href");
                 });
-                 $("#btnExportExcel").click(function () {
+                
+                $("#btnGenReport").click(function(){
+                    $("form").submit();
+                });
+                $("#btnGenLowReport").click(function(){
+                    $("#report").val("low");
+                    $("form").submit();
+                });
+                $("#btnExportExcel").click(function () {
                     $(".exportExcel").table2excel({
                         exclude: ".excludeThisClass",
                         name: "Worksheet Name",
@@ -205,17 +210,28 @@
             let massPopChart = new Chart(reportChart, {
                 type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                 data: {
-                    labels: ['Student < 60%', 'Student >=60%'],
+                    <%
+                        if(request.getParameter("report") != null && request.getParameter("report").equals("low"))
+                            out.print("labels: ['Student < 39%','Student 40-49%', 'Student 50-60%']");
+                        else
+                            out.print("labels: ['Student < 60%', 'Student >=60%']");
+                    %>,
                     datasets: [{
                             label: 'Population',
                             data: [
-            ${numberOfStudentNotMeetTar},
-            ${numberOfStudentMeetTar}
+                                <%
+                                if(request.getParameter("report") != null && request.getParameter("report").equals("low"))
+                                    out.print(request.getAttribute("numberOfStudentLowAtt") + ", " + request.getAttribute("numberOfStudentDanger") + ", " + request.getAttribute("numberOfStudentWarning"));
+                                else
+                                    out.print(request.getAttribute("numberOfStudentNotMeetTar") + ", " + request.getAttribute("numberOfStudentMeetTar"));
+                                    
+                                %>
                             ],
                             //backgroundColor:'green',
                             backgroundColor: [
                                 'rgba(236, 107, 86, 0.6)',
-                                'rgba(71, 179, 156, 0.9)'
+                                'rgba(71, 179, 156, 0.9)',
+                                'rgba(88,80,141,0.8)'
                             ],
                             borderWidth: 1,
                             borderColor: '#777',

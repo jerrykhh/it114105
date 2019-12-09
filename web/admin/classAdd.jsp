@@ -65,38 +65,37 @@
                                 </a>
                             </div>
                         </div>
-
-                        <div class="col-lg-9">
-                            <!-- Website Overview -->
-                            <div class="card">
-                                <div class="card-header main-color-bg">
-                                    <h5 class="card-title">Edit Student Class</h5>
-                                </div>
-                                <div class="card-body">
-                                    <br>
-                                <jsp:useBean id="studentDetials" scope="request" class="system.bean.StudentBean"/>
+                    <jsp:useBean id="studnetIdList" scope="request" class="ArrayList<system.bean.StudentBean>"/>
+                    <div class="col-lg-9">
+                        <!-- Website Overview -->
+                        <div class="card">
+                            <div class="card-header main-color-bg">
+                                <h5 class="card-title">Add Student Class</h5>
+                            </div>
+                            <div class="card-body">
+                                <%
+                                    if (request.getAttribute("studnetIdList") != null && studnetIdList.size() < 1) {
+                                        out.print("<div class='alert alert-danger alert-dismissible fade show' role='alert'>");
+                                        out.print("<strong>No student need to class sign up</strong>");
+                                        out.print("<button type='button' class='close' data-dismiss='alert' aria-label='Close'>");
+                                        out.print("<span aria-hidden='true'>&times;</span></button></div>");
+                                    }
+                                %>
+                                <br>
                                 <jsp:useBean id="classList" scope="request" class="ArrayList<system.bean.ClassBean>"/>
                                 <form action="class" method="POST">
                                     <table class="table">
                                         <tr>
-                                            <th>Student Class ID</th>
-                                            <td>${studentClassID}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Student Name</th>
-                                            <td><jsp:getProperty name="studenBean" property="name"/></td>
-                                        </tr>
-                                        <tr>
                                             <th>Student ID</th>
-                                            <td><jsp:getProperty name="studenBean" property="id"/></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Gender</th>
-                                            <td><jsp:getProperty name="studenBean" property="gender"/></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Birthday</th>
-                                            <td><jsp:getProperty name="studenBean" property="birthday"/></td>
+                                            <td>
+                                                <select name="id">
+                                                    <%
+                                                        for (StudentBean stBean : studnetIdList) {
+                                                            out.print("<option value='" + stBean.getId() + "'>" + stBean.getId() + "</option>");
+                                                        }
+                                                    %>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Class</th>
@@ -111,13 +110,14 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <button type="submit" class="btn btn-primary">Saved</button>
-                                    <input type="hidden" name="id" value="${studentClassID}">
-                                    <input type="hidden" name="action" value="save">
+                                            <button type="submit" class="btn btn-primary" <% if (studnetIdList.size() < 1) {
+                                                    out.print("disabled");
+                                                }%>>Saved</button>
+                                    <input type="hidden" name="action" value="add">
                                 </form>
                             </div>
                         </div>
-                        <!-- Latest Users -->
+                        <a href="class"><button type="button" class="btn btn-secondary">Back</button></a>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@
             $(document).ready(function () {
                 $('.alert').alert();
             });
-        </script>>
+        </script>
     </body>
 
 </html>

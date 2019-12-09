@@ -344,7 +344,7 @@ public class TeacherDB {
         ArrayList<StudentBean> list = null;
         try {
             Connection connt = getConnection();
-            String perQuery = "SELECT COUNT(*) AS attendDay, student.* FROM studentattend, studentclass, student, class WHERE studentclass.classId = class.id AND studentclass.studentId = student.id AND class.class = ? AND studentattend.studentId = student.id AND attendDate >= ? AND attendDate <= ? GROUP BY studentattend.studentId ORDER BY student.fname ASC";
+            String perQuery = "SELECT COUNT(*) AS attendDay, student.* FROM studentattend, studentclass, student, class WHERE studentattend.attend=true AND studentclass.classId = class.id AND studentclass.studentId = student.id AND class.class = ? AND studentattend.studentId = student.id AND attendDate >= ? AND attendDate <= ? GROUP BY studentattend.studentId ORDER BY student.fname ASC";
             PreparedStatement pStmnt = connt.prepareStatement(perQuery);
             pStmnt.setString(1, className);
             pStmnt.setString(2, startDate);

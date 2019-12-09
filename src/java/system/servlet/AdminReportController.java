@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,22 +20,25 @@ import system.bean.AttendBean;
 import system.bean.SchedulerBean;
 import system.bean.SemesterBean;
 import system.bean.StudentBean;
+import system.db.AdminDB;
 import system.db.TeacherDB;
 
 /**
  *
  * @author JerryKwok
  */
-@WebServlet(name = "TeacherReportController", urlPatterns = {"/teacher/report"})
-public class TeacherReportController extends HttpServlet {
+@WebServlet(name = "AdminReportController", urlPatterns = {"/admin/report"})
+public class AdminReportController extends HttpServlet {
 
-    private TeacherDB db;
+    AdminDB db;
+    TeacherDB tdb;
 
     public void init() {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
-        db = new TeacherDB(dbUrl, dbUser, dbPassword);
+        db = new AdminDB(dbUrl, dbUser, dbPassword);
+        tdb = new TeacherDB(dbUrl, dbUser, dbPassword);
     }
 
     /**
@@ -50,7 +52,7 @@ public class TeacherReportController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+                     HttpSession session = request.getSession(false);
         if (session.getAttribute("username") == null) {
             response.sendRedirect("../index.jsp");
             return;
@@ -73,10 +75,10 @@ public class TeacherReportController extends HttpServlet {
 
             try {
                 int term = Integer.parseInt(strTerm);
-                SemesterBean semBean = db.getSemsterDate(year, term);
+                SemesterBean semBean = tdb.getSemsterDate(year, term);
                 int totalSchoolDay = semBean.getCountBusineseDate();
                 int countHoliday = 0;
-                for (SchedulerBean scheduler : db.getSchCalenderholiday()) {
+                for (SchedulerBean scheduler : tdb.getSchCalenderholiday()) {
                     if (scheduler.isHoliday() && scheduler.getCountDate() == 0) {
                         switch (scheduler.getStart_day_week()) {
                             case 0:
@@ -93,7 +95,7 @@ public class TeacherReportController extends HttpServlet {
                 }
                 totalSchoolDay = totalSchoolDay - countHoliday;
                 System.out.println(totalSchoolDay);
-                ArrayList<StudentBean> studentList = db.getStudentAttend(semBean.getStart_date(), semBean.getEnd_date(), className);
+                ArrayList<StudentBean> studentList = tdb.getStudentAttend(semBean.getStart_date(), semBean.getEnd_date(), className);
                 int allStudentCountDay = 0;
                 int numberOfStudent = 0;
                 int numberOfStudentNotMeetTar = 0;
@@ -110,7 +112,7 @@ public class TeacherReportController extends HttpServlet {
                     double attendRate = Math.round((countDay / (float) totalSchoolDay) * 100);
                     student.setAttendRate(attendRate);
                     numberOfStudent++;
-                    if (attendRate >= db.getAttendanceRateTarget(className)) {
+                    if (attendRate >= tdb.getAttendanceRateTarget(className)) {
                         numberOfStudentMeetTar++;
                     } else {
                         numberOfStudentNotMeetTar++;
@@ -125,7 +127,7 @@ public class TeacherReportController extends HttpServlet {
                     lowAttendList = new ArrayList<StudentBean>();
                     double avgLowAttend = 0;
                     for (StudentBean student : studentList) {
-                        if (student.getAttendRate() <= db.getAttendanceRateTarget(className)) {
+                        if (student.getAttendRate() <= tdb.getAttendanceRateTarget(className)) {
                             lowAttendList.add(student);
                         }
                         if (student.getAttendRate() >= 50.0 && student.getAttendRate() < 60.0) {
@@ -134,7 +136,7 @@ public class TeacherReportController extends HttpServlet {
                         } else if (student.getAttendRate() <= 49.0 && student.getAttendRate() >= 40.0) {
                             numberOfStudentDanger++;
                             avgLowAttend += student.getAttendRate();
-                        } else if (student.getAttendRate() >= db.getAttendanceRateTarget(className)) {
+                        } else if (student.getAttendRate() >= tdb.getAttendanceRateTarget(className)) {
 
                         } else {
                             numberOfStudentLowAtt++;
@@ -146,7 +148,7 @@ public class TeacherReportController extends HttpServlet {
                 }
 
                 if (studentList.size() == 0 || reportType != null && reportType.equals("low") && lowAttendList.size() == 0) {
-                    request.setAttribute("studentAttendList", db.getAllStudentAttendZero(className));
+                    request.setAttribute("studentAttendList", tdb.getAllStudentAttendZero(className));
                 } else {
                     if (reportType != null && reportType.equals("low")) {
                         request.setAttribute("studentAttendList", lowAttendList);
@@ -155,7 +157,7 @@ public class TeacherReportController extends HttpServlet {
                     }
                 }
                 if (studentId != null) {
-                    studentBean.setAttendList(db.getStudentAttendDetail(studentId, year, term));
+                    studentBean.setAttendList(tdb.getStudentAttendDetail(studentId, year, term));
                     request.setAttribute("studentDetials", studentBean);
                     int totalAttendDay = 0;
                     int presentDay = 0;
@@ -197,18 +199,18 @@ public class TeacherReportController extends HttpServlet {
             }
 
             request.setAttribute("errMessage", errList);
-            request.setAttribute("yearList", db.getLatestReportYear());
-            request.setAttribute("termList", db.getSemsterTerm(year));
+            request.setAttribute("yearList", tdb.getLatestReportYear());
+            request.setAttribute("termList", tdb.getSemsterTerm(year));
             if (studentId != null) {
-                rd = this.getServletContext().getRequestDispatcher("/teacher/reportStudent.jsp");
+                rd = this.getServletContext().getRequestDispatcher("/admin/reportStudent.jsp");
                 rd.forward(request, response);
             } else {
-                rd = this.getServletContext().getRequestDispatcher("/teacher/reportClass.jsp");
+                rd = this.getServletContext().getRequestDispatcher("/admin/reportClass.jsp");
                 rd.forward(request, response);
             }
         }
 
-        rd = this.getServletContext().getRequestDispatcher("/teacher/report.jsp");
+        rd = this.getServletContext().getRequestDispatcher("/admin/report.jsp");
         rd.forward(request, response);
     }
 

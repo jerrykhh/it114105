@@ -32,10 +32,14 @@
                                     <i class="material-icons">dashboard</i> 
                                     <span>Dashboard</span>
                                 </a>
+                                <a href="lecture" class="list-group-item main-color-bg-nav">
+                                    <i class="material-icons">view_module</i> 
+                                    <span>Lecture</span>
+                                </a>
                                 <a href="class" class="list-group-item">
                                     <i class="material-icons">class</i><span> Class</span>
                                 </a>
-                                <a href="user?Student" class="list-group-item">
+                                <a href="user?role=Student" class="list-group-item">
                                     <i class="material-icons">library_books</i><span> Student</span>
                                 </a>
                                 <a href="user?role=Teacher" class="list-group-item">
@@ -47,7 +51,7 @@
                                 <a href="schedule" class="list-group-item">
                                     <i class="material-icons">schedule</i><span> Schedule</span>
                                 </a>
-                                
+
                                 <a href="attendance" class="list-group-item">
                                     <i class="material-icons">check_box</i
                                     ><span> Attendace</span>
@@ -92,7 +96,6 @@
         </section>
         <br><br>
         <footer></footer>
-
 
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

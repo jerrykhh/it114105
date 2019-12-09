@@ -4,6 +4,7 @@
     Author     : JerryKwok
 --%>
 
+<%@page import="system.bean.LectureBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" import="system.bean.StudentBean, system.bean.ClassBean, system.bean.TeacherBean"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,11 +33,11 @@
                                     <i class="material-icons">dashboard</i> 
                                     <span>Dashboard</span>
                                 </a>
-                                <a href="lecture" class="list-group-item main-color-bg-nav">
+                                <a href="lecture" class="list-group-item active main-color-bg-nav">
                                     <i class="material-icons">view_module</i> 
                                     <span>Lecture</span>
                                 </a>
-                                <a href="class" class="list-group-item active">
+                                <a href="class" class="list-group-item">
                                     <i class="material-icons">class</i><span> Class</span>
                                 </a>
                                 <a href="user?role=Student" class="list-group-item">
@@ -60,9 +61,6 @@
                                     <i class="material-icons">insert_drive_file</i>
                                     <span> Reports</span>
                                 </a>
-                                <a href="../login?action=logout" class="list-group-item text-right">
-                                    <span>  Logout</span> 
-                                </a>
                             </div>
                         </div>
 
@@ -70,34 +68,33 @@
                             <!-- Website Overview -->
                             <div class="card">
                                 <div class="card-header main-color-bg">
-                                    <h5 class="card-title">Student Class</h5>
+                                    <h5 class="card-title">Lecture</h5>
                                 </div>
                                 <div class="card-body">
                                 <%
-                                    if (request.getAttribute("deletenMes") != null) {
+                                    if (request.getAttribute("deleteMes") != null) {
                                         out.print("<div class='alert alert-success alert-dismissible fade show formated-table' role='alert'>");
-                                        out.print("<strong>Student #" + request.getAttribute("deletenMes") + " Class Deleted </strong>");
+                                        out.print("<strong>Lecture #" + request.getAttribute("deleteMes") + " Deleted </strong>");
                                         out.print("<button type='button' class='close' data-dismiss='alert' aria-label='Close'>");
                                         out.print("<span aria-hidden='true'>&times;</span></button></div>");
                                     } else if (request.getAttribute("saveMes") != null) {
                                         out.print("<div class='alert alert-success alert-dismissible fade show formated-table' role='alert'>");
-                                        out.print("<strong>Student Class #" + request.getAttribute("saveMes") + " Saved </strong>");
+                                        out.print("<strong>Lecture #" + request.getAttribute("saveMes") + " Saved </strong>");
                                         out.print("<button type='button' class='close' data-dismiss='alert' aria-label='Close'>");
                                         out.print("<span aria-hidden='true'>&times;</span></button></div>");
                                     } else if (request.getAttribute("addMes") != null) {
                                         out.print("<div class='alert alert-success alert-dismissible fade show formated-table' role='alert'>");
-                                        out.print("<strong> Added the student to Class #" + request.getAttribute("addMes") + "</strong>");
+                                        out.print("<strong> Lecture Added</strong>");
                                         out.print("<button type='button' class='close' data-dismiss='alert' aria-label='Close'>");
                                         out.print("<span aria-hidden='true'>&times;</span></button></div>");
                                     }
                                 %>
                                 <div class="format-table">
-                                    <form action="class" method="POST" class="format">
-                                        <button type="submit" class="btn btn-primary">Add Student to Class</button>
+                                    <form action="lecture" method="POST" class="format">
+                                        <button type="submit" class="btn btn-primary">Create Lecture</button>
                                         <input type="hidden" name="action" value="addPage">
                                     </form>
-                                    <button type="button" class="btn btn-info tableBtn" id="btnExportExcel"><i class="material-icons">save_alt</i></button>
-                                    <form class="form-inline float-right" action="class" method="POST">
+                                    <form class="form-inline float-right" action="lecture" method="POST">
                                         <div class="form-group mb-2">
                                             <font>Search: </font>
                                         </div>
@@ -108,41 +105,43 @@
                                         <button type="submit" class="btn btn-dark mb-2">Search</button>
                                         <input type="hidden" name="action" value="search">
                                     </form>
-                                    <table class="table exportExcel">
+                                    <table class="table">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Student Name</th>
+                                                <th>Lecture</th>
+                                                <th>Description</th>
+                                                <th>Time</th>
                                                 <th>Class</th>
-                                                <th>Head Teacher</th>
+                                                <th>Day</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <jsp:useBean id="studentClassList" scope="request" class="java.util.ArrayList<system.bean.StudentBean>"/>
+                                        <jsp:useBean id="lectureList" scope="request" class="java.util.ArrayList<system.bean.LectureBean>"/>
                                         <%
-                                            if (studentClassList.size() > 0) {
-                                                for (StudentBean student : studentClassList) {
-                                                    out.print("<tr>");
-                                                    out.print("<td><a href='user?role=Student&id=" + student.getId() + "'>" + student.getId() + "</a></td>");
-                                                    out.print("<td>" + student.getName() + "</td>");
-                                                    out.print("<td>" + student.getClassName().getClassName() + "</td>");
-                                                    out.print("<td><a href='user?role=Teacher&id=" + student.getClassName().getTeacherBean().getId() + "'>" + student.getClassName().getTeacherBean().getTeacherFormalName() + "</a></td>");
-                                                    out.print("<td>");
-                                                    out.print("<a href='class?id=" + student.getStudentClassid() + "'><button type='button' class='btn btn-info tableBtn'><i class='material-icons'>edit</i></button></a> ");
-                                                    out.print("<a href='class?id=" + student.getStudentClassid() + "&action=delete'><button type='button' class='btn btn-danger tableBtn'><i class='material-icons'>delete</i></button></a>");
-                                                    out.print("</td>");
-                                                    out.print("</tr>");
-                                                }
-                                                out.print("</table>");
-                                            } else {
+                                            if (lectureList.size() == 0) {
                                                 out.print("<tr>");
                                                 out.print("<td colspon=5>Not Match Result</td>");
                                                 out.print("</tr>");
-                                                out.print("</table>");
+                                            } else {
+                                                for (LectureBean lecture : lectureList) {
+                                                    out.print("<tr>");
+                                                    out.print("<td>" + lecture.getLecture() + "</td>");
+                                                    out.print("<td>" + lecture.getDescription() + "</td>");
+                                                    out.print("<td>" + lecture.getTime().getStartTime() + " - " + lecture.getTime().getEndTime() + "</td>");
+                                                    out.print("<td>" + lecture.getClassName() + "</td>");
+                                                    out.print("<td>" + lecture.getDay().getDay() + "</td>");
+                                                    out.print("<td><a href='lecture?id=" + lecture.getId() + "'><button type='button' class='btn btn-info tableBtn'><i class='material-icons'>edit</i></button></a>");
+                                                    out.print("<a href='lecture?id=" + lecture.getId() + "&action=delete'><button type='button' class='btn btn-danger tableBtn'><i class='material-icons'>delete</i></button></a>");
+                                                    out.print("</td></tr>");
+                                                }
+                                            }
+                                            out.print("</table>");
+                                            if (lectureList.size() == 0) {
                                                 out.print("<br><br><br><br><br>");
-                                                out.print("<a href='class'><button type='button' class='btn btn-secondary'>Show All</button></a>");
+                                                out.print("<a href='lecture'><button type='button' class='btn btn-secondary'>Show All</button></a>");
                                             }
                                         %>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -157,19 +156,10 @@
 
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="../js/jquery.tableToexcel.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('.alert').alert();
-                $("#btnExportExcel").click(function () {
-                    $(".exportExcel").table2excel({
-                        exclude: ".excludeThisClass",
-                        name: "Worksheet Name",
-                        filename: "Class_Report.xls", // do include extension
-                        preserveColors: false // set to true if you want background colors and font colors preserved
-                    });
-                });
             });
         </script>
     </body>

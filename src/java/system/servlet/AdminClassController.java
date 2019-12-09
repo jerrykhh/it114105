@@ -51,6 +51,43 @@ public class AdminClassController extends HttpServlet {
             }
             String action = request.getParameter("action");
             String studentClassID = request.getParameter("id"); // edit function
+            if (action != null && action.equals("delete")) {
+                String studentId = db.deleteStudentClass(studentClassID);
+                request.setAttribute("deletenMes", studentId);
+                request.setAttribute("studentClassList", db.getAllStudentClass());
+                RequestDispatcher rd = this.getServletContext()
+                        .getRequestDispatcher("/admin/class.jsp");
+                rd.forward(request, response);
+            } else if (action != null && action.equals("save")) {
+                String className = request.getParameter("className");
+                db.updateStudentClass(studentClassID, className);
+                request.setAttribute("saveMes", studentClassID);
+                request.setAttribute("studentClassList", db.getAllStudentClass());
+                RequestDispatcher rd = this.getServletContext()
+                        .getRequestDispatcher("/admin/class.jsp");
+                rd.forward(request, response);
+            } else if (action != null && action.equals("search")) {
+                String searchVal = request.getParameter("searchVal");
+                request.setAttribute("studentClassList", db.searchStudentClass(searchVal));
+                RequestDispatcher rd = this.getServletContext()
+                        .getRequestDispatcher("/admin/class.jsp");
+                rd.forward(request, response);
+            } else if (action != null && action.equals("addPage")) {
+                request.setAttribute("classList", db.getAllClass());
+                request.setAttribute("studnetIdList", db.getUnRegAllStudent());
+                RequestDispatcher rd = this.getServletContext()
+                        .getRequestDispatcher("/admin/classAdd.jsp");
+                rd.forward(request, response);
+            } else if (action != null && action.equals("add")) {
+                String className = request.getParameter("className");
+                db.insertStudentClass(studentClassID, className);
+                request.setAttribute("studentClassList", db.getAllStudentClass());
+                request.setAttribute("addMes", className);
+                RequestDispatcher rd = this.getServletContext()
+                        .getRequestDispatcher("/admin/class.jsp");
+                rd.forward(request, response);
+            }
+
             if (studentClassID != null) {
                 request.setAttribute("studenBean", db.getStudentClassDeital(studentClassID));
                 request.setAttribute("classList", db.getAllClass());
@@ -59,15 +96,7 @@ public class AdminClassController extends HttpServlet {
                         .getRequestDispatcher("/admin/classStudent.jsp");
                 rd.forward(request, response);
             }
-            if (action != null && action.equals("delete")) {
-                db.deleteStudentClass(studentClassID);
-                request.setAttribute("actionMes", true);
-            } else if(action != null && action.equals("save")){
-                
-            }
             request.setAttribute("studentClassList", db.getAllStudentClass());
-            System.out.println(db.getAllClass().size());
-            //  request.setAttribute("studentCount", db.getCountStudent());
             RequestDispatcher rd = this.getServletContext()
                     .getRequestDispatcher("/admin/class.jsp");
             rd.forward(request, response);

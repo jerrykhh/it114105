@@ -311,7 +311,12 @@ tr[data-href]{
 .tableBtn i{
     margin-left: -5px;
 }
-
+.format{
+    display: inline;
+}
+.format-table{
+    margin-top: 50px;
+}
 
 footer{
   background:#333333;
