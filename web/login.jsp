@@ -9,7 +9,7 @@
     <body> 
         <div class="container-login">
             <div class="wrap-login">
-                <form class="login-form" action="login" method="POST">
+                <form class="login-form" action="login?role=<%= request.getParameter("role") %>" method="POST">
                     <span class="login-form-title">
                         Account Login
                     </span>
