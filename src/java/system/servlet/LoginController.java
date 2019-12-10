@@ -101,18 +101,28 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String pwd = request.getParameter("pwd");
         String role = request.getParameter("role");
-        System.out.println(action + username + pwd + role);
+        RequestDispatcher rd = null;
+        // System.out.println(action + username + pwd + role);
         if (!role.equals("Teacher") && !role.equals("Student") && !role.equals("Admin")) {
-            response.sendRedirect("/index?roleError");
+            request.setAttribute("roleMes", true);
+            rd = this.getServletContext().getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
         }
         LoginBean loginBean = new LoginBean();
         loginBean.setUsername(username);
         loginBean.setPassword(pwd);
         loginBean.setRole(role);
-        loginBean = db.validateLogin(loginBean);
-        if (loginBean == null) {
-            response.sendRedirect("login?loginError&role=" + role);
-            return;
+        boolean loginSucecss = false;
+        if (role.equals("Teacher") || role.equals("Admin")) {
+            loginSucecss = db.validateStaffLogin(loginBean);
+        } else if (role.equals("Student")) {
+            loginSucecss = db.validateStudentLogin(loginBean);
+        }
+        if (!loginSucecss) {
+            request.setAttribute("loginMes", username);
+            request.setAttribute("role", role);
+            rd = this.getServletContext().getRequestDispatcher("/login.jsp");
+            rd.forward(request, response);
         }
         String targetURL = null;
         HttpSession session = request.getSession();
@@ -120,7 +130,7 @@ public class LoginController extends HttpServlet {
         session.setAttribute("userrole", loginBean.getRole());
         switch (role) {
             case "Student":
-                targetURL = "/show-class";
+                targetURL = "/show-class";//
                 break;
             case "Teacher":
                 targetURL = "teacher/dashboard";
