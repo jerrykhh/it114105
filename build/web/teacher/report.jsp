@@ -12,7 +12,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Area | Dashboard</title>
+        <title>Teacher Area | Report</title>
         <!-- Bootstrap core CSS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -27,23 +27,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="list-group"> 
-                                <a href="dashboard" class="list-group-item main-color-bg-nav">
-                                    <i class="material-icons">dashboard</i> 
-                                    <span>Dashboard</span>
-                                </a>
-                                <a href="attendance" class="list-group-item">
-                                    <i class="material-icons">check_box</i
-                                    ><span> Attendace</span>
-                                </a>
-                                <a href="report" class="list-group-item active">
-                                    <i class="material-icons">insert_drive_file</i>
-                                    <span> Reports</span>
-                                </a>
-                            <a href="../login?action=logout" class="list-group-item text-right">
-                                <span>  Logout</span> 
-                            </a>
-                        </div>
+                        <%@taglib uri="/WEB-INF/tlds/nav-taglib.tld" prefix="nav" %>
+                        <nav:showNav role="Teacher" active="report" />
                     </div>
                     <div class="col-lg-9">
                         <!-- Website Overview -->

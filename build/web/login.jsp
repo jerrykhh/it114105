@@ -3,13 +3,22 @@
     <head>
         <title>Login</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body> 
         <div class="container-login">
             <div class="wrap-login">
-                <form class="login-form" action="login" method="POST">
+                <%
+                    if (request.getAttribute("loginMes") != null) {
+                        out.print("<div class='alert alert-danger alert-dismissible fade show' role='alert'>");
+                        out.print("Invalid login, please try again");
+                        out.print("<button type='button' class='close' data-dismiss='alert' aria-label='Close'>");
+                        out.print("<span aria-hidden='true'>&times;</span>");
+                        out.print("</button></div><br>");
+                    }
+                %>
+                <form class="login-form" action="login?role=<%= request.getParameter("role")%>" method="POST">
                     <span class="login-form-title">
                         Account Login
                     </span>
@@ -19,7 +28,7 @@
                         Username
                     </span>
                     <div class="wrap-input-login">
-                        <input class="input-login" type="text" name="username">
+                        <input class="input-login" type="text" name="username" value="<%= request.getAttribute("loginMes") != null ? request.getAttribute("loginMes") : ""%>">
                     </div>
                     <br><br>
                     <span>
@@ -39,7 +48,12 @@
                 </form>
             </div>
         </div>
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.alert').alert();
+            });
+        </script>
     </body>
 </html>

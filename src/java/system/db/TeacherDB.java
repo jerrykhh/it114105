@@ -282,7 +282,7 @@ public class TeacherDB {
         SemesterBean semBean = null;
         try {
             Connection connt = getConnection();
-            String perQuery = "SELECT start_date, end_date, 5 * ((DATEDIFF(end_date, start_date) ) DIV 7) + MID('0123455501234445012333450122234501101234000123450', 7 * WEEKDAY(start_date) + WEEKDAY(end_date) + 1, 1) AS countBusinDay FROM class, semester WHERE class.termId = semester.id AND semester.start_date AND semester.year = ? AND semester.term = ?";
+            String perQuery = "SELECT start_date, end_date, 5 * ((DATEDIFF(end_date, start_date) ) DIV 7) + MID('0123455501234445012333450122234501101234000123450', 7 * WEEKDAY(start_date) + WEEKDAY(end_date) + 1, 1) AS countBusinDay FROM semester WHERE semester.start_date AND semester.year = ? AND semester.term = ?";
             PreparedStatement pStmnt = connt.prepareStatement(perQuery);
             pStmnt.setString(1, year);
             pStmnt.setInt(2, term);
@@ -318,7 +318,6 @@ public class TeacherDB {
                 SchedulerBean scheBean = new SchedulerBean();
                 scheBean.setId(result.getString("id"));
                 scheBean.setTitle(result.getString("title"));
-                scheBean.setDescription(result.getString("description"));
                 scheBean.setStart_date(result.getString("start_date"));
                 scheBean.setEnd_date(result.getString("end_date"));
                 scheBean.setHoliday(result.getBoolean("holiday"));
@@ -399,7 +398,7 @@ public class TeacherDB {
         ArrayList<AttendBean> list = null;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT studentattend.*, class.termId FROM studentattend, class, semester, studentclass WHERE studentattend.studentId = ? AND studentattend.attendDate >= semester.start_date AND studentattend.attendDate <= semester.end_date AND semester.year = ? AND semester.term = ? AND studentclass.studentId = studentattend.studentId AND studentclass.classId = class.id";
+            String preQuery = "SELECT studentattend.* FROM studentattend, class, semester, studentclass WHERE studentattend.studentId = ? AND studentattend.attendDate >= semester.start_date AND studentattend.attendDate <= semester.end_date AND semester.year = ? AND semester.term = ? AND studentclass.studentId = studentattend.studentId AND studentclass.classId = class.id";
             PreparedStatement preStmnt = connt.prepareStatement(preQuery);
             preStmnt.setString(1, studentId);
             preStmnt.setString(2, year);

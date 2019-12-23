@@ -5,11 +5,13 @@
  */
 package system.bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jerrykwok
  */
-public class LoginBean {
+public class LoginBean implements Serializable{
 
     private String fname;
     private String lname;

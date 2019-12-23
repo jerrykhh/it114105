@@ -103,7 +103,7 @@ public class LoginController extends HttpServlet {
         String role = request.getParameter("role");
         RequestDispatcher rd = null;
         // System.out.println(action + username + pwd + role);
-        if (!role.equals("Teacher") && !role.equals("Student") && !role.equals("Admin")) {
+        if (!role.equalsIgnoreCase("Teacher") && !role.equalsIgnoreCase("Student") && !role.equalsIgnoreCase("Admin")) {
             request.setAttribute("roleMes", true);
             rd = this.getServletContext().getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
@@ -113,9 +113,11 @@ public class LoginController extends HttpServlet {
         loginBean.setPassword(pwd);
         loginBean.setRole(role);
         boolean loginSucecss = false;
-        if (role.equals("Teacher") || role.equals("Admin")) {
-            loginSucecss = db.validateStaffLogin(loginBean);
-        } else if (role.equals("Student")) {
+        if (role.equalsIgnoreCase("Teacher")) {
+            loginSucecss = db.validateStaffLogin(loginBean, 1);
+        } else if (role.equalsIgnoreCase("Admin")) {
+            loginSucecss = db.validateStaffLogin(loginBean, 2);
+        } else if (role.equalsIgnoreCase("Student")) {
             loginSucecss = db.validateStudentLogin(loginBean);
         }
         if (!loginSucecss) {
@@ -130,7 +132,7 @@ public class LoginController extends HttpServlet {
         session.setAttribute("userrole", loginBean.getRole());
         switch (role) {
             case "Student":
-                targetURL = "/show-class";//
+                targetURL = "student/dashboard";//
                 break;
             case "Teacher":
                 targetURL = "teacher/dashboard";

@@ -49,7 +49,7 @@ public class AdminUserController extends HttpServlet {
                 response.sendRedirect("../index");
                 return;
             }
-
+            String username = (String) session.getAttribute("username");
             RequestDispatcher rd = null;
             String role = request.getParameter("role");
 
@@ -58,6 +58,7 @@ public class AdminUserController extends HttpServlet {
                 String studentId = request.getParameter("id");
                 String action = request.getParameter("action");
                 System.out.println("TEST Point1");
+                request.setAttribute("searchList", db.getSearchHistory("3", username));
                 if (studentId != null && action != null && action.equals("delete")) {
                     System.out.println("TEST Point2");
                     db.deleteStudent(studentId);
@@ -94,6 +95,8 @@ public class AdminUserController extends HttpServlet {
                     System.out.println("TEST Point4");
                     String searchVal = request.getParameter("searchVal");
                     request.setAttribute("studentList", db.searchStudent(searchVal));
+                    db.insertSearchHistory(searchVal, "3", username);
+                    request.setAttribute("searchList", db.getSearchHistory("3", username));
                 } else if (action != null && action.equals("save")) {
                     System.out.println("TEST Point5");
                     String id = request.getParameter("id");
@@ -139,9 +142,19 @@ public class AdminUserController extends HttpServlet {
                 String action = request.getParameter("action");
                 String teacherId = request.getParameter("id");
                 request.setAttribute("teacherList", db.getTeacher());
+                request.setAttribute("searchList", db.getSearchHistory("4", username));
                 if (teacherId != null && action != null && action.equals("delete")) {
                     db.deleteTeacher(teacherId);
                     request.setAttribute("deleteMes", teacherId);
+                    request.setAttribute("teacherList", db.getTeacher());
+                    request.setAttribute("searchList", db.getSearchHistory("4", username));
+                    rd = this.getServletContext()
+                            .getRequestDispatcher("/admin/user.jsp");
+                    rd.forward(request, response);
+                } else if (action != null && action.equals("admin")) {
+                    db.updateTeacherToAdmin(teacherId);
+                    request.setAttribute("updateMes", teacherId);
+                    request.setAttribute("searchList", db.getSearchHistory("4", username));
                     request.setAttribute("teacherList", db.getTeacher());
                     rd = this.getServletContext()
                             .getRequestDispatcher("/admin/user.jsp");
@@ -184,10 +197,14 @@ public class AdminUserController extends HttpServlet {
                     db.insertTeacher(teacherId, fname, lname, gender, birthday, password);
                     request.setAttribute("addMes", teacherId);
                     request.setAttribute("teacherList", db.getTeacher());
-
+                    rd = this.getServletContext()
+                            .getRequestDispatcher("/admin/user.jsp");
+                    rd.forward(request, response);
                 } else if (action != null && action.equals("search")) {
                     String searchVal = request.getParameter("searchVal");
                     request.setAttribute("teacherList", db.searchTeacher(searchVal));
+                    db.insertSearchHistory(searchVal, "4", username);
+                    request.setAttribute("searchList", db.getSearchHistory("4", username));
                 } else if (action != null && action.equals("save")) {
                     String fname = request.getParameter("fname");
                     String lname = request.getParameter("lname");
@@ -223,11 +240,13 @@ public class AdminUserController extends HttpServlet {
                             .getRequestDispatcher("/admin/userEdit.jsp");
                     rd.forward(request, response);
                 }
+
             } else if (role.equals("Admin")) {
-                
-                 String action = request.getParameter("action");
+
+                String action = request.getParameter("action");
                 String adminId = request.getParameter("id");
                 request.setAttribute("adminList", db.getAdmin());
+                request.setAttribute("searchList", db.getSearchHistory("5", username));
                 if (adminId != null && action != null && action.equals("delete")) {
                     db.deleteAdmin(adminId);
                     request.setAttribute("deleteMes", adminId);
@@ -239,6 +258,13 @@ public class AdminUserController extends HttpServlet {
                     rd = this.getServletContext()
                             .getRequestDispatcher("/admin/userAdd.jsp");
                     rd.forward(request, response);
+                } else if (action != null && action.equals("teacher")) {
+                    db.updateAdminToTeacher(adminId);
+                    request.setAttribute("updateMes", adminId);
+                    request.setAttribute("searchList", db.getSearchHistory("5", username));
+                    request.setAttribute("adminList", db.getAdmin());
+                    rd = this.getServletContext()
+                            .getRequestDispatcher("/admin/user.jsp");
                 } else if (action != null && action.equals("add")) {
                     String fname = request.getParameter("fname");
                     String lname = request.getParameter("lname");
@@ -277,6 +303,8 @@ public class AdminUserController extends HttpServlet {
                 } else if (action != null && action.equals("search")) {
                     String searchVal = request.getParameter("searchVal");
                     request.setAttribute("adminList", db.searchAdmin(searchVal));
+                    db.insertSearchHistory(searchVal, "5", username);
+                    request.setAttribute("searchList", db.getSearchHistory("5", username));
                 } else if (action != null && action.equals("save")) {
                     String fname = request.getParameter("fname");
                     String lname = request.getParameter("lname");
@@ -305,7 +333,7 @@ public class AdminUserController extends HttpServlet {
                     }
                     request.setAttribute("saveMes", adminId);
                     request.setAttribute("adminList", db.getAdmin());
-                    
+
                 } else if (adminId != null) {
                     System.out.println("TEST Point6");
                     request.setAttribute("admin", db.getAdminDetials(adminId));

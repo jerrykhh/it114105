@@ -46,7 +46,7 @@ public class TeacherDashbaordController extends HttpServlet {
         try {
             HttpSession session = request.getSession(false);
             if (session.getAttribute("username") == null) {
-                response.sendRedirect("/index");
+                response.sendRedirect("../index");
                 return;
             }
             String teacherId = (String) session.getAttribute("username");
@@ -60,7 +60,7 @@ public class TeacherDashbaordController extends HttpServlet {
                     .getRequestDispatcher("/teacher/dashboard.jsp");
             rd.forward(request, response);
         } catch (NullPointerException e) {
-            response.sendRedirect("/index");
+            response.sendRedirect("../index");
             return;
         }
 

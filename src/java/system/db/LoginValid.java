@@ -34,7 +34,7 @@ public class LoginValid {
         return DriverManager.getConnection(url, username, password);
     }
 
-    public boolean validateStaffLogin(LoginBean loginBean) {
+    public boolean validateStaffLogin(LoginBean loginBean, int title) {
         boolean isSuccess = false;
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
@@ -44,7 +44,7 @@ public class LoginValid {
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, loginBean.getUsername());
             pStmnt.setString(2, loginBean.getPassword());
-            pStmnt.setString(3, loginBean.getRole());
+            pStmnt.setInt(3, title);
             ResultSet rs = pStmnt.executeQuery();
             if (rs.next()) {
                 isSuccess = true;

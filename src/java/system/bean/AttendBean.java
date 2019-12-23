@@ -5,11 +5,13 @@
  */
 package system.bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JerryKwok
  */
-public class AttendBean {
+public class AttendBean implements Serializable {
     private String id;
     private boolean attend;
     private String date;

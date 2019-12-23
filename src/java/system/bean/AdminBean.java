@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package system.bean;
-
+import java.io.Serializable;
 /**
  *
  * @author JerryKwok
  */
-public class AdminBean {
+public class AdminBean implements Serializable {
 
     private String id;
     private String fname;
@@ -69,5 +69,7 @@ public class AdminBean {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    
 
 }

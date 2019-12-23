@@ -43,67 +43,102 @@ public class AdminClassController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
             HttpSession session = request.getSession(false);
             if (session.getAttribute("username") == null) {
                 response.sendRedirect("../index");
                 return;
             }
+            String username = (String) session.getAttribute("username");
             String action = request.getParameter("action");
-            String studentClassID = request.getParameter("id"); // edit function
-            if (action != null && action.equals("delete")) {
-                String studentId = db.deleteStudentClass(studentClassID);
-                request.setAttribute("deletenMes", studentId);
-                request.setAttribute("studentClassList", db.getAllStudentClass());
-                RequestDispatcher rd = this.getServletContext()
-                        .getRequestDispatcher("/admin/class.jsp");
+            String classId = request.getParameter("id");
+
+            RequestDispatcher rd = null;
+            request.setAttribute("classList", db.getClassList());
+            request.setAttribute("searchList", db.getSearchHistory("6", username));
+            if (action != null && action.equals("addPage")) {
+                request.setAttribute("teacherList", db.getNotClassTeacher());
+                request.setAttribute("classYearList", db.getClassYear());
+                rd = this.getServletContext().getRequestDispatcher("/admin/classAdd.jsp");
                 rd.forward(request, response);
+
+            } else if (action != null && action.equals("add")) {
+                String className = request.getParameter("class");
+                String teacherId = request.getParameter("teacherId");
+                String yearId = request.getParameter("yearId");
+                if (db.checkClassNameDupli(className)) {
+                    System.out.println("TESTPOTIN_TRUE");
+                    request.setAttribute("className", className);
+                    request.setAttribute("teacherId", teacherId);
+                    request.setAttribute("yearId", yearId);
+                    request.setAttribute("dupMes", true);
+                    request.setAttribute("teacherList", db.getNotClassTeacher());
+                    request.setAttribute("classYearList", db.getClassYear());
+                    rd = this.getServletContext().getRequestDispatcher("/admin/classAdd.jsp");
+                    rd.forward(request, response);
+                }else{
+                System.out.println("TESTPOTIN_false");
+                db.insertClass(className, teacherId, yearId, 1);
+                request.setAttribute("addMes", true);
+                request.setAttribute("classList", db.getClassList());
+                
+                rd = this.getServletContext().getRequestDispatcher("/admin/class.jsp");
+                rd.forward(request, response);
+                
+                }
             } else if (action != null && action.equals("save")) {
-                String className = request.getParameter("className");
-                db.updateStudentClass(studentClassID, className);
-                request.setAttribute("saveMes", studentClassID);
-                request.setAttribute("studentClassList", db.getAllStudentClass());
-                RequestDispatcher rd = this.getServletContext()
-                        .getRequestDispatcher("/admin/class.jsp");
+                String className = request.getParameter("class");
+                String teacherId = request.getParameter("teacherId");
+                String yearId = request.getParameter("yearId");
+                if (db.checkClassNameDupli(className, classId)) {
+                    request.setAttribute("className", className);
+                    request.setAttribute("teacherId", teacherId);
+                    request.setAttribute("yearId", yearId);
+                    request.setAttribute("dupMes", true);
+                    request.setAttribute("classBean", db.getClassDetails(classId));
+                    request.setAttribute("teacherList", db.getNotClassTeacher());
+                    request.setAttribute("classYearList", db.getClassYear());
+                    rd = this.getServletContext().getRequestDispatcher("/admin/classEdit.jsp");
+                    rd.forward(request, response);
+                }
+                db.updateClass(className, teacherId, yearId, 1, classId);
+                System.out.println(className + "asd");
+                 System.out.println(teacherId + "asd");
+                  System.out.println(yearId + "asd");
+                   System.out.println(classId + "asd");
+                request.setAttribute("classList", db.getClassList());
+                request.setAttribute("saveMes", classId);
+                rd = this.getServletContext().getRequestDispatcher("/admin/class.jsp");
                 rd.forward(request, response);
+                
             } else if (action != null && action.equals("search")) {
                 String searchVal = request.getParameter("searchVal");
-                request.setAttribute("studentClassList", db.searchStudentClass(searchVal));
-                RequestDispatcher rd = this.getServletContext()
-                        .getRequestDispatcher("/admin/class.jsp");
+                db.insertSearchHistory(searchVal, "6", username);
+                request.setAttribute("classList", db.searchClass(searchVal));
+                request.setAttribute("searchList", db.getSearchHistory("6", username));
+                request.setAttribute("search", true);
+                rd = this.getServletContext().getRequestDispatcher("/admin/class.jsp");
                 rd.forward(request, response);
-            } else if (action != null && action.equals("addPage")) {
-                request.setAttribute("classList", db.getAllClass());
-                request.setAttribute("studnetIdList", db.getUnRegAllStudent());
-                RequestDispatcher rd = this.getServletContext()
-                        .getRequestDispatcher("/admin/classAdd.jsp");
-                rd.forward(request, response);
-            } else if (action != null && action.equals("add")) {
-                String className = request.getParameter("className");
-                db.insertStudentClass(studentClassID, className);
-                request.setAttribute("studentClassList", db.getAllStudentClass());
-                request.setAttribute("addMes", className);
-                RequestDispatcher rd = this.getServletContext()
-                        .getRequestDispatcher("/admin/class.jsp");
+            } else if (action != null && action.equals("delete")) {
+                db.deleteClass(classId);
+                request.setAttribute("deleteMes", classId);
+                request.setAttribute("classList", db.getClassList());
+            } else if (classId != null) {
+                request.setAttribute("classBean", db.getClassDetails(classId));
+                request.setAttribute("teacherList", db.getNotClassTeacher());
+                request.setAttribute("classYearList", db.getClassYear());
+                rd = this.getServletContext().getRequestDispatcher("/admin/classEdit.jsp");
                 rd.forward(request, response);
             }
 
-            if (studentClassID != null) {
-                request.setAttribute("studenBean", db.getStudentClassDeital(studentClassID));
-                request.setAttribute("classList", db.getAllClass());
-                request.setAttribute("studentClassID", studentClassID);
-                RequestDispatcher rd = this.getServletContext()
-                        .getRequestDispatcher("/admin/classStudent.jsp");
-                rd.forward(request, response);
-            }
-            request.setAttribute("studentClassList", db.getAllStudentClass());
-            RequestDispatcher rd = this.getServletContext()
-                    .getRequestDispatcher("/admin/class.jsp");
+            rd = this.getServletContext().getRequestDispatcher("/admin/class.jsp");
             rd.forward(request, response);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             response.sendRedirect("../index");
             return;
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

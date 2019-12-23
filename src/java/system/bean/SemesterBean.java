@@ -5,13 +5,14 @@
  */
 package system.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author JerryKwok
  */
-public class SemesterBean {
+public class SemesterBean implements Serializable{
     private String year;
     private int term;
     private String start_date;

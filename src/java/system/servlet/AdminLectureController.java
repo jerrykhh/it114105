@@ -49,9 +49,11 @@ public class AdminLectureController extends HttpServlet {
                 response.sendRedirect("../index");
                 return;
             }
+            String username = (String) session.getAttribute("username");
             String action = request.getParameter("action");
             String lectureId = request.getParameter("id");
             request.setAttribute("lectureList", db.getLecture());
+            request.setAttribute("searchList", db.getSearchHistory("1", username));
             RequestDispatcher rd = null;
             if (action != null && action.equals("delete")) {
                 db.deleteLecture(lectureId);
@@ -71,6 +73,11 @@ public class AdminLectureController extends HttpServlet {
             } else if (action != null && action.equals("search")) {
                 String searchVal = request.getParameter("searchVal");
                 request.setAttribute("lectureList", db.searchLecture(searchVal));
+                db.insertSearchHistory(searchVal, "1", username);
+                request.setAttribute("searchList", db.getSearchHistory("1", username));
+                 rd = this.getServletContext()
+                    .getRequestDispatcher("/admin/lecture.jsp");
+            rd.forward(request, response);
             } else if (action != null && action.equals("save")) {
                 String lecture = request.getParameter("lecture");
                 String description = request.getParameter("description");
@@ -99,6 +106,7 @@ public class AdminLectureController extends HttpServlet {
                 }
                 db.updateLecture(lectureId, lecture, description, className, time, day, teacher);
                 request.setAttribute("saveMes", lectureId);
+                request.setAttribute("lectureList", db.getLecture());
                 rd = this.getServletContext()
                         .getRequestDispatcher("/admin/lecture.jsp");
                 rd.forward(request, response);
@@ -123,7 +131,7 @@ public class AdminLectureController extends HttpServlet {
                     request.setAttribute("teacher", teacher);
                     request.setAttribute("dupMes", true);
                     rd = this.getServletContext()
-                            .getRequestDispatcher("/admin/lectureEdit.jsp");
+                            .getRequestDispatcher("/admin/lectureAdd.jsp");
                     rd.forward(request, response);
                     return;
                 }

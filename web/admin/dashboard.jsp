@@ -27,43 +27,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="list-group"> 
-                                <a href="dashboard" class="list-group-item active main-color-bg-nav">
-                                    <i class="material-icons">dashboard</i> 
-                                    <span>Dashboard</span>
-                                </a>
-                                <a href="lecture" class="list-group-item main-color-bg-nav">
-                                    <i class="material-icons">view_module</i> 
-                                    <span>Lecture</span>
-                                </a>
-                                <a href="class" class="list-group-item">
-                                    <i class="material-icons">class</i><span> Class</span>
-                                </a>
-                                <a href="user?role=Student" class="list-group-item">
-                                    <i class="material-icons">library_books</i><span> Student</span>
-                                </a>
-                                <a href="user?role=Teacher" class="list-group-item">
-                                    <i class="material-icons">supervisor_account</i><span> Teacher</span>
-                                </a>
-                                <a href="user?role=Admin" class="list-group-item">
-                                    <i class="material-icons">vpn_key</i><span> Admin</span>
-                                </a>
-                                <a href="schedule" class="list-group-item">
-                                    <i class="material-icons">schedule</i><span> Schedule</span>
-                                </a>
-
-                                <a href="attendance" class="list-group-item">
-                                    <i class="material-icons">check_box</i
-                                    ><span> Attendace</span>
-                                </a>
-                                <a href="report" class="list-group-item">
-                                    <i class="material-icons">insert_drive_file</i>
-                                    <span> Reports</span>
-                                </a>
-                                <a href="../login?action=logout" class="list-group-item text-right">
-                                    <span>  Logout</span> 
-                                </a>
-                            </div>
+                        <%@taglib uri="/WEB-INF/tlds/nav-taglib.tld" prefix="nav" %>
+                        <nav:showNav role="Admin" active="dashboard" />
                         </div>
 
                         <div class="col-lg-9">
@@ -77,7 +42,7 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="card bg-light card-body mb-3 dash-box">
                                                 <h2><i class="material-icons">library_books</i> ${courseCount}</h2>
-                                            <h4>Class</h4>
+                                            <h4>Lecture</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6  col-sm-12">

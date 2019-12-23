@@ -12,12 +12,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Year;
 import java.util.ArrayList;
 import system.bean.AdminBean;
 import system.bean.ClassBean;
+import system.bean.ClassYearBean;
 import system.bean.LectureBean;
 import system.bean.LectureDayBean;
 import system.bean.LectureTimeBean;
+import system.bean.SchedulerBean;
+import system.bean.SearchBean;
+import system.bean.SemesterBean;
 import system.bean.StudentBean;
 import system.bean.TeacherBean;
 
@@ -91,11 +96,60 @@ public class AdminDB {
         return 0;
     }
 
+    public void insertSearchHistory(String searchVal, String page, String username) {
+        try {
+            String classId;
+            Connection connt = getConnection();
+            String preQuery = "INSERT INTO search(keyword, searchPage, staffId) VALUES(?, ?, ?)";
+            PreparedStatement preUpdStmnt = connt.prepareStatement(preQuery);
+            preUpdStmnt.setString(1, searchVal);
+            preUpdStmnt.setString(2, page);
+            preUpdStmnt.setString(3, username);
+            preUpdStmnt.executeUpdate();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<SearchBean> getSearchHistory(String searchPage, String username) {
+        ArrayList<SearchBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String preQuery = "SELECT COUNT(*) AS COUNT, search.* FROM search WHERE searchPage = ? AND staffId = ? GROUP BY keyword ORDER BY COUNT DESC LIMIT 3";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, searchPage);
+            pStmnt.setString(2, username);
+            ResultSet result = pStmnt.executeQuery();
+            list = new ArrayList<SearchBean>();
+            while (result.next()) {
+                SearchBean seBean = new SearchBean();
+                seBean.setId(result.getString("id"));
+                seBean.setKeyword(result.getString("keyword"));
+                seBean.setSearchPage(result.getInt("searchPage"));
+                seBean.setStaffId(result.getString("staffId"));
+                list.add(seBean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
     public ArrayList<StudentBean> getAllStudentClass() {
         ArrayList<StudentBean> list = null;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT *, student.fname AS Sfname, student.lname AS Slname, student.gender AS Sgender, studentclass.*, studentclass.studentClassId as studendClassId, teacher.fname as Tfname, teacher.lname as Tlname, teacher.gender as Tgender, teacher.title as Ttitle, teacher.id as Tid FROM studentclass, class, teacher, student WHERE studentclass.classId = class.id AND class.teacherId = teacher.id AND studentclass.studentId = student.id ORDER BY studentClass.studentId ASC";
+            String preQuery = "SELECT *, student.fname AS Sfname, student.lname AS Slname, student.gender AS Sgender, studentclass.*, studentclass.studentClassId as studendClassId, teacher.fname as Tfname, teacher.lname as Tlname, teacher.gender as Tgender, teacher.title as Ttitle, teacher.id as Tid FROM studentclass, class, teacher, student WHERE studentclass.classId = class.id AND class.teacherId = teacher.id AND studentclass.studentId = student.id AND teacher.title = 1 ORDER BY studentClass.studentId ASC";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             ResultSet result = pStmnt.executeQuery();
             list = new ArrayList<StudentBean>();
@@ -193,8 +247,9 @@ public class AdminDB {
             ResultSet result = stmnt.executeQuery(sql);
             while (result.next()) {
                 ClassBean bean = new ClassBean();
-                bean.getTeacherBean().setId(result.getString("id"));
+                bean.getTeacherBean().setId(result.getString("teacherId"));
                 bean.setClassName(result.getString("class"));
+                bean.setId(result.getString("id"));
                 bean.getTeacherBean().setEmail(result.getString("email"));
                 bean.getTeacherBean().setFname(result.getString("fname"));
                 bean.getTeacherBean().setLname(result.getString("lname"));
@@ -391,7 +446,7 @@ public class AdminDB {
         TeacherBean teacherBean;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT * FROM teacher ORDER BY fname ASC";
+            String preQuery = "SELECT * FROM teacher WHERE title = 1 ORDER BY fname ASC";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             ResultSet result = pStmnt.executeQuery();
             list = new ArrayList<TeacherBean>();
@@ -416,12 +471,48 @@ public class AdminDB {
         return list;
     }
 
+    public void updateTeacherToAdmin(String teacherId) {
+        try {
+            Connection connt = getConnection();
+            String preUpdQuery = "UPDATE teacher SET title = 2 WHERE id = ?";
+            PreparedStatement preUpdStmnt = connt.prepareStatement(preUpdQuery);
+            preUpdStmnt.setString(1, teacherId);
+            preUpdStmnt.executeUpdate();
+
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void updateAdminToTeacher(String adminId) {
+        try {
+            Connection connt = getConnection();
+            String preUpdQuery = "UPDATE teacher SET title = 1 WHERE id = ?";
+            PreparedStatement preUpdStmnt = connt.prepareStatement(preUpdQuery);
+            preUpdStmnt.setString(1, adminId);
+            preUpdStmnt.executeUpdate();
+
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public ArrayList<AdminBean> getAdmin() {
         ArrayList<AdminBean> list = null;
         AdminBean adminBean;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT * FROM admin ORDER BY id ASC";
+            String preQuery = "SELECT * FROM teacher WHERE title = 2 ORDER BY id ASC";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             ResultSet result = pStmnt.executeQuery();
             list = new ArrayList<AdminBean>();
@@ -609,7 +700,7 @@ public class AdminDB {
     public void insertTeacher(String id, String fname, String lname, String gender, String birthday, String password) {
         try {
             Connection connt = getConnection();
-            String preQuery = "INSERT INTO teacher VALUES(?, ?, ?, ?, ?, ?, ?, 'Teacher')";
+            String preQuery = "INSERT INTO teacher VALUES(?, ?, ?, ?, ?, ?, ?,1, 1)";
             PreparedStatement preUpdStmnt = connt.prepareStatement(preQuery);
             preUpdStmnt.setString(1, id);
             preUpdStmnt.setString(2, fname);
@@ -634,7 +725,7 @@ public class AdminDB {
         boolean isDup = true;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT id FROM teacher WHERE id = ?";
+            String preQuery = "SELECT id FROM teacher WHERE id = ? ";
             PreparedStatement stmnt = connt.prepareStatement(preQuery);
             stmnt.setString(1, teacherId);
             ResultSet result = stmnt.executeQuery();
@@ -661,7 +752,7 @@ public class AdminDB {
         TeacherBean teacherBean;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT * FROM teacher WHERE id LIKE UPPER(?) OR UPPER(fname) LIKE UPPER(?) OR UPPER(lname) LIKE UPPER(?) OR birthday LIKE ? OR UPPER(email) LIKE UPPER(?) ORDER BY id ASC";
+            String preQuery = "SELECT * FROM teacher WHERE title = 1 AND id LIKE UPPER(?) OR UPPER(fname) LIKE UPPER(?) OR UPPER(lname) LIKE UPPER(?) OR birthday LIKE ? OR UPPER(email) LIKE UPPER(?) ORDER BY id ASC";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             pStmnt.setString(1, "%" + searchVal + "%");
             pStmnt.setString(2, "%" + searchVal + "%");
@@ -767,10 +858,16 @@ public class AdminDB {
     public void deleteTeacher(String teacherId) {
         try {
             Connection connt = getConnection();
+            String delForSql = "SET FOREIGN_KEY_CHECKS=0";
+            Statement st = connt.createStatement();
+            st.executeUpdate(delForSql);
             String preQuery = "DELETE FROM teacher WHERE id = ?";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             pStmnt.setString(1, teacherId);
             pStmnt.executeUpdate();
+            String conForSql = "SET FOREIGN_KEY_CHECKS=1";
+            Statement tm = connt.createStatement();
+            tm.executeUpdate(url);
         } catch (SQLException ex) {
             while (ex != null) {
                 ex.printStackTrace();
@@ -786,7 +883,7 @@ public class AdminDB {
         AdminBean adminBean;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT * FROM admin WHERE id LIKE UPPER(?) OR UPPER(fname) LIKE UPPER(?) OR UPPER(lname) LIKE UPPER(?) OR birthday LIKE ? OR UPPER(email) LIKE UPPER(?) ORDER BY id ASC";
+            String preQuery = "SELECT * FROM Teacher WHERE title = 2 AND id LIKE UPPER(?) OR UPPER(fname) LIKE UPPER(?) OR UPPER(lname) LIKE UPPER(?) OR birthday LIKE ? OR UPPER(email) LIKE UPPER(?) ORDER BY id ASC";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             pStmnt.setString(1, "%" + searchVal + "%");
             pStmnt.setString(2, "%" + searchVal + "%");
@@ -820,7 +917,7 @@ public class AdminDB {
         AdminBean adminBean = null;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT * FROM admin WHERE id = ?";
+            String preQuery = "SELECT * FROM teacher WHERE id = ?";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             pStmnt.setString(1, adminId);
             ResultSet result = pStmnt.executeQuery();
@@ -847,7 +944,7 @@ public class AdminDB {
     public void updateAdmin(String adminId, String password, String fname, String lname, String gender, String birthday) {
         try {
             Connection connt = getConnection();
-            String preUpdQuery = "UPDATE admin SET fname = ?, lname = ?, gender = ?, birthday = ?, password = ?  WHERE id = ?";
+            String preUpdQuery = "UPDATE teacher SET fname = ?, lname = ?, gender = ?, birthday = ?, password = ?  WHERE id = ?";
             PreparedStatement preUpdStmnt = connt.prepareStatement(preUpdQuery);
             preUpdStmnt.setString(1, fname);
             preUpdStmnt.setString(2, lname);
@@ -869,7 +966,7 @@ public class AdminDB {
     public void updateAdmin(String adminId, String fname, String lname, String gender, String birthday) {
         try {
             Connection connt = getConnection();
-            String preUpdQuery = "UPDATE admin SET fname = ?, lname = ?, gender = ?, birthday = ? WHERE id = ?";
+            String preUpdQuery = "UPDATE teacher SET fname = ?, lname = ?, gender = ?, birthday = ? WHERE id = ?";
             PreparedStatement preUpdStmnt = connt.prepareStatement(preUpdQuery);
             preUpdStmnt.setString(1, fname);
             preUpdStmnt.setString(2, lname);
@@ -890,7 +987,7 @@ public class AdminDB {
     public void insertAdmin(String adminId, String fname, String lname, String gender, String birthday, String password) {
         try {
             Connection connt = getConnection();
-            String preQuery = "INSERT INTO admin VALUES(?, ?, ?, ?, ?, ?, ?)";
+            String preQuery = "INSERT INTO teacher VALUES(?, ?, ?, ?, ?, ?, ?, 2, 0)";
             PreparedStatement preUpdStmnt = connt.prepareStatement(preQuery);
             preUpdStmnt.setString(1, adminId);
             preUpdStmnt.setString(2, fname);
@@ -915,7 +1012,7 @@ public class AdminDB {
         boolean isDup = true;
         try {
             Connection connt = getConnection();
-            String preQuery = "SELECT id FROM admin WHERE id = ?";
+            String preQuery = "SELECT id FROM teacher WHERE id = ?";
             PreparedStatement stmnt = connt.prepareStatement(preQuery);
             stmnt.setString(1, adminId);
             ResultSet result = stmnt.executeQuery();
@@ -940,7 +1037,7 @@ public class AdminDB {
     public void deleteAdmin(String adminId) {
         try {
             Connection connt = getConnection();
-            String preQuery = "DELETE FROM admin WHERE id = ?";
+            String preQuery = "DELETE FROM teacher WHERE id = ?";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             pStmnt.setString(1, adminId);
             pStmnt.executeUpdate();
@@ -952,6 +1049,45 @@ public class AdminDB {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    
+    public ArrayList<LectureBean> getLecture(String className) {
+        ArrayList<LectureBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String preQuery = "SELECT * FROM lecture, timetable, daytable, class WHERE class.id = ? AND lecture.classId = class.id AND lecture.timeId = timetable.timeId AND lecture.dayId = daytable.id";
+            PreparedStatement preStmnt = connt.prepareStatement(preQuery);
+            preStmnt.setString(1, className);
+            System.out.println(className);
+            ResultSet result = preStmnt.executeQuery();
+            list = new ArrayList<LectureBean>();
+            while (result.next()) {
+                LectureBean lectureBean = new LectureBean();
+                LectureTimeBean timeBean = new LectureTimeBean();
+                LectureDayBean dayBean = new LectureDayBean();
+                lectureBean.setLecture(result.getString("lecture"));
+                lectureBean.setDescription(result.getString("description"));
+                lectureBean.setClassName(result.getString("class"));
+                timeBean.setStartTime(result.getString("starttime"));
+                timeBean.setEndTime(result.getString("endtime"));
+                timeBean.setFullweek(result.getBoolean("fullday"));
+                lectureBean.setTime(timeBean);
+                dayBean.setDay(result.getString("day"));
+                lectureBean.setDay(dayBean);
+                lectureBean.setRoom(result.getString("room"));
+                list.add(lectureBean);
+            }
+
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 
     public ArrayList<LectureBean> getLecture() {
@@ -1041,7 +1177,6 @@ public class AdminDB {
                 lectureBean.setClassName(result.getString("class"));
                 lectureBean.setTime(timeBean);
                 lectureBean.setDay(dayBean);
-                list.add(lectureBean);
                 list.add(lectureBean);
             }
         } catch (SQLException ex) {
@@ -1143,6 +1278,117 @@ public class AdminDB {
         return list;
     }
 
+    public ArrayList<SemesterBean> getNowSemester() {
+        ArrayList<SemesterBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String query = "SELECT * FROM semester WHERE start_date<=CURRENT_DATE AND CURRENT_DATE<=end_date";
+            Statement stmnt = connt.createStatement();
+            System.out.println("POMT#");
+            ResultSet result = stmnt.executeQuery(query);
+            list = new ArrayList<SemesterBean>();
+            if (result.next()) {
+                SemesterBean nowTerm = new SemesterBean();
+                nowTerm.setTerm(result.getInt("term"));
+                nowTerm.setYear(result.getString("year"));
+                nowTerm.setStart_date(result.getString("start_date"));
+                nowTerm.setEnd_date(result.getString("end_date"));
+                String preQuery = null;
+                System.out.println("POMT#2");
+                PreparedStatement preStmnt = null;
+                ResultSet secResult = null;
+
+                if (nowTerm.getTerm() == 2) {
+                    preQuery = "SELECT * FROM semester WHERE year = ? AND term = ?";
+                    preStmnt = connt.prepareStatement(preQuery);
+                    preStmnt.setString(1, nowTerm.getYear());
+                    preStmnt.setString(2, "1");
+                    System.out.println("MOTHRT");
+                    secResult = preStmnt.executeQuery();
+                    if (secResult.next()) {
+                        SemesterBean seTerm = new SemesterBean();
+                        seTerm.setTerm(secResult.getInt("term"));
+                        seTerm.setYear(secResult.getString("year"));
+                        seTerm.setStart_date(secResult.getString("start_date"));
+                        seTerm.setEnd_date(secResult.getString("end_date"));
+                        list.add(seTerm);
+                        list.add(nowTerm);
+                    }
+                } else if (nowTerm.getTerm() == 1) {
+                    System.out.println("POMT#3");
+                    preQuery = "SELECT * FROM semester WHERE year = ? AND term = ?";
+                    preStmnt = connt.prepareStatement(preQuery);
+                    preStmnt.setString(1, nowTerm.getYear());
+                    preStmnt.setString(2, "2");
+                    System.out.println("POMT#7");
+                    secResult = preStmnt.executeQuery();
+                    if (secResult.next()) {
+                        System.out.println("POMT#5");
+                        SemesterBean seTerm = new SemesterBean();
+                        seTerm.setTerm(secResult.getInt("term"));
+                        System.out.println("POMT#1");
+                        seTerm.setYear(secResult.getString("year"));
+                        System.out.println("POMT#2");
+                        seTerm.setStart_date(secResult.getString("start_date"));
+                        System.out.println("POMT#3");
+                        seTerm.setEnd_date(secResult.getString("end_date"));
+                        list.add(nowTerm);
+                        list.add(seTerm);
+                        System.out.println("POMT#5");
+                    }
+                }
+            } else {
+                System.out.println("ERR");
+            }
+
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<SchedulerBean> getScheduler() {
+        ArrayList<SchedulerBean> list = null;
+        System.out.println("TEST1");
+        ArrayList<SemesterBean> semList = getNowSemester();
+        try {
+            System.out.println(semList.size());
+            Connection connt = getConnection();
+            String sql = "SELECT *, datediff(end_date, start_date) AS countDay FROM scheduler WHERE  ? <= start_date AND end_date <= ? ORDER BY start_date ASC";
+            PreparedStatement preStmnt = connt.prepareStatement(sql);
+            preStmnt.setString(1, semList.get(0).getStart_date());
+            System.out.println(semList.get(1).getEnd_date() + 'a');
+            preStmnt.setString(2, semList.get(1).getEnd_date());
+            ResultSet result = preStmnt.executeQuery();
+            list = new ArrayList<SchedulerBean>();
+            while (result.next()) {
+                SchedulerBean bean = new SchedulerBean();
+                bean.setId(result.getString("id"));
+                bean.setTitle(result.getString("title"));
+                bean.setStart_date(result.getString("start_date"));
+                bean.setEnd_date(result.getString("end_date"));
+                bean.setHoliday(result.getBoolean("holiday"));
+                bean.setSchoolDay(result.getBoolean("schoolDay"));
+                bean.setCountDate(result.getInt("countDay"));
+                list.add(bean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("return");
+        return list;
+    }
+
     public ArrayList<LectureDayBean> getDayList() {
         ArrayList<LectureDayBean> list = null;
         try {
@@ -1172,7 +1418,7 @@ public class AdminDB {
         ArrayList<ClassBean> list = null;
         try {
             Connection connt = getConnection();
-            String sql = "SELECT * FROM class ORDER BY class ASC";
+            String sql = "SELECT class.*, classyear.year, teacher.fname, teacher.lname, teacher.gender FROM class, classyear, teacher WHERE class.classyearId = classyear.id AND class.teacherId = teacher.id ORDER BY classyear.year DESC, class ASC";
             Statement stmnt = connt.createStatement();
             ResultSet result = stmnt.executeQuery(sql);
             list = new ArrayList<ClassBean>();
@@ -1180,6 +1426,12 @@ public class AdminDB {
                 ClassBean clbean = new ClassBean();
                 clbean.setId(result.getString("id"));
                 clbean.setClassName(result.getString("class"));
+                clbean.setYear(result.getString("year"));
+                TeacherBean tbean = new TeacherBean();
+                tbean.setFname(result.getString("fname"));
+                tbean.setLname(result.getString("lname"));
+                tbean.setGender(result.getString("gender"));
+                clbean.setTeacherBean(tbean);
                 list.add(clbean);
             }
         } catch (SQLException ex) {
@@ -1195,7 +1447,7 @@ public class AdminDB {
 
     public boolean checkTeacherDupSchedule(String time, String teacher, String lectureId) {
         boolean isDup = true;
-        try{
+        try {
             Connection connt = getConnection();
             String preQuery = "SELECT COUNT(*) AS number FROM lecture WHERE id != ? AND timeId = ? AND teacherId = ?";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
@@ -1203,8 +1455,8 @@ public class AdminDB {
             pStmnt.setString(2, time);
             pStmnt.setString(3, teacher);
             ResultSet result = pStmnt.executeQuery();
-            if(result.next()){
-                if(result.getInt("number") < 1){
+            if (result.next()) {
+                if (result.getInt("number") < 1) {
                     isDup = false;
                 }
             }
@@ -1218,18 +1470,18 @@ public class AdminDB {
         }
         return isDup;
     }
-    
+
     public boolean checkTeacherDupSchedule(String time, String teacher) {
         boolean isDup = true;
-        try{
+        try {
             Connection connt = getConnection();
             String preQuery = "SELECT COUNT(*) AS number FROM lecture WHERE timeId = ? AND teacherId = ?";
             PreparedStatement pStmnt = connt.prepareStatement(preQuery);
             pStmnt.setString(1, time);
             pStmnt.setString(2, teacher);
             ResultSet result = pStmnt.executeQuery();
-            if(result.next()){
-                if(result.getInt("number") < 1){
+            if (result.next()) {
+                if (result.getInt("number") < 1) {
                     isDup = false;
                 }
             }
@@ -1254,14 +1506,414 @@ public class AdminDB {
             preUpdStmnt.setString(3, className);
             preUpdStmnt.setString(4, time);
             preUpdStmnt.setString(5, day);
-            if(teacher.length() == 0){
+            if (teacher.length() == 0) {
                 preUpdStmnt.setString(6, null);
-            }else{
+            } else {
                 preUpdStmnt.setString(6, teacher);
             }
-             preUpdStmnt.setString(7, lectureId);
+            preUpdStmnt.setString(7, lectureId);
             preUpdStmnt.executeUpdate();
 
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<SchedulerBean> getSchedulerAll() {
+        ArrayList<SchedulerBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String sql = "SELECT * FROM scheduler";
+            PreparedStatement preStmnt = connt.prepareStatement(sql);
+            ResultSet result = preStmnt.executeQuery();
+            list = new ArrayList<SchedulerBean>();
+            while (result.next()) {
+                SchedulerBean bean = new SchedulerBean();
+                bean.setId(result.getString("id"));
+                bean.setTitle(result.getString("title"));
+                bean.setStart_date(result.getString("start_date"));
+                bean.setEnd_date(result.getString("end_date"));
+                bean.setHoliday(result.getBoolean("holiday"));
+                bean.setSchoolDay(result.getBoolean("schoolDay"));
+                list.add(bean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("return");
+        return list;
+    }
+
+    public SchedulerBean getSchedulerDetials(String scheduleId) {
+        SchedulerBean bean = null;
+        try {
+            Connection connt = getConnection();
+            String sql = "SELECT * FROM scheduler WHERE id = ?";
+            PreparedStatement preStmnt = connt.prepareStatement(sql);
+            preStmnt.setString(1, scheduleId);
+            ResultSet result = preStmnt.executeQuery();
+            bean = new SchedulerBean();
+            if (result.next()) {
+                bean.setId(result.getString("id"));
+                bean.setTitle(result.getString("title"));
+                bean.setStart_date(result.getString("start_date"));
+                bean.setEnd_date(result.getString("end_date"));
+                bean.setHoliday(result.getBoolean("holiday"));
+                bean.setSchoolDay(result.getBoolean("schoolDay"));
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("return");
+        return bean;
+    }
+
+    public ArrayList<SchedulerBean> searchScheduler(String searchVal) {
+        ArrayList<SchedulerBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String sql = "SELECT * FROM scheduler WHERE UPPER(title) LIKE UPPER(?) OR start_date LIKE ? OR end_date LIKE ? ";
+            PreparedStatement preStmnt = connt.prepareStatement(sql);
+            preStmnt.setString(1, "%" + searchVal + "%");
+            preStmnt.setString(2, "%" + searchVal + "%");
+            preStmnt.setString(3, "%" + searchVal + "%");
+            ResultSet result = preStmnt.executeQuery();
+            list = new ArrayList<SchedulerBean>();
+            while (result.next()) {
+                SchedulerBean bean = new SchedulerBean();
+                bean.setId(result.getString("id"));
+                bean.setTitle(result.getString("title"));
+                bean.setStart_date(result.getString("start_date"));
+                bean.setEnd_date(result.getString("end_date"));
+                bean.setHoliday(result.getBoolean("holiday"));
+                bean.setSchoolDay(result.getBoolean("schoolDay"));
+                list.add(bean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("return");
+        return list;
+    }
+
+    public void deleteSchedule(String scheduleId) {
+        try {
+            Connection connt = getConnection();
+            String preQuery = "DELETE FROM scheduler WHERE id = ?";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, scheduleId);
+            pStmnt.executeUpdate();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void insertSchedule(String title, String startDate, String endDate, String isHoliday, String isSchoolDay) {
+        try {
+            boolean holiday = false, schoolDay = false;
+            if (isHoliday != null && isHoliday.equalsIgnoreCase("isHoliday")) {
+                holiday = true;
+            }
+            if (isSchoolDay != null && isSchoolDay.equalsIgnoreCase("isSchoolDay")) {
+                schoolDay = true;
+            }
+            Connection connt = getConnection();
+            String preQuery = "INSERT scheduler(title, start_date, end_date, holiday, schoolDay) VALUES(?,?,?,?,?)";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, title);
+            pStmnt.setString(2, startDate);
+            pStmnt.setString(3, endDate);
+            pStmnt.setBoolean(4, holiday);
+            pStmnt.setBoolean(5, schoolDay);
+            pStmnt.executeUpdate();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void updateSchedule(String title, String startDate, String endDate, String isHoliday, String isSchoolDay, String id) {
+        try {
+            boolean holiday = false, schoolDay = false;
+            if (isHoliday != null && isHoliday.equalsIgnoreCase("isHoliday")) {
+                holiday = true;
+            }
+            if (isSchoolDay != null && isSchoolDay.equalsIgnoreCase("isSchoolDay")) {
+                schoolDay = true;
+            }
+            Connection connt = getConnection();
+            String preQuery = "UPDATE scheduler SET title = ?, start_date = ?, end_date = ?,  holiday = ?, schoolDay =? WHERE id = ?";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, title);
+            pStmnt.setString(2, startDate);
+            pStmnt.setString(3, endDate);
+            pStmnt.setBoolean(4, holiday);
+            pStmnt.setBoolean(5, schoolDay);
+            pStmnt.setString(6, id);
+            pStmnt.executeUpdate();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<TeacherBean> getNotClassTeacher() {
+        ArrayList<TeacherBean> list = null;
+        TeacherBean teacherBean;
+        try {
+            Connection connt = getConnection();
+            String preQuery = "SELECT teacher.* FROM teacher WHERE teacher.id NOT IN (SELECT teacher.id FROM class, teacher WHERE class.teacherId = teacher.id) AND teach = true ORDER BY teacher.fname ASC";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            ResultSet result = pStmnt.executeQuery();
+            list = new ArrayList<TeacherBean>();
+            while (result.next()) {
+                teacherBean = new TeacherBean();
+                teacherBean.setFname(result.getString("fname"));
+                teacherBean.setLname(result.getString("lname"));
+                teacherBean.setGender(result.getString("gender"));
+                teacherBean.setEmail(result.getString("email"));
+                teacherBean.setBirthday(result.getString("birthday"));
+                teacherBean.setId(result.getString("id"));
+                list.add(teacherBean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<ClassYearBean> getClassYear() {
+        ArrayList<ClassYearBean> list = null;
+        ;
+        try {
+            Connection connt = getConnection();
+            String preQuery = "SELECT * FROM classyear ORDER BY id ASC";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            ResultSet result = pStmnt.executeQuery();
+            list = new ArrayList<ClassYearBean>();
+            while (result.next()) {
+                ClassYearBean classYearBean = new ClassYearBean();
+                classYearBean.setId(result.getString("id"));
+                classYearBean.setYear(result.getString("year"));
+                list.add(classYearBean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean checkClassNameDupli(String className) {
+        boolean isDupli = false;
+        try {
+            Connection connt = getConnection();
+            String preQuery = "SELECT * FROM class WHERE class.class = ?";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, className);
+            ResultSet result = pStmnt.executeQuery();
+            if (result.next()) {
+                isDupli = true;
+            }
+
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isDupli;
+    }
+
+    public boolean checkClassNameDupli(String className, String classId) {
+        boolean isDupli = false;
+        try {
+            Connection connt = getConnection();
+            String preQuery = "SELECT * FROM class WHERE class.class = ? AND class.id != ?";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, className);
+            pStmnt.setString(2, classId);
+            ResultSet result = pStmnt.executeQuery();
+            if (result.next()) {
+                isDupli = true;
+            }
+
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isDupli;
+    }
+
+    public void insertClass(String className, String teacherId, String yearId, int attendanceTargetId) {
+        try {
+            Connection connt = getConnection();
+            System.out.println("TESTOINTinsertClass");
+            String preQuery = "INSERT INTO class(class, teacherId, classyearId, attendanceTargetId) VALUES(?,?,?,?)";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, className);
+            pStmnt.setString(2, teacherId);
+            pStmnt.setString(3, yearId);
+            pStmnt.setInt(4, attendanceTargetId);
+            pStmnt.executeUpdate();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<ClassBean> searchClass(String searchVal) {
+        ArrayList<ClassBean> list = null;
+        try {
+            Connection connt = getConnection();
+            String sql = "SELECT * FROM (SELECT class.*, classyear.year, teacher.fname, teacher.lname, teacher.gender FROM class, classyear, teacher WHERE class.classyearId = classyear.id AND class.teacherId = teacher.id) AS result WHERE UPPER(result.class) LIKE UPPER(?) OR UPPER(result.fname) LIKE UPPER(?) OR UPPER(result.lname) LIKE UPPER(?) OR result.year LIKE ? ORDER BY result.year DESC, result.class ASC";
+            PreparedStatement stmnt = connt.prepareCall(sql);
+            stmnt.setString(1, "%" + searchVal + "%");
+            stmnt.setString(2, "%" + searchVal + "%");
+            stmnt.setString(3, "%" + searchVal + "%");
+            stmnt.setString(4, "%" + searchVal + "%");
+            ResultSet result = stmnt.executeQuery();
+            list = new ArrayList<ClassBean>();
+            while (result.next()) {
+                ClassBean clbean = new ClassBean();
+                clbean.setId(result.getString("id"));
+                clbean.setClassName(result.getString("class"));
+                clbean.setYear(result.getString("year"));
+                TeacherBean tbean = new TeacherBean();
+                tbean.setFname(result.getString("fname"));
+                tbean.setLname(result.getString("lname"));
+                tbean.setGender(result.getString("gender"));
+                clbean.setTeacherBean(tbean);
+                list.add(clbean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+
+    public void deleteClass(String classId) {
+        try {
+            Connection connt = getConnection();
+            String preQuery = "DELETE FROM class WHERE id = ?";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+            pStmnt.setString(1, classId);
+            pStmnt.executeUpdate();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ClassBean getClassDetails(String classId) {
+        ClassBean clbean = null;
+        try {
+            Connection connt = getConnection();
+            String sql = "SELECT class.*, classyear.year, teacher.fname, teacher.lname, teacher.gender FROM class, classyear, teacher WHERE class.classyearId = classyear.id AND class.teacherId = teacher.id AND class.id = ? ORDER BY classyear.year DESC, class ASC";
+            PreparedStatement stmnt = connt.prepareStatement(sql);
+            stmnt.setString(1, classId);
+            ResultSet result = stmnt.executeQuery();
+            clbean = new ClassBean();
+            if (result.next()) {
+                clbean.setId(result.getString("id"));
+                clbean.setClassName(result.getString("class"));
+                clbean.setYear(result.getString("year"));
+                TeacherBean tbean = new TeacherBean();
+                tbean.setFname(result.getString("fname"));
+                tbean.setLname(result.getString("lname"));
+                tbean.setGender(result.getString("gender"));
+                tbean.setId(result.getString("teacherId"));
+                clbean.setTeacherBean(tbean);
+            }
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return clbean;
+    }
+
+    public void updateClass(String className, String teacherId, String yearId, int attendanceTargetId, String classId) {
+                try {
+            Connection connt = getConnection();
+            String preQuery = "UPDATE class set class = ?, teacherId = ?, classyearId = ?, attendanceTargetId = ? WHERE id = ?";
+            PreparedStatement pStmnt = connt.prepareStatement(preQuery);
+                    System.out.println("DATER" + className);
+                     System.out.println("DATER" + teacherId);
+                      System.out.println("DATER" + yearId);
+                       System.out.println("DATER" + classId);
+                      
+            pStmnt.setString(1, className);
+            pStmnt.setString(2, teacherId);
+            pStmnt.setString(3, yearId);
+            pStmnt.setInt(4, attendanceTargetId);
+            pStmnt.setString(5, classId);
+            pStmnt.executeUpdate();
+            connt.close();
         } catch (SQLException ex) {
             while (ex != null) {
                 ex.printStackTrace();

@@ -5,13 +5,14 @@
  */
 package system.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author JerryKwok
  */
-public class TeacherBean {
+public class TeacherBean implements Serializable{
     private String id;
     private String fname;
     private String lname;
@@ -87,5 +88,8 @@ public class TeacherBean {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    
+    
     
 }

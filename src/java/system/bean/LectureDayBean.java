@@ -5,11 +5,13 @@
  */
 package system.bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JerryKwok
  */
-public class LectureDayBean {
+public class LectureDayBean implements Serializable{
     private String id;
     private String day;
 

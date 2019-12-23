@@ -16,6 +16,15 @@
     <body> 
         <div class="container-login">
             <div class="wrap-login">
+                <%
+                    if (request.getAttribute("roleMes") != null) {
+                        out.print("<div class='alert alert-danger alert-dismissible fade show' role='alert'>");
+                        out.print("<strong>Error Role!</strong> You should select the role.");
+                        out.print("<button type='button' class='close' data-dismiss='alert' aria-label='Close'>");
+                        out.print("<span aria-hidden='true'>&times;</span>");
+                        out.print("</button></div><br>");
+                    }
+                %>
                 <form class="login-form" action="/login" method="POST">
                     <span class="login-form-title">
                         Account Login
@@ -41,7 +50,12 @@
                 </form>
             </div>
         </div>
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.alert').alert();
+            });
+        </script>
     </body>
 </html>

@@ -5,13 +5,14 @@
  */
 package system.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author JerryKwok
  */
-public class StudentBean {
+public class StudentBean implements Serializable{
     private String id;
     private String fname;
     private String lname;

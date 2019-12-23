@@ -12,14 +12,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Area | Dashboard</title>
+        <title>Teacher Area | Dashboard</title>
         <!-- Bootstrap core CSS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
         <link href="../css/bootstrap.css" rel="stylesheet">
         <link href="../css/style.css" rel="stylesheet">
-
     </head>
     <body>
         <jsp:include page="../header.jsp"></jsp:include>
@@ -27,23 +26,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="list-group"> 
-                                <a href="dashboard" class="list-group-item active main-color-bg-nav">
-                                    <i class="material-icons">dashboard</i> 
-                                    <span>Dashboard</span>
-                                </a>
-                                <a href="attendance" class="list-group-item">
-                                    <i class="material-icons">check_box</i
-                                    ><span> Attendace</span>
-                                </a>
-                                <a href="report" class="list-group-item">
-                                    <i class="material-icons">insert_drive_file</i>
-                                    <span> Reports</span>
-                                </a>
-                                <a href="../login?action=logout" class="list-group-item text-right">
-                                    <span>  Logout</span> 
-                                </a>
-                            </div>
+                        <%@taglib uri="/WEB-INF/tlds/nav-taglib.tld" prefix="nav" %>
+                        <nav:showNav role="Teacher" active="dashboard" />
                         </div>
 
                         <div class="col-lg-9">
@@ -57,7 +41,7 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="card bg-light card-body mb-3 dash-box">
                                                 <h2><i class="material-icons">library_books</i> ${courseCount}</h2>
-                                            <h4>Class</h4>
+                                            <h4>Lecture</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6  col-sm-12">
@@ -81,13 +65,13 @@
 
                                 <table class="table table-bordered table-hover text-center">
 
-                                    <%
+   <%
                                         out.print("<tr>");
                                         out.print("<th> Time </th>");
-
                                         for (LectureDayBean day : dayList) {
                                             out.print("<th>DAY " + day.getDay() + "</th>");
                                         }
+                                        String[] schoolDays = {"A", "B", "C", "D", "E", "F"};
                                         out.print("</tr>");
                                         int countDay = dayList.size();
                                         for (LectureTimeBean time : timeList) {
@@ -95,20 +79,40 @@
                                             out.print("<td>" + time.getStartTime() + "-" + time.getEndTime());
                                             int count = 0;
                                             int countPrint = 0;
-                                            for (LectureBean lecture : lectureList) {
-                                                if (lecture.getTime().getStartTime().equals(time.getStartTime()) && lecture.getTime().getEndTime().equals(time.getEndTime())) {
-                                                    if (lecture.getTime().isFullweek()) {
-                                                        out.print("<td colspan='" + dayList.size() + "'>" + lecture.getLecture() + "<br>" + lecture.getClassName() + "</td>");
-                                                        count--;
-                                                    } else {
-                                                        out.print("<td>" + lecture.getLecture() + "<br>" + lecture.getClassName() + "</td>");
+
+                                           
+                                            loopout:
+                                            for (String schoolDay : schoolDays) { 
+                                                boolean printed = false;
+                                                System.out.println("TEST---" + schoolDay);
+                                                for (LectureBean lecture : lectureList) {
+                                                    if (lecture.getTime().getStartTime().equals(time.getStartTime()) && lecture.getTime().getEndTime().equals(time.getEndTime())) {
+                                                        if (lecture.getTime().isFullweek()) {
+                                                            System.out.println("FullWEEK");
+                                                            out.print("<td colspan='" + dayList.size() + "'>" + lecture.getLecture() + "</td>");
+                                                            break loopout;
+                                                        } else {
+                                                            System.out.println("Lecture---" + lecture.getDay().getDay());
+                                                            if (schoolDay.equalsIgnoreCase(lecture.getDay().getDay())) {
+                                                                System.out.println("printed");
+                                                                out.print("<td>" + lecture.getLecture() + "</td>");
+                                                                printed = true;
+                                                                countPrint++;
+                                                            }
+                                                        }
+                                                        
                                                     }
-                                                    countPrint++;
+                                                    count++;
+
                                                 }
-                                                count++;
-                                                if (count == lectureList.size()) {
-                                                    for (int i = (countDay - countPrint); i > 0; i--) {
-                                                        out.print("<td> </td>");
+                                                
+                                                if (!printed) {
+                                                    System.out.println("NOTPrintandPrintTDTD");
+                                                    out.print("<td></td>");
+                                                }
+                                                if (lectureList.size() == 0) {
+                                                    for (int i = dayList.size(); i > 0; i--) {
+                                                        out.print("<td></td>");
                                                     }
                                                 }
                                             }

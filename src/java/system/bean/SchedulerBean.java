@@ -5,11 +5,14 @@
  */
 package system.bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JerryKwok
  */
-public class SchedulerBean {
+public class SchedulerBean implements Serializable{
+
     private String id;
     private String title;
     private String description;
@@ -29,8 +32,6 @@ public class SchedulerBean {
     public void setCountBusineseDay(int countBusineseDay) {
         this.countBusineseDay = countBusineseDay;
     }
-    
-    
 
     public String getId() {
         return id;
@@ -71,12 +72,12 @@ public class SchedulerBean {
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
     }
-    
-    public int getStart_date_Day(){
+
+    public int getStart_date_Day() {
         return Integer.parseInt(start_date.substring(8));
     }
-    
-    public int getEnd_date_Day(){
+
+    public int getEnd_date_Day() {
         return Integer.parseInt(end_date.substring(8));
     }
 
@@ -119,5 +120,35 @@ public class SchedulerBean {
     public void setCountDate(int countDate) {
         this.countDate = countDate;
     }
-    
+
+    public String getStart_day_Date() {
+        String[] start_dateArray = start_date.split("-");
+        return start_dateArray[2];
+    }
+
+    public String getStart_day_Month() {
+        String[] start_dateArray = start_date.split("-");
+        return start_dateArray[1];
+    }
+
+    public String getStart_day_Year() {
+        String[] start_dateArray = start_date.split("-");
+        return start_dateArray[0];
+    }
+
+    public String getEnd_day_Date() {
+        String[] end_dateArray = end_date.split("-");
+        return end_dateArray[2];
+    }
+
+    public String getEnd_day_Month() {
+        String[] end_dateArray = end_date.split("-");
+        return end_dateArray[1];
+    }
+
+    public String getEnd_day_Year() {
+        String[] end_dateArray = end_date.split("-");
+        return end_dateArray[0];
+    }
+
 }
