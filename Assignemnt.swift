@@ -51,23 +51,7 @@ for count in 1...totalStudent{
 print("Total Student: " + String(totalStudent))
 print("Total Class: " + String(totalClass))
 print("--------------------------------------------------------")
-var classA:Int = 0
-var classB:Int = 0
-var classC:Int = 0
-var classD:Int = 0
+
 for student in students{
     print("Class: " + student.classId + ", Student ID: " + student.studentId)
-    if "1" == student.classId{
-        classA += 1
-    }else if "2" == student.classId{
-        classB += 1
-    }else if "3" == student.classId{
-        classC = classC + 1
-    }else{
-        classD = classD + 1
-    }
 }
-print("classA: " + String(classA))
-print("classB: " + String(classB))
-print("classC: " + String(classC))
-print("classD: " + String(classD))
