@@ -1,3 +1,6 @@
+
+
+#Create Home Folder Directory
 $folderPath = "C:\personal"
 New-Item $folderPath -ItemType Directory
 
@@ -17,3 +20,9 @@ $acl.AddAccessRule($ace)
 Set-Acl $folderPath -AclObject $acl
 
 New-SmbShare -Name "Personal" -Path $folderPath -FullAccess "Authenticated Users"
+
+#Create New Quota Template
+
+$action = New-FsrmAction Event -EventType Information -Body "The user [File Owner] is about to reach the end of his available storage."
+$Threshold = New-FsrmQuotaThreshold -Percentage 75 -Action $action
+New-FsrmQuotaTemplate -Name "HomeFolder_Quota" -Size 8GB -Threshold $Threshold

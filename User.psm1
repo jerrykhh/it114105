@@ -107,14 +107,13 @@ function Set-UserHomeFolder([String]$username){
     $acl.SetAccessRuleProtection($True, $False)
     $ace = New-Object System.Security.AccessControl.FileSystemAccessRule("SYSTEM", "FullControl", "ContainerInherit, ObjectInherit", "None", "Allow" )
     $acl.SetAccessRule($ace)
-    $ace = New-Object System.Security.AccessControl.FileSystemAccessRule("Administrators", "FullControl", "None", "None", "Allow" )
+    $ace = New-Object System.Security.AccessControl.FileSystemAccessRule("Administrators", "FullControl", "ContainerInherit, ObjectInherit","InheritOnly", "Allow" )
     $acl.AddAccessRule($ace)
-
     $ace = New-Object System.Security.AccessControl.FileSystemAccessRule($username, "FullControl", "ContainerInherit, ObjectInherit", "None", "Allow" )
     $acl.AddAccessRule($ace)
 
     Set-Acl $folderPath -AclObject $acl
-
+    New-FSRMQuota -Path $folderPath -Size 8GB -Template "HomeFolder_Quota"
 }
 
 function Set-TrainerAdditionalFolder([String] $username){
