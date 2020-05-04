@@ -5,7 +5,8 @@ function New-Trainees([Object] $trainees){
     "Create New Trainee on " + (Get-Date) > .\InvalidPassword.txt
     "Create New Trainee on " + (Get-Date) > .\InvalidPhone.txt
     "Create New Trainee on " + (Get-Date) > .\InvalidEmail.txt
-
+    Check-ADOrgranizationlUnit
+    Check-ADGroup
     foreach($trainee in $trainees){
         
         $enable = Check-TraineeInformation $trainee
@@ -22,6 +23,8 @@ function New-Trainees([Object] $trainees){
 
 function New-Trainers([Object] $trainers){
 
+    Check-ADOrgranizationlUnit
+    Check-ADGroup
     foreach($trainer in $trainers){
         #Get default Password
         $defaultPwd = Get-TrainerDefaultPassword $trainer.LastName $trainer.HKID
@@ -71,10 +74,8 @@ function Get-TrainerList([String] $path) {
 
                   }else{
                       Write-Host "Data Row " + ($i + 1) + "Error" 
-                      
                   }
                   
-  
               }
               
           }
