@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AI Face Blur in Video</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+</head>
+
+<body>
+    <div class="container py-5" style="margin-top: 250px;">
+
+        <!-- For demo purpose -->
+        <header class="text-white text-center">
+            <h1 class="display-4">AI Blur Faces in Video </h1>
+            <p class="lead mb-0">AI will detect the video faces, you can select you want to blur of face </p>
+            <p> </p>
+        </header>
+        <br>
+    
+        <div class="row py-4">
+            <div class="col-lg-6 mx-auto">
+                <form action="/upload" method="POST" enctype="multipart/form-data"> 
+                <!-- Upload image input-->
+                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                    <input id="upload" type="file" name="video" id="video" onchange="readURL(this);" class="form-control border-0">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    </div>
+                </div>
+                
+                <div class="mb-3 text-center" style="margin-top: 80px;">
+                    <button type="submit" id="btnProcess" class="btn btn-outline-light">Process</button>
+                </div>
+                </form>
+    
+            </div>
+        </div>
+    </div>
+    
+    <footer>      
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#btnProcess').click(function(){
+                $(this).html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
+            })
+        });
+    </script>
+</body>
+
+</html>
