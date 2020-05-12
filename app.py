@@ -147,21 +147,20 @@ def render():
                         print('append')
                         detected_face_count = detected_face_count + 1
                 
-        detected_face_index = 0
+
         for face in detected_face:
             matchs = face_recognition.compare_faces(face_encodings, face, tolerance=0.5)
             match_count = 0
             for match in matchs:
                 print(matchs)
-                if match == True and detected_face_index in seletedFaces:
+                if match == True and match_count in seletedFaces:
                     print('match')
                     print(match)
                     match_check = True
                     match_list.append(match_count)
                     print(match_count)
                 match_count = match_count + 1
-            detected_face_index = detected_face_index + 1
-
+           
 
                         #match_count = 0
                         #for match in matchs:
