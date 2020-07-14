@@ -8,6 +8,7 @@ body{
   background-color: #fafafa;
   font-size: 15px;
   font-family: "proxima_nova", Arial, "Heiti TC", "Microsoft JhengHei", "Microsoft Yahei", "PMingLiU", sans-serif;
+  overflow-y: hidden;
 }
 
 ol{
@@ -23,6 +24,21 @@ input{
 
 a, a:hover, a:visited{
   text-decoration: none;
+  color: black;
+}
+
+footer{
+  background-color: #353535;
+  height: 40px;
+  margin-top: 15px;
+  margin-bottom: 0;
+  bottom: 0;
+}
+
+footer p{
+  color: white;
+  padding: 10px;
+  text-align: right;
 }
 
 .selectWrapper {
@@ -154,6 +170,11 @@ a, a:hover, a:visited{
   padding: 15px;
 }
 
+.nav .profile{
+  text-align: center;
+  color: black;
+}
+
 .main{
   width: 87%;
   padding: 15px;
@@ -163,6 +184,24 @@ a, a:hover, a:visited{
   font-weight: 600;
 /* box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);*/
   color: black;
+}
+.nav .profile-detials{
+  border: 1px #dadce0 solid;
+  padding: 20px;
+  width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  text-align: center;
+  transition: all 300ms ease-in-out;
+}
+
+.nav .profile-detials:hover{
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+}
+
+.nav .profile .profile-content{
+  left: 40%;
+  position: absolute;
 }
 
 .nav li a:hover{
@@ -227,11 +266,11 @@ a, a:hover, a:visited{
   max-width: 1100px;
   font-size: 14px;
   margin: 0 auto;
-  margin-bottom: 90px;
-  border-radius: 4px;
-  min-height: 900px;
+  min-height: 720px;
   padding: 70px 88px;
   padding-bottom: 0;
+  max-height: 720px;
+  overflow-y: scroll;
 }
 
 .main input[type="button"]{
@@ -297,9 +336,23 @@ a, a:hover, a:visited{
   background-color: #f0f0f0;
 }
 
-.profile-table-cell, .processing-table-head, .processing-table-cell,.processed-table-head, .processed-table-cell, .order-table-head, .order-table-cell, .item-table-head, .item-table-cell{
+.profile-table-cell, .profile-pwd-table-cell, .processing-table-head, .processing-table-cell,.processed-table-head, .processed-table-cell, .order-table-head, .order-table-cell, .item-table-head, .item-table-cell{
   display: table-cell;
   padding-top: 15px;
+}
+
+.profile-pwd-h-table-cell{
+  padding-top: 15px;
+  display: table-cell;
+  width: 5%;
+}
+
+.profile-pwd-table-cell input{
+  width: 45%;
+}
+
+.profile-pwd-table-cell{
+  width: 20%;
 }
 
 .item-table-head{
@@ -366,6 +419,10 @@ a, a:hover, a:visited{
   width: 14%;
 }
 
+.store-item-StQty{
+  width: 12%;
+}
+
 .store-item-Status{
   width: 10%;
 }
@@ -384,10 +441,6 @@ a, a:hover, a:visited{
 
 .store-item-Action{
   width: 10%;
-}
-
-.shop-information{
-    margin-bottom: 50px;
 }
 
 .store-item-Action button, .order-table button{
@@ -498,7 +551,6 @@ cursor: pointer;
 
 .main .content .payment-button button{
   padding: 15px 24px;
-  margin-top: 135px;
   background-color: lightslategray;
   color: white;
   border: 0px;
@@ -506,8 +558,9 @@ cursor: pointer;
   font-weight: 700;
   cursor: pointer;
   left: 50%;
-  position: absolute;
   width: 180px;
+  margin-top: 100px;
+  margin-bottom: 50px;
 }
 
 .main .content .checkout-button button{
@@ -635,11 +688,6 @@ cursor: pointer;
   font-weight: bold;
 }
 
-.store-list .card h1{
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
 .store-list a {
   text-decoration: none;
   font-size: 22px;
@@ -685,7 +733,6 @@ cursor: pointer;
     border: 1px solid #BEBEBE;
     border-left-width: 5px;
     border-radius: 0px;
-    background-color: white;
 }
 .bs-callout h5 {
     margin-top: 0;
@@ -727,3 +774,8 @@ cursor: pointer;
     border: none;
     background-color: white;
 }
+
+
+
+
+---

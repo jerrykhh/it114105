@@ -137,6 +137,7 @@
         </div>
       </div>
     </div>
+    <footer><p>Hong Kong Cube Shop Shopping System © 2020</p></footer>
     <script src="static/js/shopping.js"></script>
   </body>
 </html>

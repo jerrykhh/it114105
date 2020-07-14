@@ -19,15 +19,32 @@ function checkQty(id){
 
 function addToCart(storeId, productId){
   var cartElemt = document.getElementById("cart");
+  var productQty = document.getElementById(storeId + "-" + productId).value;
+  console.log("test1");
   if (cartElemt != null){
 
   }else{
-    let index = 0;
-    var elemt = document.getElementsByTagName("ol")[0];
-    for(var i = 0; i < elemt.childElementCount; i++){
-        if(i == index){
-        elemt.children[i].innerHTML += '<li id="cart"><a href="cart" class="selected"><span><div class="item-count">1</div> Cart</span></a></li>';
+    console.log("test");
+    var xhr = new XMLHttpRequest();
+    var url = "addToCart";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            if(json.statue == true){
+              let index = 0;
+              var elemt = document.getElementsByTagName("ol")[0];
+              for(var i = 0; i < elemt.childElementCount; i++){
+                  if(i == index){
+                  elemt.children[i].innerHTML += '<li id="cart"><a href="cart" class="selected"><span><div class="item-count">' + json.itemCount +'</div> Cart</span></a></li>';
+                  }
+              }
+            }
         }
-    }
+    };
+    var data = JSON.stringify({"storeId": storeId, "productId": productId, "qty": productQty});
+    xhr.send(data);
+
   }
 }

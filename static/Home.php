@@ -10,8 +10,15 @@
     <div class="title-nav">
       <h1 class="title">Hong Kong Cube Shop Shopping System</h1>
     </div>
-    <div class="content-container">
+    <div class="content-container"  style="margin-top:41px">
       <div class="nav">
+        <a href="profile">
+          <div class="profile-detials">
+            <i class="fas fa-user-alt fa-lg"></i>
+            <h3>Account</h3>
+            <p><?php echo $_SESSION['customer']['customerEmail']?></p>
+          </div>
+        </a>
           <ol>
             <li>
               <a href="#" class="selected">
@@ -21,11 +28,6 @@
             <li>
               <a href="orderhistory" class="">
                 <span><i class="fas fa-history fa-lg"></i>Order Records</span>
-              </a>
-            </li>
-            <li>
-              <a href="profile" class="">
-                <span><i class="fas fa-user-cog fa-lg"></i>Setting</span>
               </a>
             </li>
             <li>
@@ -48,7 +50,7 @@
             <div class="card">
               <img src="static/image/default-store.jpg" alt="default-store-icon" style="width:100%">
               <div class="card-content">
-                <h1><?php echo $row["ConsignmentStoreName"] ?></h1>
+                <h2><?php echo $row["ConsignmentStoreName"] ?></h2>
               </div>
               <p><a href="store?id=<?php echo $row["consignmentStoreID"] ?>"><button>View</button></a></p>
             </div>
@@ -57,5 +59,8 @@
         </div>
       </div>
     </div>
+    <footer>
+      <p>Hong Kong Cube Shop Shopping System © 2020</p>
+    </footer>
   </body>
 </html>

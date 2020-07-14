@@ -12,28 +12,30 @@
     </div>
     <div class="content-container">
       <div class="nav">
-        <ol>
-          <li>
-            <a href="home" class="">
-              <span><i class="fas fa-shopping-bag fa-lg"></i>Order</span>
-            </a>
-          </li>
-          <li>
-            <a href="orderhistory" class="selected">
-              <span><i class="fas fa-history fa-lg"></i>Order Records</span>
-            </a>
-          </li>
-          <li>
-            <a href="profile" class="">
-              <span><i class="fas fa-user-cog fa-lg"></i>Setting</span>
-            </a>
-          </li>
-          <li>
-            <a href="logout" class="logout">
-              <span><i class="fas fa-sign-out-alt fa-lg"></i>Logout</span>
-            </a>
-          </li>
-        </ol>
+        <a href="profile">
+          <div class="profile-detials">
+            <i class="fas fa-user-alt fa-lg"></i>
+            <h3>Account</h3>
+            <p><?php echo $_SESSION['customer']['customerEmail']?></p>
+          </div>
+        </a>
+          <ol>
+            <li>
+              <a href="home" class="">
+                <span><i class="fas fa-shopping-bag fa-lg"></i>Order</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="selected">
+                <span><i class="fas fa-history fa-lg"></i>Order Records</span>
+              </a>
+            </li>
+            <li>
+              <a href="logout" class="logout">
+                <span><i class="fas fa-sign-out-alt fa-lg"></i>Logout</span>
+              </a>
+            </li>
+          </ol>
       </div>
       <div class="main">
         <div class="content">
@@ -100,5 +102,6 @@
         </div>
       </div>
     </div>
+    <footer><p>Hong Kong Cube Shop Shopping System © 2020</p></footer>
   </body>
 </html>

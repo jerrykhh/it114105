@@ -12,28 +12,30 @@
     </div>
     <div class="content-container">
       <div class="nav">
-        <ol>
-          <li>
-            <a href="home" class="">
-              <span><i class="fas fa-shopping-bag fa-lg"></i>Order</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="selected">
-              <span><i class="fas fa-history fa-lg"></i>Order Records</span>
-            </a>
-          </li>
-          <li>
-            <a href="profile" class="">
-              <span><i class="fas fa-user-cog fa-lg"></i>Setting</span>
-            </a>
-          </li>
-          <li>
-            <a href="logout" class="logout">
-              <span><i class="fas fa-sign-out-alt fa-lg"></i>Logout</span>
-            </a>
-          </li>
-        </ol>
+        <a href="profile">
+          <div class="profile-detials">
+            <i class="fas fa-user-alt fa-lg"></i>
+            <h3>Account</h3>
+            <p><?php echo $_SESSION['customer']['customerEmail']?></p>
+          </div>
+        </a>
+          <ol>
+            <li>
+              <a href="home" class="">
+                <span><i class="fas fa-shopping-bag fa-lg"></i>Order</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="selected">
+                <span><i class="fas fa-history fa-lg"></i>Order Records</span>
+              </a>
+            </li>
+            <li>
+              <a href="logout" class="logout">
+                <span><i class="fas fa-sign-out-alt fa-lg"></i>Logout</span>
+              </a>
+            </li>
+          </ol>
       </div>
       <div class="main">
         <div class="content">
@@ -49,14 +51,17 @@
               <div class="processing-table-head list-item-Action">Action</div>
             </div>
             <div class="processing-table-body">
+
+              <?php  while($row = $data->fetch_array(MYSQLI_ASSOC)){ ?>
               <div class="processing-table-row">
-                <div class="processing-table-cell list-item-OrderId">1</div>
-                <div class="processing-table-cell list-item-ShopName">1</div>
-                <div class="processing-table-cell list-item-OrderDate">30/12/2020</div>
+                <div class="processing-table-cell list-item-OrderId"><?php echo $row['orderId'] ?></div>
+                <div class="processing-table-cell list-item-ShopName"><?php echo $row['ConsignmentStoreName'] ?></div>
+                <div class="processing-table-cell list-item-OrderDate"><?php echo $row['orderDa'] ?></div>
                 <div class="processing-table-cell list-item-Status">Awaiting</div>
                 <div class="processing-table-cell list-item-Amount">$50000.00</div>
                 <div class="processing-table-cell list-item-Action"><a href="#"><button><i class="fas fa-eye"></i></button></a></div>
               </div>
+            <?php } ?>
             </div>
           </div>
           <div class="processed-table-container">
@@ -109,5 +114,6 @@
         </div>
       </div>
     </div>
+    <footer><p>Hong Kong Cube Shop Shopping System © 2020</p></footer>
   </body>
 </html>

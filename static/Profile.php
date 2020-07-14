@@ -12,6 +12,13 @@
     </div>
     <div class="content-container">
       <div class="nav">
+        <a href="#">
+          <div class="profile-detials">
+            <i class="fas fa-user-alt fa-lg"></i>
+            <h3>Account</h3>
+            <p><?php echo $_SESSION['customer']['customerEmail']?></p>
+          </div>
+        </a>
           <ol>
             <li>
               <a href="home" class="">
@@ -21,11 +28,6 @@
             <li>
               <a href="orderhistory" class="">
                 <span><i class="fas fa-history fa-lg"></i>Order Records</span>
-              </a>
-            </li>
-            <li>
-              <a href="profile" class="selected">
-                <span><i class="fas fa-user-cog fa-lg"></i>Setting</span>
               </a>
             </li>
             <li>
@@ -63,39 +65,34 @@
                      </div>
                   </div>
                </div>
-            </div>
-            <input type="button" value="Save"/>
-          </form>
           </div>
-          <div class="account-password">
-            <h1>Change Password</h1>
             <br>
-            <form action="updaetpassword" method="POST" id="updatePasswordForm">
             <div class="profile-table">
               <div class="profile-table-body">
                 <div class="profile-table-row">
-                  <div class="profile-table-cell">Current Password:</div>
-                  <div class="profile-table-cell">
+                  <div class="profile-pwd-h-table-cell">Current Password:</div>
+                  <div class="profile-pwd-table-cell">
                     <input type="password" name="currentPassowd" id="currentPassowd" value="">
                   </div>
                 </div>
                 <div class="profile-table-row">
-                  <div class="profile-table-cell">New Password:</div>
-                  <div class="profile-table-cell">
+                  <div class="profile-pwd-h-table-cell">New Password:</div>
+                  <div class="profile-pwd-table-cell">
                     <input type="password" name="password" id="password" value="">
                   </div>
                 </div>
                 <div class="profile-table-row">
-                  <div class="profile-table-cell">New Password Again:</div>
-                  <div class="profile-table-cell"><input type="password" name="cfmPassword" id="cfmPassword" value=""></div>
+                  <div class="profile-pwd-h-table-cell">New Password Again:</div>
+                  <div class="profile-pwd-table-cell"><input type="password" name="cfmPassword" id="cfmPassword" value=""></div>
                 </div>
               </div>
             </div>
             <input type="button" onClick="profilePassword()" value="Save"/>
-          </form>
           </div>
+          </form>
         </div>
       </div>
     </div>
+    <footer><p>Hong Kong Cube Shop Shopping System © 2020</p></footer>
   </body>
 </html>

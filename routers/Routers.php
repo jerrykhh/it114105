@@ -1,5 +1,6 @@
 <?php
-
+  session_start();
+  if(isset($_SESSION['customer'])){
   Route::map('index', function(){
     $controller = new Index();
     $controller->render();
@@ -43,6 +44,12 @@
     $controller->render();
   });
 
+  Route::map('addToCart', function(){
+    $controller = new AddToCart();
+  });
+}else{
+  header("location: ../loginUI.php");
+}
 
 
 
