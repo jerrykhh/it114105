@@ -1,7 +1,6 @@
 <?php
 class AddToCart extends Controller{
   public function __construct(){
-    session_start();
     $this->processJSON();
   }
 
@@ -26,10 +25,8 @@ class AddToCart extends Controller{
       if(!$checkDup){
         $_SESSION['store'] = $obj['storeId'];
         if(isset($_SESSION['products'])){
-          echo "test";
           $_SESSION['products'] += array($obj['productId']=> $obj['qty']);
         }else{
-          echo "test2";
           $_SESSION['products'] = array($obj['productId']=> $obj['qty']);
         }
       }

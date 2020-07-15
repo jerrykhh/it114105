@@ -7,7 +7,7 @@ class DatabaseConnection {
 	private $password;
 
   public function __construct(){
-    $this->hostname = "localhost";
+    $this->hostname = "127.0.0.1";
     $this->database = "ProjectDB";
     $this->username = "root";
     $this->password = "";

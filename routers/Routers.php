@@ -12,7 +12,6 @@
 
   Route::map('login', function(){
     $controller = new Login();
-
   });
 
   Route::map('home', function(){
@@ -40,13 +39,34 @@
   });
 
   Route::map('cart', function(){
-    $controller = new Cart();
-    $controller->render();
+    if(isset($_SESSION["store"]) && isset($_SESSION["products"])){
+      $controller = new Cart();
+      $controller->render();
+    }else{
+      header("location: home");
+    }
   });
 
   Route::map('addToCart', function(){
     $controller = new AddToCart();
   });
+
+  Route::map('removeInCart', function(){
+    $controller = new RemoveInCart();
+  });
+
+  Route::map('checkout', function(){
+    $controller = new Checkout();
+  });
+
+  Route::map('viewCart', function(){
+    $controller = new ViewCart();
+  });
+
+  Route::map('checking', function(){
+    $controller = new Checking();
+  });
+
 }else{
   header("location: ../loginUI.php");
 }

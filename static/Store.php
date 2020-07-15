@@ -5,6 +5,7 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="./static/css/fontawesome.css">
     <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="./static/css/modal.css">
   </head>
   <body>
     <div class="title-nav">
@@ -81,12 +82,28 @@
             </div>
           </div>
           <div class="checkout-button">
-            <a href="cart"><button type="button" name="button">Check out <i class="fas fa-shopping-cart"></i></button></a>
+            <input type="hidden" id="storeId" name="" value="<?php echo $_GET['id'] ?>">
+
           </div>
         </div>
       </div>
     </div>
+    <div class="modal-container" id="wraning-modal">
+    <!-- Modal  -->
+      <div class="modal">
+        <h2>System Message</h2>
+        <br>
+        <p>You only order the item in one shop. If you still want to go to another store. Your cart will clear all.</p>
+        <br>
+        <input type="button" class="btn-confirm" value="Confirm" onclick="clearCart()">
+        <a href="home"><input type="button" class="btn-cancel" value="Back"></a>
+      </div>
+    <!-- Background, click to close -->
+      <a class="modal-bg"></a>
+   </div>
     <footer><p>Hong Kong Cube Shop Shopping System © 2020</p></footer>
     <script src="static/js/shopping.js"></script>
+    <script src="static/js/cart.js"></script>
+    <script src="static/js/initOrder.js"></script>
   </body>
 </html>

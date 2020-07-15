@@ -15,7 +15,6 @@ class Controller {
   }
 
   public function render(){
-    session_start();
     View::render($this->viewName, $this->data);
   }
 

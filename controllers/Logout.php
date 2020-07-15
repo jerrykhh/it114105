@@ -2,7 +2,8 @@
 class Logout extends Controller{
 
  function __construct(){
-   header('Location: index');
+   session_destroy();
+   header('Location: ../loginUI.php');
  }
 }
 

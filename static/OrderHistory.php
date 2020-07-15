@@ -39,7 +39,13 @@
       </div>
       <div class="main">
         <div class="content">
-          <div class="message"></div>
+          <div class="message">
+            <?php
+             if (isset($_GET['checkout'])){
+              echo '<div class="bs-callout bs-callout-success"><h4>Order Created</h4>Order #' . $_GET["checkout"].' created</div>';
+            }
+             ?>
+          </div>
           <div class="processing-table-header-cell">Processing Orders</div>
           <div class="processing-table">
             <div class="processing-table-heading">
@@ -52,16 +58,17 @@
             </div>
             <div class="processing-table-body">
 
-              <?php  while($row = $data->fetch_array(MYSQLI_ASSOC)){ ?>
+              <?php foreach($data as $row){ ?>
+              <?php  if($row['status'] < 3) {?>
               <div class="processing-table-row">
-                <div class="processing-table-cell list-item-OrderId"><?php echo $row['orderId'] ?></div>
+                <div class="processing-table-cell list-item-OrderId"><?php echo $row['orderID'] ?></div>
                 <div class="processing-table-cell list-item-ShopName"><?php echo $row['ConsignmentStoreName'] ?></div>
-                <div class="processing-table-cell list-item-OrderDate"><?php echo $row['orderDa'] ?></div>
-                <div class="processing-table-cell list-item-Status">Awaiting</div>
-                <div class="processing-table-cell list-item-Amount">$50000.00</div>
-                <div class="processing-table-cell list-item-Action"><a href="#"><button><i class="fas fa-eye"></i></button></a></div>
+                <div class="processing-table-cell list-item-OrderDate"><?php echo $row['orderDateTime'] ?></div>
+                <div class="processing-table-cell list-item-Status"><?php echo $status = ($row['status'] == 1)? "Delivery": "Awaiting"?></div>
+                <div class="processing-table-cell list-item-Amount">$<?php echo $row['totalPrice'] ?></div>
+                <div class="processing-table-cell list-item-Action"><a href="orderhistory?id=<?php echo $row['orderID'] ?>"><button><i class="fas fa-eye"></i></button></a></div>
               </div>
-            <?php } ?>
+            <?php }} ?>
             </div>
           </div>
           <div class="processed-table-container">
@@ -76,38 +83,17 @@
                 <div class="processed-table-head list-item-Action">Action</div>
               </div>
               <div class="processed-table-body">
+              <?php  foreach($data as $row){ ?>
+                <?php  if($row['status'] == 3) {?>
                 <div class="processed-table-row">
-                  <div class="processed-table-cell list-item-OrderId">1</div>
-                  <div class="processed-table-cell list-item-ShopName">1</div>
-                  <div class="processed-table-cell list-item-OrderDate">30/12/2020</div>
+                  <div class="processed-table-cell list-item-OrderId"><?php echo $row['orderID'] ?></div>
+                  <div class="processed-table-cell list-item-ShopName"><?php echo $row['ConsignmentStoreName'] ?></div>
+                  <div class="processed-table-cell list-item-OrderDate"><?php echo $row['orderDateTime'] ?></div>
                   <div class="processed-table-cell list-item-Status">Completed</div>
-                  <div class="processed-table-cell list-item-Amount">$50000.00</div>
-                  <div class="processed-table-cell list-item-Action"><a href="#"><button><i class="fas fa-eye"></i></button></a></div>
+                  <div class="processed-table-cell list-item-Amount">$<?php echo $row['totalPrice'] ?></div>
+                  <div class="processed-table-cell list-item-Action"><a href="orderhistory?id=<?php echo $row['orderID'] ?>"><button><i class="fas fa-eye"></i></button></a></div>
                 </div>
-                <div class="processed-table-row">
-                  <div class="processed-table-cell list-item-OrderId">1</div>
-                  <div class="processed-table-cell list-item-ShopName">1</div>
-                  <div class="processed-table-cell list-item-OrderDate">30/12/2020</div>
-                  <div class="processed-table-cell list-item-Status">Completed</div>
-                  <div class="processed-table-cell list-item-Amount">$50000.00</div>
-                  <div class="processed-table-cell list-item-Action"><a href="#"><button><i class="fas fa-eye"></i></button></a></div>
-                </div>
-                <div class="processed-table-row">
-                  <div class="processed-table-cell list-item-OrderId">1</div>
-                  <div class="processed-table-cell list-item-ShopName">1</div>
-                  <div class="processed-table-cell list-item-OrderDate">30/12/2020</div>
-                  <div class="processed-table-cell list-item-Status">Completed</div>
-                  <div class="processed-table-cell list-item-Amount">$50000.00</div>
-                  <div class="processed-table-cell list-item-Action"><a href="#"><button><i class="fas fa-eye"></i></button></a></div>
-                </div>
-                <div class="processed-table-row">
-                  <div class="processed-table-cell list-item-OrderId">1</div>
-                  <div class="processed-table-cell list-item-ShopName">1</div>
-                  <div class="processed-table-cell list-item-OrderDate">30/12/2020</div>
-                  <div class="processed-table-cell list-item-Status">Completed</div>
-                  <div class="processed-table-cell list-item-Amount">$50000.00</div>
-                  <div class="processed-table-cell list-item-Action"><a href="#"><button><i class="fas fa-eye"></i></button></a></div>
-                </div>
+                <?php }} ?>
               </div>
             </div>
         </div>
@@ -115,5 +101,6 @@
       </div>
     </div>
     <footer><p>Hong Kong Cube Shop Shopping System © 2020</p></footer>
+    <script src="./static/js/initOrder.js"></script>
   </body>
 </html>
