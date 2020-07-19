@@ -103,7 +103,7 @@
    </div>
     <footer><p>Hong Kong Cube Shop Shopping System © 2020</p></footer>
     <script src="static/js/shopping.js"></script>
-    <script src="static/js/cart.js"></script>
     <script src="static/js/initOrder.js"></script>
+    <script src="static/js/cart.js"></script>
   </body>
 </html>
