@@ -8,7 +8,6 @@ class Checkout extends Controller{
   }
 
   public function checkout(){
-  //  $date = date('Y-m-d H:i:s');
     $storeId = $_POST["store"];
     $address = $_POST["address"];
     $totalPrice = 0.0;
@@ -31,6 +30,11 @@ class Checkout extends Controller{
           echo "lopo";
           $insertItemResult = $this->database->query("INSERT INTO orderitem VALUES(?,?,?,?)", "iiid",array($insert_id, $row->getId(), $row->getQty(), $row->getPrice()));
           $updateItemStock = $this->database->query("UPDATE goods SET remainingStock = remainingStock - ? WHERE goodsNumber = ?", "ii", array($row->getQty(), $row->getId()));
+          $checkItemStockResult = $this->database->qurey("SELECT remainingStock FROM goods WHERE goodsNumber = ?", "i", array($row->getId()));
+          $result = $checkItemStockResult->fetch_array(MYSQLI_ASSOC);
+          if($result["remainingStock"] < 1){
+            $updateAvaliable = $this->database->query("UPDATE goods SET status = 2 WHERE goodsNumber = ?", "i", array($row->getId()));
+          }
       }
       unset($_SESSION["products"]);
       unset($_SESSION["storeId"]);
