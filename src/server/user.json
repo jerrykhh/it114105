@@ -1,0 +1,15 @@
+{
+    "user1": {
+        "username": "user1",
+        "password": "Abcabc123",
+        "appointments": [
+            "YbS7dTegCLRP8R6H",
+            "8snJp2kUDcAxSack"
+        ]
+    },
+    "user2": {
+        "username": "user2",
+        "password": "Abcabc123",
+        "appointments": []
+    }
+}

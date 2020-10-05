@@ -1,0 +1,20 @@
+{
+    "hh1RScdeZlcLtQoo": {
+        "uid": "hh1RScdeZlcLtQoo",
+        "agent": "abc123",
+        "rental": "9000",
+        "sale": "390",
+        "address": "荔枝角道1號",
+        "district": "Sham Shui Po",
+        "hidden": true
+    },
+    "sjG0x0Vzr6QLVE5i": {
+        "uid": "sjG0x0Vzr6QLVE5i",
+        "agent": "abc123",
+        "rental": "10000",
+        "sale": "400",
+        "address": "馬仔坑道1號",
+        "district": "Wong Tai Sin",
+        "hidden": false
+    }
+}

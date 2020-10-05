@@ -1,0 +1,22 @@
+{
+    "YbS7dTegCLRP8R6H": {
+        "uid": "YbS7dTegCLRP8R6H",
+        "status": "finished",
+        "date": "2010-10-10 10:10:10",
+        "place": "park",
+        "rankForAgent": "10",
+        "rankForUser": "10",
+        "commentForUser": "good",
+        "commentForAgent": "nice"
+    },
+    "8snJp2kUDcAxSack": {
+        "uid": "8snJp2kUDcAxSack",
+        "status": "confirmed",
+        "date": "2010-10-10 11:11:11",
+        "place": "park",
+        "rankForAgent": "",
+        "rankForUser": "",
+        "commentForUser": "",
+        "commentForAgent": ""
+    }
+}

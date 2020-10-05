@@ -1,0 +1,15 @@
+{
+    "manager1": {
+        "username": "manager1",
+        "password": "password",
+        "agents": [
+            "abc123",
+            "agent2"
+        ]
+    },
+    "manager2": {
+        "username": "manager1",
+        "password": "password",
+        "agents": []
+    }
+}
