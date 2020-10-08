@@ -1,15 +1,25 @@
-{
-    "user1": {
-        "username": "user1",
-        "password": "Abcabc123",
-        "appointments": [
-            "YbS7dTegCLRP8R6H",
-            "8snJp2kUDcAxSack"
-        ]
-    },
-    "user2": {
-        "username": "user2",
-        "password": "Abcabc123",
-        "appointments": []
-    }
-}
+[
+        {
+            "id": 1,
+            "username": "user1",
+            "firstName": "Jerry",
+            "lastName": "Kwok",
+            "email": "jerry@gmail.com",
+            "password": "Abcabc123",
+            "tel": "12345678",
+            "appointments": [
+                "YbS7dTegCLRP8R6H",
+                "8snJp2kUDcAxSack"
+            ]
+        },
+        {
+            "id": 2,
+            "username": "user2",
+            "firstName": "Tony",
+            "lastName": "Wong",
+            "email": "tony@gmail.com",
+            "password": "Abcabc123",
+            "tel": "87654321",
+            "appointments": []
+        }
+]

@@ -1,20 +1,50 @@
-{
-    "hh1RScdeZlcLtQoo": {
+[
+    {
         "uid": "hh1RScdeZlcLtQoo",
         "agent": "abc123",
         "rental": "9000",
-        "sale": "390",
+        "sale": "",
         "address": "荔枝角道1號",
         "district": "Sham Shui Po",
-        "hidden": true
+        "hidden": true,
+        "pin": true,
+        "comment": "交通方便",
+        "size": "390"
     },
-    "sjG0x0Vzr6QLVE5i": {
+    {
         "uid": "sjG0x0Vzr6QLVE5i",
         "agent": "abc123",
-        "rental": "10000",
+        "rental": "",
+        "sale": "400",
+        "address": "荔枝角道2號",
+        "district": "Wong Tai Sin",
+        "hidden": false,
+        "pin": false,
+        "comment": "高層",
+        "size": "391"
+    },
+    {
+        "uid": "6YfdJK8JZYyyccCd",
+        "agent": "agent2",
+        "rental": "",
         "sale": "400",
         "address": "馬仔坑道1號",
         "district": "Wong Tai Sin",
-        "hidden": false
+        "hidden": false,
+        "pin": false,
+        "comment": "高層",
+        "size": "391"
+    },
+    {
+        "uid": "ctsicFxEFv1ikmNr",
+        "agent": "agent2",
+        "rental": "",
+        "sale": "400",
+        "address": "馬仔坑道2號",
+        "district": "Wong Tai Sin",
+        "hidden": false,
+        "pin": false,
+        "comment": "空氣清新",
+        "size": "391"
     }
-}
+]

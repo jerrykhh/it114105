@@ -1,33 +1,67 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import queryString from 'query-string';
 import './Login.css';
 import UserLoginForm from './UserLoginForm';
 
-class LoginForm extends Component{
+class LoginForm extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            status: true,
-            errMess: null
+            errMess: [],
+            sucMess: []
+        };   
+    }
+
+    showErrMessage = (mes, type) => {
+        //0: error, 1:succesful
+        if (mes == null) {
+            this.setState({ sucMess: [], errMess:[] });
+        } else {
+            switch (type) {
+                case 1:
+                    this.setState({
+                        sucMess: this.state.sucMess.concat(mes)
+                    });
+                    break;
+
+                default:
+                    this.setState({
+                        errMess: this.state.errMess.concat(mes)
+                    });
+                    break;
+            }
         }
     }
 
-    showErrMessage = (mes) => {
-        this.setState({status: false, errMess: mes});
+    componentDidMount = () =>{
+        const values = queryString.parse(this.props.location.search)
+        let username = values.reg;
+        if(username !== undefined){
+            this.setState({
+                sucMess: this.state.sucMess.concat("username: " + decodeURI(username) + " is created")
+            });
+        }
     }
 
+
     render = () => {
-        
-        return(
+        var mesList = null;
+        if (this.state.errMess.length > 0) {
+            mesList = this.state.errMess.map((message) => <div className="bs-callout bs-callout-danger"><h4>Login Failed</h4>{message}</div>);
+        }else if(this.state.sucMess.length > 0){
+            mesList = this.state.sucMess.map((message) => <div className="bs-callout bs-callout-success"><h4>Registration Successful</h4>{message}</div>);
+        }
+        return (
             <div className="login-container">
-                <div className="login-message"></div>
                 <div className="login-form">
+                    {mesList}
                     <h1>Dream House Online</h1>
                     <div className="login-form-detial">
-                        <UserLoginForm/>
+                        <UserLoginForm argue={this.showErrMessage} />
                     </div>
                 </div>
-            </div>  
+            </div>
         );
 
     }

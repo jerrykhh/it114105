@@ -1,7 +1,11 @@
-{
-    "abc123": {
-        "username": "abc123",
+[
+    {
+        "username": "agent1",
+        "firstName": "Ivy",
+        "lastName": "Cheung",
+        "email": "ivy01@gmail.com",
         "password": "qwer1234",
+        "tel": "12345678",
         "properties": [
             "hh1RScdeZlcLtQoo",
             "sjG0x0Vzr6QLVE5i"
@@ -12,11 +16,16 @@
         ],
         "enable": true
     },
-    "agent2": {
+    {
         "username": "agent2",
+        "firstName": "Max",
+        "lastName": "Wong",
+        "email": "maxwong@gmail.com",
         "password": "qwer1234",
+        "tel": "12345678",
         "properties": [],
-        "appointments": []
-    },
-    "enable": false
-}
+        "appointments": [],
+        "enable": false
+    }
+    
+]
