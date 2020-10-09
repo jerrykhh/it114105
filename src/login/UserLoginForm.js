@@ -47,6 +47,7 @@ class UserLoginForm extends Component{
                 this.setState({redirect: route});
                 isNotFound = false;
                 localStorage.setItem('username', this.state.username);
+                localStorage.setItem('id', userObj.id);
                 return;
             }else{
                 if(userObj.username === this.state.username && userObj.password !== this.state.password){

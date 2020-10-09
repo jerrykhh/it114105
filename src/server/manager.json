@@ -6,11 +6,7 @@
         "lastName": "Wong",
         "email": "jerry@gmail.com",
         "password": "password",
-        "tel": "12345678",
-        "agents": [
-            "abc123",
-            "agent2"
-        ]
+        "tel": "12345678"
     },
     {
         "id": 2,
@@ -19,7 +15,6 @@
         "lastName": "Kwan",
         "email": "iriskwan@gmail.com",
         "password": "password",
-        "tel": "12345678",
-        "agents": []
+        "tel": "12345678"
     }
 ]

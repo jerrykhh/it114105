@@ -16,10 +16,11 @@ img{
      max-height: 100%;
 }
 
- a{
+a{
     font-size: 10px;
     color: black;
     margin-top: 40px;
+    text-decoration: none;
 }
 
 .login-form-btnLogin{

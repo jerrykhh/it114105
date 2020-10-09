@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "username": "agent1",
         "firstName": "Ivy",
         "lastName": "Cheung",
@@ -17,6 +18,7 @@
         "enable": true
     },
     {
+        "id": 2,
         "username": "agent2",
         "firstName": "Max",
         "lastName": "Wong",

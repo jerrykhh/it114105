@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Route, Switch } from "react-router-dom";
 import LoginForm from './login/LoginForm';
 import SignUpForm from './login/SignUpForm';
-import ManagerHome from './user/manager/ManagerHome';
+import ManagerTemplate from './user/manager/ManagerTemplate';
 //import SignUp from './SignUp';
 
 
@@ -15,8 +15,14 @@ class AppRouter extends React.Component {
                     <Route exact path="/" component={LoginForm} />
                     <Route path="/index" component={LoginForm} />
                     <Route path="/signup" component={SignUpForm}/>
-                    <Route path="/manager/home" component={ManagerHome}/>
+                    <Route path="/manager/home" component={ManagerTemplate}/>
+                    <Route path="/manager/profile" component={ManagerTemplate}/>
+                    <Route path="/manager/appointment" component={ManagerTemplate}/>
+                    <Route path="/manager/comment" component={ManagerTemplate}/>
+                    <Route path="/manager/customer/:id" component={ManagerTemplate}/>
+                    <Route path="/manager/customer" component={ManagerTemplate}/>
                     
+                    <Route path="/manager/agent" component={ManagerTemplate}/>
                 </Switch>
             </HashRouter>
         );
