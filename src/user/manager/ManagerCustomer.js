@@ -55,7 +55,7 @@ class ManagerCustomer extends Component {
             actions={[
               {
                 tooltip: 'Remove All Selected Users',
-                icon: 'delete',
+                icon: tableIcons.Delete,
                 onClick: (evt, data) => this.state.rows.forEach((obj, index) => {
                     if(obj.id == data[0].id){
                         var newRows = this.state.rows;
