@@ -184,7 +184,7 @@ export default function ManagerTemplate() {
                 open={openProfile}
                 onClose={handleClose}
               >
-                <Link to='profile'><MenuItem>Profile</MenuItem></Link>
+                <Link to='/manager/profile'><MenuItem>Profile</MenuItem></Link>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
