@@ -10,7 +10,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
-
 import userJson from '../../server/user.json';
 import appoJson from '../../server/appointment.json';
 

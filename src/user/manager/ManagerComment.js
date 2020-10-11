@@ -7,8 +7,8 @@ import tableIcons from './TableIcon';
 
 const rows = [];
 
-const createData = (id, status,date,place, commentFromuser, commentFromAgent, username, agentName) =>{
-     return {id, status, date, place, username, commentFromuser, agentName, commentFromAgent}
+const createData = (id,date, commentFromuser, commentFromAgent, username, agentName) =>{
+     return {id, date, username, commentFromuser, agentName, commentFromAgent}
 }
 
 data.forEach((obj, index) => {
@@ -30,7 +30,7 @@ data.forEach((obj, index) => {
         });
     });
     if(obj.status === "finished")
-        rows.push(createData(obj.uid, obj.status, obj.date, obj.place, obj.cfu ,obj.cfa, username, agentName));
+        rows.push(createData(obj.uid, obj.status, obj.date, obj.cfu ,obj.cfa, username, agentName));
 });
 
 
@@ -50,7 +50,6 @@ class ManagerComment extends Component{
             columns={[
               { title: '# id', field: 'id', defaultGroupOrder: 0 },
               { title: 'Date', field: 'date', type: "date" },
-              { title: 'Place', field: 'place', type: 'string' },
               { title: 'Username(Customer)', field: 'username', type: 'string'},
               { title: 'Comment(Customer)', field: 'commentFromuser', type: 'string'},
               { title: 'Username(Agent)', field: 'agentName', type: 'string'},

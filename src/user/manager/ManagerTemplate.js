@@ -32,7 +32,7 @@ import ManagerAppointment from './ManagerAppointment';
 import ManagerComment from './ManagerComment';
 import ManagerCustomerDetail from './ManagerCustomerDetail';
 import ManagerProperty from './ManagerProperty'
-
+import ManagerAppointmentDetial from './ManagerAppointmentDetial';
 
 
 const drawerWidth = 240;
@@ -211,7 +211,7 @@ export default function ManagerTemplate() {
         </div>
         <Divider />
         <List>
-            <Link to="appointment">
+            <Link to="/manager/appointment">
                 <ListItem button key="Appointments">
                 <ListItemIcon>
                     <ListAltRoundedIcon/>
@@ -219,7 +219,7 @@ export default function ManagerTemplate() {
                 <ListItemText primary="Appointments" />
                 </ListItem>
             </Link>
-            <Link to="property">
+            <Link to="/manager/property">
                 <ListItem button key="property">
                 <ListItemIcon>
                     <HouseIcon/>
@@ -227,7 +227,7 @@ export default function ManagerTemplate() {
                 <ListItemText primary="property" />
                 </ListItem>
             </Link>
-            <Link to="comment">
+            <Link to="/manager/comment">
                 <ListItem button key="Comment">
                 <ListItemIcon>
                     <ChatRoundedIcon/>
@@ -235,7 +235,7 @@ export default function ManagerTemplate() {
                 <ListItemText primary="Comment" />
                 </ListItem>
             </Link>
-            <Link to="customer" >
+            <Link to="/manager/customer" >
                 <ListItem button key="Customer">
                 <ListItemIcon>
                     <PersonRoundedIcon/>
@@ -243,7 +243,7 @@ export default function ManagerTemplate() {
                 <ListItemText primary="Customer" />
                 </ListItem>
             </Link>
-            <Link to="agent">
+            <Link to="/manager/agent">
                 <ListItem button key="Property Agent">
                 <ListItemIcon>
                     <SupervisorAccountRoundedIcon/>
@@ -259,6 +259,7 @@ export default function ManagerTemplate() {
         <Switch>
               <Route path="/manager/home" component={ManagerCustomer}/>
               <Route path="/manager/profile" component={ManagerProfile}/>
+              <Route path="/manager/appointment/:id" component={ManagerAppointmentDetial}/>
               <Route path="/manager/appointment" component={ManagerAppointment}/>
               <Route path="/manager/comment" component={ManagerComment}/>
               <Route path="/manager/customer/:id" component={ManagerCustomerDetail}/>

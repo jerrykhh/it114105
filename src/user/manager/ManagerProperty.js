@@ -10,7 +10,7 @@ const createData = (id, agentUsername, rental, sale, address, district, hidden, 
 }
 
 property.forEach((obj, index) => {
-    rows.push(createData(obj.uid, obj.agent, obj.sale, obj.address, obj.district, obj.hidden, obj.size))
+    rows.push(createData(obj.uid, obj.agent, obj.rental,obj.sale, obj.address, obj.district, obj.hidden, obj.size))
 });
 
 
@@ -31,7 +31,7 @@ class ManagerProperty extends Component{
             columns={[
               { title: '# id', field: 'id'},
               { title: 'Agent', field: 'agentUsername', type: "string" , defaultGroupOrder: 0  },
-              { title: 'rental', field: 'place', type: 'currency' },
+              { title: 'rental', field: 'rental', type: 'currency' },
               { title: 'Sale', field: 'sale', type: 'currency'},
               { title: 'Addres', field: 'address', type: 'string'},
               { title: 'District', field: 'district', type: 'string'},

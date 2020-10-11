@@ -16,11 +16,13 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import Fab from '@material-ui/core/Fab';
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
 import AddCircle from '@material-ui/icons/AddCircle';
+import Pageview from '@material-ui/icons/Pageview';
 import React, {forwardRef} from 'react';
 
 
 
 const tableIcons = {
+    View:forwardRef((props, ref) => <Fab size="small" color="primary" aria-label="add"><Pageview  {...props} ref={ref}/></Fab>),
     SwapHorizTrue: forwardRef((props, ref) => <Fab size="small" color="secondary" aria-label="add"><SwapHoriz  {...props} ref={ref}/></Fab>),
     SwapHorizFalse: forwardRef((props, ref) => <Fab size="small" style={{backgroundColor: "#2979ff", color: "white"}} aria-label="add" color="green"><SwapHoriz  {...props} ref={ref}/></Fab>),
     AddCircle: forwardRef((props, ref) => <AddCircle {...props} ref={ref} />),

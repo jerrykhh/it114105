@@ -17,6 +17,7 @@ class AppRouter extends React.Component {
                     <Route path="/signup" component={SignUpForm}/>
                     <Route path="/manager/home" component={ManagerTemplate}/>
                     <Route path="/manager/profile" component={ManagerTemplate}/>
+                    <Route path="/manager/appointment/:id" component={ManagerTemplate}/>
                     <Route path="/manager/appointment" component={ManagerTemplate}/>
                     <Route path="/manager/comment" component={ManagerTemplate}/>
                     <Route path="/manager/customer/:id" component={ManagerTemplate}/>
