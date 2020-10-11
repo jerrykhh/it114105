@@ -1,25 +1,43 @@
 [
-        {
-            "id": 1,
-            "username": "user1",
-            "firstName": "Jerry",
-            "lastName": "Kwok",
-            "email": "jerry@gmail.com",
-            "password": "Abcabc123",
-            "tel": "12345678",
-            "appointments": [
-                "YbS7dTegCLRP8R6H",
-                "8snJp2kUDcAxSack"
-            ]
-        },
-        {
-            "id": 2,
-            "username": "user2",
-            "firstName": "Tony",
-            "lastName": "Wong",
-            "email": "tony@gmail.com",
-            "password": "Abcabc123",
-            "tel": "87654321",
-            "appointments": []
-        }
+    {
+        "id": 1,
+        "username": "user1",
+        "firstName": "Jerry",
+        "lastName": "Kwok",
+        "email": "jerry@gmail.com",
+        "password": "Abcabc123",
+        "tel": "12345678",
+        "appointments": [
+            "abcdp2kUDcAxSack",
+            "8snJp2kUDcAxSack",
+            "YbS7dTegCLRP8R6H",
+            "vnHaTIENSxJYXFYY",
+            "u6Y0dwFj3M0jUoPb"
+        ]
+    },
+    {
+        "id": 2,
+        "username": "user2",
+        "firstName": "Tony",
+        "lastName": "Wong",
+        "email": "tony@gmail.com",
+        "password": "Abcabc123",
+        "tel": "87654321",
+        "appointments": [
+            "FwhUYsTLrQ6eNeFO",
+            "VxvqQ0NnYxFjlkvh"
+        ]
+    },
+    {
+        "id": 3,
+        "username": "user3",
+        "firstName": "Harry",
+        "lastName": "Wong",
+        "email": "harry@gmail.com",
+        "password": "Abcabc123",
+        "tel": "23452345",
+        "appointments": [
+            "rFN7Aj5bOV1i0Coy"
+        ]
+    }
 ]

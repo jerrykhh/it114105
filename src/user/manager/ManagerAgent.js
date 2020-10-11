@@ -11,7 +11,6 @@ import MaterialTable from 'material-table';
 import tableIcons from './TableIcon';
 
 
-
 const createData = (id, username, email, enable, name, tel) => {
     return { id, username, email, enable, name, tel };
 }

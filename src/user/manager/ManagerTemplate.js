@@ -21,6 +21,7 @@ import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import ChatRoundedIcon from '@material-ui/icons/ChatRounded';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import HouseIcon from '@material-ui/icons/House';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {Switch, Route} from 'react-router-dom';
@@ -30,7 +31,7 @@ import ManagerProfile from './ManagerProfile';
 import ManagerAppointment from './ManagerAppointment';
 import ManagerComment from './ManagerComment';
 import ManagerCustomerDetail from './ManagerCustomerDetail';
-
+import ManagerProperty from './ManagerProperty'
 
 
 
@@ -218,6 +219,14 @@ export default function ManagerTemplate() {
                 <ListItemText primary="Appointments" />
                 </ListItem>
             </Link>
+            <Link to="property">
+                <ListItem button key="property">
+                <ListItemIcon>
+                    <HouseIcon/>
+                </ListItemIcon>
+                <ListItemText primary="property" />
+                </ListItem>
+            </Link>
             <Link to="comment">
                 <ListItem button key="Comment">
                 <ListItemIcon>
@@ -254,7 +263,7 @@ export default function ManagerTemplate() {
               <Route path="/manager/comment" component={ManagerComment}/>
               <Route path="/manager/customer/:id" component={ManagerCustomerDetail}/>
               <Route path="/manager/customer" component={ManagerCustomer}/>
-              
+              <Route path="/manager/property" component={ManagerProperty}/>
               <Route path='/manager/agent' component={ManagerAgent} />
         </Switch>
       </main>

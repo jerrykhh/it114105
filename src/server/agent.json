@@ -12,8 +12,13 @@
             "sjG0x0Vzr6QLVE5i"
         ],
         "appointments": [
+            "abcdp2kUDcAxSack",
+            "8snJp2kUDcAxSack",
             "YbS7dTegCLRP8R6H",
-            "8snJp2kUDcAxSack"
+            "vnHaTIENSxJYXFYY",
+            "u6Y0dwFj3M0jUoPb",
+            "FwhUYsTLrQ6eNeFO",
+            "VxvqQ0NnYxFjlkvh"
         ],
         "enable": true
     },
@@ -26,8 +31,9 @@
         "password": "qwer1234",
         "tel": "12345678",
         "properties": [],
-        "appointments": [],
+        "appointments": [
+            "rFN7Aj5bOV1i0Coy"
+        ],
         "enable": false
     }
-    
 ]
