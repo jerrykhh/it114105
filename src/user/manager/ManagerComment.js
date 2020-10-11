@@ -60,7 +60,9 @@ class ManagerComment extends Component{
             ]}
             data={this.state.rows}        
             options={{
-              grouping: true
+              grouping: true,
+              pageSize: 10,
+              pageSizeOptions: 10
             }}
           />
         )

@@ -21,7 +21,7 @@ class AppRouter extends React.Component {
                     <Route path="/manager/comment" component={ManagerTemplate}/>
                     <Route path="/manager/customer/:id" component={ManagerTemplate}/>
                     <Route path="/manager/customer" component={ManagerTemplate}/>
-                    
+                    <Route path="/manager/property" component={ManagerTemplate}/>
                     <Route path="/manager/agent" component={ManagerTemplate}/>
                 </Switch>
             </HashRouter>
