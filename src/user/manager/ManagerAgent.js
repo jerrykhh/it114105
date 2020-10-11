@@ -64,6 +64,7 @@ class ManagerAgent extends Component {
         this.setState({
             errorCreMes: [],
             errorPwd: false,
+            errorEmail: false,
             password: "",
             cPassword: ""
         })
@@ -71,15 +72,23 @@ class ManagerAgent extends Component {
 
     handleCreateAccount = () =>{
         this.initStateFormValue();
+
+        if(this.state.username === "" && this.state.firstName === "" &&
+        this.state.lastName === "" && this.state.email === "" && this.state.password === "" &&
+        this.state.cPassword === "" && this.state.tel === ""){
+            this.setState({errorCreMes: ["All field is required"], errorPwd: true , errorEmail: true});
+            return;
+        }
+
         if(this.state.cPassword !== this.state.password){
-            this.setState({errorCreMes: ["Password and confirm password is not match"], errorPwd: true});
+            this.setState({errorCreMes: ["Password and confirm password is not match"], errorPwd: true, errorEmail: false});
             return;
         }
 
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(String(this.state.email).toLowerCase())) {
-            this.setState({errorCreMes: ["Email format is incorrect"], errorPwd: true, errorEmail: true});
-            return
+            this.setState({errorCreMes: ["Email format is incorrect"], errorPwd: false, errorEmail: true});
+            return;
         }
         var isVaild = true;
         var message = "Missing the ";
@@ -131,7 +140,7 @@ class ManagerAgent extends Component {
             rows.push(newAccount);
             this.setState({rows});
         }else{
-            this.setState({errorCreMes: [message.slice(0, -1)]});
+            this.setState({errorCreMes: [message.slice(0, -2)]});
         }
 
         
@@ -176,7 +185,7 @@ class ManagerAgent extends Component {
                         rowData => ({
                             icon: (rowData.enable) ? tableIcons.SwapHorizTrue : tableIcons.SwapHorizFalse
                             ,
-                            tooltip: (rowData.enable) ? 'Enable User' : 'Disable User',
+                            tooltip: (rowData.enable) ? 'Disable User' : 'Enable User',
                             onClick: (event, rowData) => {
                                 this.state.rows.forEach((obj, index) => {
                                     if (obj.id == rowData.id) {

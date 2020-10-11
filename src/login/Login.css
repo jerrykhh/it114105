@@ -96,7 +96,7 @@ input[name='firstName'], input[name='lastName']{
 
 
 .signup-form input[type='button']{
-    width: 100%;
+    width: 106%;
     background: #3897f0;
     color: white;
     font-weight: bold;

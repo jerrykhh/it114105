@@ -27,6 +27,7 @@ class UserSignUpForm extends Component{
     handleSignUp = () => {
         var isVaild = true;
         this.props.argue(null);
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(this.state.username === "" || this.state.password === "" 
         || this.state.cpwd === "" || this.state.email === "" 
         || this.state.phone === "" || this.state.firstName === ""
@@ -35,6 +36,9 @@ class UserSignUpForm extends Component{
             isVaild = false;
         }else if(this.state.password !== this.state.cpwd){
             this.props.argue("Password is not match");
+            isVaild = false;
+        }else if (!re.test(String(this.state.email).toLowerCase())) {
+            this.props.argue("Email format is incorrect");
             isVaild = false;
         }
 

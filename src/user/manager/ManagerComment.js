@@ -30,7 +30,7 @@ data.forEach((obj, index) => {
         });
     });
     if(obj.status === "finished")
-        rows.push(createData(obj.uid, obj.status, obj.date, obj.cfu ,obj.cfa, username, agentName));
+        rows.push(createData(obj.uid, obj.date, obj.cfu ,obj.cfa, username, agentName));
 });
 
 

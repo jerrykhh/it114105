@@ -15,7 +15,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import SupervisorAccountRoundedIcon from '@material-ui/icons/SupervisorAccountRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
@@ -33,6 +33,7 @@ import ManagerComment from './ManagerComment';
 import ManagerCustomerDetail from './ManagerCustomerDetail';
 import ManagerProperty from './ManagerProperty'
 import ManagerAppointmentDetial from './ManagerAppointmentDetial';
+import ManagerLogOut from './ManagerLogout';
 
 
 const drawerWidth = 240;
@@ -131,7 +132,7 @@ export default function ManagerTemplate() {
   };
 
   const handleLogout = () => {
-
+    return <Redirect to="/manager/logout"/>
   }
 
 
@@ -186,7 +187,7 @@ export default function ManagerTemplate() {
                 onClose={handleClose}
               >
                 <Link to='/manager/profile'><MenuItem>Profile</MenuItem></Link>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <Link to='/manager/logout'><MenuItem>Logout</MenuItem></Link>
               </Menu>
             </div>
           )}
@@ -266,6 +267,7 @@ export default function ManagerTemplate() {
               <Route path="/manager/customer" component={ManagerCustomer}/>
               <Route path="/manager/property" component={ManagerProperty}/>
               <Route path='/manager/agent' component={ManagerAgent} />
+              <Route path='/manager/logout' component={ManagerLogOut} />
         </Switch>
       </main>
     </div>

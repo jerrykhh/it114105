@@ -9,7 +9,7 @@
         "hidden": true,
         "pin": true,
         "comment": "交通方便",
-        "size": "390"
+        "size": 390
     },
     {
         "uid": "sjG0x0Vzr6QLVE5i",
@@ -21,7 +21,7 @@
         "hidden": false,
         "pin": false,
         "comment": "高層",
-        "size": "391"
+        "size": 391
     },
     {
         "uid": "6YfdJK8JZYyyccCd",
@@ -33,7 +33,7 @@
         "hidden": false,
         "pin": false,
         "comment": "高層",
-        "size": "391"
+        "size": 391
     },
     {
         "uid": "ctsicFxEFv1ikmNr",
@@ -45,6 +45,6 @@
         "hidden": false,
         "pin": false,
         "comment": "空氣清新",
-        "size": "391"
+        "size": 391
     }
 ]

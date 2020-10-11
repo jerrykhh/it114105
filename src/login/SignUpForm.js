@@ -11,8 +11,9 @@ class SignUpForm extends Component {
     }
 
     showErrMessage = (mes) => {
-        if (mes == null){
-            this.setState({errMess: []});
+        if (mes === null){
+            let newList = [];
+            this.setState({errMess: newList});
         }else{
             this.setState({
                 errMess: this.state.errMess.concat(mes)
@@ -23,7 +24,7 @@ class SignUpForm extends Component {
     render = () => {
         var mesList = null;
         if(this.state.errMess.length > 0){
-            mesList = this.state.errMess.map( (message) => <div className="bs-callout bs-callout-danger"><h4>Registration Failed</h4>{message}</div>);
+            mesList = <div className="bs-callout bs-callout-danger"><h4>Registration Failed</h4>{this.state.errMess[this.state.errMess.length - 1]}</div>;
         }
         return(
             <div className="login-container">

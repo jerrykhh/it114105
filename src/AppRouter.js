@@ -24,6 +24,7 @@ class AppRouter extends React.Component {
                     <Route path="/manager/customer" component={ManagerTemplate}/>
                     <Route path="/manager/property" component={ManagerTemplate}/>
                     <Route path="/manager/agent" component={ManagerTemplate}/>
+                    <Route path='/manager/logout' component={ManagerTemplate} />
                 </Switch>
             </HashRouter>
         );

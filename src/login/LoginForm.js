@@ -48,9 +48,9 @@ class LoginForm extends Component {
     render = () => {
         var mesList = null;
         if (this.state.errMess.length > 0) {
-            mesList = this.state.errMess.map((message) => <div className="bs-callout bs-callout-danger"><h4>Login Failed</h4>{message}</div>);
+        mesList = <div className="bs-callout bs-callout-danger"><h4>Login Failed</h4>{this.state.errMess[this.state.errMess.length - 1]}</div>;
         }else if(this.state.sucMess.length > 0){
-            mesList = this.state.sucMess.map((message) => <div className="bs-callout bs-callout-success"><h4>Registration Successful</h4>{message}</div>);
+            mesList = <div className="bs-callout bs-callout-success"><h4>Registration Successful</h4>{this.state.sucMess[this.state.sucMess.length - 1]}</div>;
         }
         return (
             <div className="login-container">

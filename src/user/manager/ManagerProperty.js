@@ -10,7 +10,7 @@ const createData = (id, agentUsername, rental, sale, address, district, hidden, 
 }
 
 property.forEach((obj, index) => {
-    rows.push(createData(obj.uid, obj.agent, obj.rental,obj.sale, obj.address, obj.district, obj.hidden, obj.size))
+    rows.push(createData(obj.uid, obj.agent, obj.rental, obj.sale, obj.address, obj.district, obj.hidden, obj.pin, obj.size))
 });
 
 

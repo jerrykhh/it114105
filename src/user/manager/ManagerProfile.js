@@ -87,10 +87,10 @@ class ManagerProfile extends Component {
     }
 
     handleSave = (event) => {
-        event.preventDefault();
         console.log(this.state)
         this.setState((state, props) => ({
-            sucMess: []
+            sucMess: [],
+            errMess: []
         }));
 
         var isValid = true;
