@@ -38,7 +38,9 @@ class ManagerAgent extends Component {
             cPassword: "",
             errorCreMes: [],
             errorPwd: false,
-            errorEmail: false
+            errorEmail: false,
+            sucesCreMes: [],
+            cacheName: ""
         }
         console.log(this.state);
     }
@@ -47,9 +49,9 @@ class ManagerAgent extends Component {
         this.setState({ rows });
     }
 
-    changeEnableType = (rows, status) => {
-        this.setState(rows);
-        (status) ? this.setState({ status: 0 }) : this.setState({ status: 1 });
+    changeEnableType = (rows, status, username) => {
+        this.setState({rows, cacheName: username});
+        (status) ? this.setState({ status: 0, sucesCreMes:[] }) : this.setState({ status: 1, sucesCreMes:[] });
     }
 
     handleClickOpenCreateAccountBox = () => {
@@ -138,7 +140,8 @@ class ManagerAgent extends Component {
                 tel: this.state.tel
             }
             rows.push(newAccount);
-            this.setState({rows});
+            this.setState({rows, status: -1, sucesCreMes: ["Agent username : " + this.state.username + " is created" ]});
+            this.handleClickCloseCreateAccountBox();
         }else{
             this.setState({errorCreMes: [message.slice(0, -2)]});
         }
@@ -158,9 +161,13 @@ class ManagerAgent extends Component {
             <div>
                 {
                     (this.state.status == 0) ?
-                        <div className="bs-callout bs-callout-danger" style={{ marginBottom: "30px" }}><h4>Update Successful </h4>User is Disabled</div> :
+                        <div className="bs-callout bs-callout-danger" style={{ marginBottom: "30px" }}><h4>Update Successful </h4>User {this.state.cacheName} is Disabled</div> :
                         (this.state.status == 1) ?
-                            <div className="bs-callout bs-callout-success" style={{ marginBottom: "30px" }}><h4>Update Successful</h4>User is Enabled</div> : ""
+                            <div className="bs-callout bs-callout-success" style={{ marginBottom: "30px" }}><h4>Update Successful</h4>User {this.state.cacheName} is Enabled</div> : ""
+                    
+                }{
+                    (this.state.sucesCreMes.length > 0) ?
+                <div className="bs-callout bs-callout-success" style={{ marginBottom: "30px" }}><h4>Create Account Successful</h4>{this.state.sucesCreMes[0]}</div> : ""
                 }
 
                 <MaterialTable
@@ -192,7 +199,7 @@ class ManagerAgent extends Component {
                                         var newRows = this.state.rows;
                                         let enableStatus = newRows[index].enable;
                                         newRows[index].enable = !newRows[index].enable;
-                                        this.changeEnableType(newRows, enableStatus);
+                                        this.changeEnableType(newRows, enableStatus, rowData.username);
                                     }
                                 });
                             }
