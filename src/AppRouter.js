@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginForm from './login/LoginForm';
 import SignUpForm from './login/SignUpForm';
 import ManagerTemplate from './user/manager/ManagerTemplate';
@@ -10,7 +10,7 @@ class AppRouter extends React.Component {
 
     render() {
         return (
-            <HashRouter>
+            <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={LoginForm} />
                     <Route path="/index" component={LoginForm} />
@@ -25,8 +25,10 @@ class AppRouter extends React.Component {
                     <Route path="/manager/property" component={ManagerTemplate}/>
                     <Route path="/manager/agent" component={ManagerTemplate}/>
                     <Route path='/manager/logout' component={ManagerTemplate} />
+                    <Route path='/user/home' render={() => window.location.href = "http://localhost:8080/html/user-property.html?u=" + localStorage.getItem("username")}/>
+                    <Route path='/agent/home' render={() => window.location.href = "http://localhost:8080/html/agent-property.html?u=" + localStorage.getItem("username")}/>
                 </Switch>
-            </HashRouter>
+            </BrowserRouter>
         );
     }
 

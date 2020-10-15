@@ -33,7 +33,7 @@ class UserLoginForm extends Component{
         var route = null;
         if(this.state.role === "customer"){
             user = userJson;
-            route = "/home";
+            route = "user/home";
         }else if(this.state.role === "agent"){
             user = agentJson;
             route = "/agent/home"
