@@ -42,7 +42,7 @@ for count in 1...totalStudent{
 
     student = Student(classId:String(distriClass), studentId: studentId)
     students.append(student)
-    if distriClass == 4 {
+    if distriClass == totalClass {
         distriClass = 0
     }
     distriClass += 1
