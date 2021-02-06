@@ -5,13 +5,13 @@ Basically, the system involved teacher, student and IT administrator.
 - [x] Student: can view his or her attendance record only.
 - [x] IT administrator: can fully access the system, included account management.
 
-![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image1.jpg)
-![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image2.jpg)
-![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image3.jpg)
-![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image4.jpg)
-![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image5.jpg)
-![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image6.jpg)
-![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image7.jpg)
+![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image1.png)
+![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image2.png)
+![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image3.png)
+![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image4.png)
+![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image5.png)
+![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image6.png)
+![image](https://github.com/jerrykhh/Class-Attend-System/blob/master/sample-image/sample-image7.png)
 
 
 
