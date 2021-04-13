@@ -1,30 +1,34 @@
 <?php
   session_start();
-  if(isset($_SESSION['customer'])){
-  Route::map('index', function(){
-    $controller = new Index();
-    $controller->render();
-  });
+  function sessionChecking(){
+    if(!isset($_SESSION['username']) || !isset($_SESSION['role']))
+      header("location: index");
 
-  Route::map('signup', function(){
-    $controller = new SignUp();
-  });
+  }
 
   Route::map('login', function(){
     $controller = new Login();
   });
 
+  Route::map('index', function(){
+    $controller = new Index();
+    $controller->render();
+  });
+
   Route::map('home', function(){
+    sessionChecking();
     $controller = new Home();
     $controller->render();
   });
 
   Route::map('profile', function(){
+    sessionChecking();
     $controller = new Profile();
     $controller->render();
   });
 
   Route::map('orderhistory', function(){
+    sessionChecking();
     $controller = new OrderHistory();
     $controller->render();
   });
@@ -34,11 +38,13 @@
   });
 
   Route::map('store', function(){
+    sessionChecking();
     $controller = new Store();
     $controller->render();
   });
 
   Route::map('cart', function(){
+    sessionChecking();
     if(isset($_SESSION["store"]) && isset($_SESSION["products"])){
       $controller = new Cart();
       $controller->render();
@@ -52,25 +58,24 @@
   });
 
   Route::map('removeInCart', function(){
+    sessionChecking();
     $controller = new RemoveInCart();
   });
 
   Route::map('checkout', function(){
-    $controller = new Checkout();
+    sessionChecking();
+    $controller = new CheckOut();
   });
 
   Route::map('viewCart', function(){
+    sessionChecking();
     $controller = new ViewCart();
   });
 
   Route::map('checking', function(){
+    sessionChecking();
     $controller = new Checking();
   });
-
-}else{
-  header("location: ../loginUI.php");
-}
-
 
 
 ?>
