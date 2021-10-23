@@ -1,5 +1,3 @@
-import javax.sound.midi.Track;
-
 public class BingoGameCard {
     
     int[][] card;
@@ -78,8 +76,24 @@ public class BingoGameCard {
             if(card[i][card[i].length-i-1] == -1)
                 count++;
         }
+        
+        if (count == card.length)
+            return true;
 
-        return (count == card.length)? true: false;
+        count = 0;
+        for(int i = 0; i < card.length; i++){
+            if(i>0 && count == 0)
+                break;
+
+            if(card[i][i] == -1)
+                count++;
+        }
+
+        if(count == card.length)
+            return true;
+
+        return false;
+    
     }
 
     public void replace(int number){
