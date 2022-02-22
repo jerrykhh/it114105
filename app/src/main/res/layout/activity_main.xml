@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg_reg_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_reg_anim"
+    android:gravity="center"
+    android:onClick="onClick"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imAccount"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/regtitle" />
+
+    <EditText
+        android:id="@+id/regName"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/reg_edittext"
+        android:drawableLeft="@drawable/ic_account_circle_white_40x35dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/regDate"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/reg_edittext"
+        android:drawableLeft="@drawable/ic_date_range_white_40x35dp"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Date of Birth"
+        android:inputType="date"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/regPhone"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/reg_edittext"
+        android:drawableLeft="@drawable/ic_phone_white_40x35dp"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="phone"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/regEmail"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/reg_edittext"
+        android:drawableLeft="@drawable/ic_email_white_40x35dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/reg_button"
+        android:onClick="onClick"
+        android:text="Submit" />
+
+</LinearLayout>
