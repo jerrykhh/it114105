@@ -1,68 +1,42 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# ITP4506-Assignment
+Human Computer Interaction &amp; GUI Programming
 
-In the project directory, you can run:
+![image](https://github.com/jerrykhh/YummyEverywhere/blob/master/demo/demo-image1.jpg)
 
-### `npm start`
+![image](https://github.com/jerrykhh/YummyEverywhere/blob/master/demo/demo-image2.jpg)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![image](https://github.com/jerrykhh/YummyEverywhere/blob/master/demo/demo-image3.jpg)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+#### Requirement: 
 
-### `npm test`
+1. Restaurant Information Management:
+• Operator
+• Input information of restaurant (including branches)
+• Update take-away menu
+• Allow showing/hiding special / temporary / seasonal menu according to the pre-set date or period
+• Hide/remove uploaded menu
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Search & Browsing:
+• Normal_user
+• Search take-away menu or restaurant by tags or keywords
+• View restaurant information and related take-away menu
+• Add/Remove take-away menu or restaurant to/from favorite
+• Leave like or comment on a particular restaurant
+(Public without registered, can only view/search restaurant information, but cannot view the menu.)
 
-### `npm run build`
+3. Account Management:
+Normal_user could create an account by self-registration. While Operator accounts is created by Administrator
+manually.
+• Administrator
+• Show existing users
+• Create and delete users
+• Manage the user role
+• Normal_user:
+• Registration
+• Normal_user, Operator and Administrator
+• Edit personal detail including change password
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+4. Additional Function:
+You are required to design and add the fourth function to the system which should be of the similar scope
+size of the above mentioned functions.
