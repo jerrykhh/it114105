@@ -1,22 +1,21 @@
-# ITE3101-EAAssignment
-IT114210 Multimedia and Virtual Reality - Introduction to Programming (SWIFT) - Exam Project
+# it114105
 
+If you want to share your resources, please free to create the pull requests. Thanks.
+HD in Software Engineering study resources:
 
-- [x] The total number of each class must not greater than 30 students.
-- [x] The total number of new coming year’s students are randomly between 30 and 100
-- [x] Student ID cannot be duplicate.
-- [x] Student ID should follow this format: [Year (last 2 digit of the coming academic year) - Campus Code (2 digits) - Random 5 digits (5 digits)] 
-     Campus Code is “03”  
-- [x] Print out the list of the student as below:
-```
-Total Student: 51
-Total Class: 2
------------------------------------------
-Class: 1, Student ID: 200372486
-Class: 2, Student ID: 200350979
-Class: 1, Student ID: 200320439
-Class: 2, Student ID: 200310247
-...
-Class: 1, Student ID: 200341498
-Class: 2, Student ID: 200356316
-```
+| Module Code | Module Name |
+| ----------- | ----------- |
+| <a href="./ite3006/">ITE3006</a> | Information Technology Essentials (Web Develop) |
+| <a href="./ite3905/">ITE3905</a> | Artificial Intelligence Fundamentals |
+| <a href="./itp3914/">ITP3914</a> | Programming (Java) |
+| <a href="./itp4501/">ITP4501</a> | Programming Techniques for Mobile Systems (Android) |
+| <a href="./itp4506/">ITP4506</a> | Human Computer Interaction & GUI Programming |
+| <a href="./itp4507/">ITP4507</a> | Contemporary Topics in Software Engineering |
+| <a href="./itp4509/">ITP4509</a> | Operating Systems Programming & Administration |
+| <a href="./itp4510/">ITP4510</a> | Data Structures & Algorithms: Concepts & Implementation |
+| <a href="./itp4511/">ITP4511</a> | Enterprise Systems Development |
+| <a href="./itp4512/">ITP4512</a> | Enterprise Software |
+| <a href="./itp4513/">ITP4513</a> | Internet & Multimedia Applications Development |
+| <a href="https://github.com/jerrykhh/SLMC-OPARS">ITP4915M</a> | System Development Project |
+| Others |
+| <a href="./others/ite3101/">ITE3101</a> | Introduction to Programming (SWIFT) |
