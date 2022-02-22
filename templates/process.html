@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AI Face Blur in Video</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+</head>
+<style>
+    body{
+        overflow: hidden;
+    }
+</style>
+<body>
+    <div class="py-5" style="height: 900px;background-color: white;margin-top: 85px; padding: 50px; ">
+        <form action="ml/render" method="POST">
+        <div class="row">
+                <div class="col-md-4">
+                    <div style="overflow-y: scroll;">
+                    <h1>{{filename}}</h1>
+                    <p>You can select your want to blur faces:</p>
+                    <div class="d-flex flex-row bd-highlight mb-4">
+                        {% for people in detected_face_img %}
+                        <div class="p-2 bd-highlight">
+                              <input type="checkbox" name="face" id="{{people.id}}" value="{{people.id}}" />
+                              <label for="{{people.id}}"><img src="{{people.url}}" /></label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video class="video-fluid z-depth-1" autoplay loop controls muted>
+                        <source src="/static/save-data/{{fileName}}.mp4" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+        </div>
+        <div class="btn-render">
+            <button type="submit" id="btnRender" class="btn btn-dark float-right" style="margin-top: 10px;">Render</button>
+        </div>
+        <input type="hidden" id="file" name="file" value="{{fileName}}">
+    </form>
+    </div>
+    
+    <footer>      
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+<script>
+    $(document).ready(function(){
+        $('#btnRender').click(function(){
+            $(this).html('<div class="spinner-grow text-light" role="status"><span class="sr-only">Loading...</span></div>');
+        });
+    });
+</script>
+
+</html>
