@@ -1,0 +1,63 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Cake Order Form</title>
+  <style type="text/css">
+fieldset { border-radius: 10px; }
+</style>
+</head>
+<body>
+  <h2>Cake Order Form</h2>
+  <form method="post" enctype="multipart/form-data" >
+    Pick-up : Date <input type="date" name="pickdate">
+    and Time <input type="time" name="picktime" multiple/><br/>
+    <div oninput="total.value=parseInt(a.value)*20">
+	Price : HK$ 20 per pound x
+	<input type="number" min="1" max="5" id="a" value=0 />
+    pounds = HK$
+	<output name="total" for="a"/>0
+	</div>
+	<br/>
+    <fieldset>
+      Picture on cake :
+      <input type="file" name="picture" /><br />
+      Greeting words on the birthday card :<br />
+      <textarea name="greeting"  rows="4" cols="40" >In less 20 words...</textarea><br />
+      Birthday card colour : <input type="color" name="cardcolor" />
+    </fieldset>
+    Items needed :
+    <input type="checkbox" name="Candles" value="C" checked> Candles
+    <input type="checkbox" name="knife" value="K"/> Knife
+    <input type="checkbox" name="PaperDish" value="D"/>Paper Dish<br />
+    Paid by card :
+    <input type="radio"value="VI" name="Paid"/> VISA
+    <input type="radio" value="MA" name="Paid" /> Master<br />
+    Payment security code :
+    <input type="password" name="seccode" /><br />
+    Toppings :
+    <select name="toppings" size=6>
+      <optgroup label="Fruits">
+        <option value="M">Mango</option>
+        <option value="S">strawberry</option>
+      </optgroup>
+      <optgroup label="Nuts">
+        <option value="A">Almond</option>
+        <option value="C">Chestnut</option>
+      </optgroup>
+    </select>
+    <br />
+    Please rate our web site :
+    <input list="ratinglist"/>
+    <datalist id="ratinglist">
+      <option value="VeryGood">very Good</option>
+      <option value="Neutral">Nertral</option>
+      <option value="Verybad">very Bad</option>
+    </datalist><br/>
+    <button type="subitm" name="button">Place order</button>
+    <button type="reset" name="button">Cancel Order</button>
+  </form>
+
+</body>
+</html>
