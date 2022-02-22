@@ -1,4 +1,0 @@
-create-react-app
-react-router-dom
-@material-ui/core
-material-table --save
