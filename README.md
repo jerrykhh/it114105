@@ -19,3 +19,4 @@ HD in Software Engineering study resources:
 | <a href="https://github.com/jerrykhh/SLMC-OPARS">ITP4915M</a> | System Development Project |
 | Others |
 | <a href="./others/ite3101/">ITE3101</a> | Introduction to Programming (SWIFT) |
+| <a href="./others/ite3711/">ITE3711</a> | Programming Concepts and Applications |
