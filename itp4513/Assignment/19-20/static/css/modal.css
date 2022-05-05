@@ -1,0 +1,85 @@
+/* Greeting Modal Container */
+#wraning-modal {
+  visibility: hidden;
+  opacity: 0;
+  transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+/* Greeting Modal Container - when open */
+#wraning-modal:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Greeting Modal */
+#wraning-modal .modal {
+  opacity: 0;
+  transform: translateY(-1rem);
+  transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-delay: .2s;
+}
+
+/* Greeting Modal - when open */
+#wraning-modal:target .modal {
+  transform: translateY(0);
+  opacity: 1;
+  padding: 40px;
+  width: 300px;
+}
+
+#wraning-modal input[type=button]{
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+
+}
+
+#deletePassword{
+  width: 92%;
+}
+
+.btn-confirm{
+  background: #3897f0;
+}
+
+.btn-cancel{
+  background: darkgray;
+}
+
+/* Modal Container Styles */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Background Styles */
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .2);
+}
+
+/* Modal Body Styles */
+.modal {
+  z-index: 1;
+  background-color: white;
+  width: 80%;
+  max-width: 500px;
+  padding: 1rem;
+  border-radius: 8px;
+}

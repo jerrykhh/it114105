@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lab 10 Task 2c</title>
+<script type="text/javascript">
+	function draw() {
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		drawPaths(ctx);		
+	}
+	
+	function drawPaths(ctx) {
+		ctx.beginPath();
+		ctx.moveTo(55, 55);
+		ctx.lineTo(5, 5);
+		ctx.lineTo(5, 105);
+		ctx.closePath();
+		showPath(ctx, "pink", "red");
+		
+		ctx.beginPath();
+		ctx.arc(155, 55, 50, 0, 2 * Math.PI);
+		showPath(ctx, "lightblue", "blue");
+	}
+	
+	function showPath(ctx, fill, stroke) {
+		ctx.fillStyle = fill;
+		ctx.strokeStyle = stroke;
+		ctx.fill();
+		ctx.stroke();
+	}
+</script>
+</head>
+
+<body onload="draw();">
+	<canvas id="canvas" width="301" height="301"></canvas>
+</body>
+</html>

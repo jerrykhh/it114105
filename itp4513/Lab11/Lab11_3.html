@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lab11 Task 4 CHALLENGING TASK</title>
+</head>
+<style>
+	canvas{
+		border: 1px solid black;
+		background: lightblue;
+	}	
+</style>
+<script>
+	function draw(){
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx.save();
+		var radiusOfbigCircle = parseInt(document.getElementById("radiusOfbigCircle").value);
+		var numCircle = parseInt(document.getElementById("noOfsmallCircle").value);
+		ctx.translate(canvas.width/2,canvas.height/2);
+		ctx.beginPath();
+		ctx.arc(0,0, radiusOfbigCircle,0, 2*Math.PI);
+		ctx.strokeStyle="Black";
+		ctx.stroke();
+		
+		
+		var eachSmallCircleAngle = (2*Math.PI/numCircle)/2; 
+		//The sine of the angle(sinA) = the length of the opposite side() / the length of the hypotenuse
+		//Therefore, 
+		
+		
+		var findEachSmallRadius = (Math.sin(eachSmallCircleAngle)*radiusOfbigCircle)/(1-Math.sin(eachSmallCircleAngle));
+		for(var i=0;i<numCircle;i++){
+			ctx.beginPath();
+			ctx.arc(radiusOfbigCircle+findEachSmallRadius,0,findEachSmallRadius,0,2*Math.PI);
+			ctx.strokeStyle="Black";
+			ctx.fillStyle = "Yellow";
+			ctx.stroke();
+			ctx.fill();
+			ctx.rotate(eachSmallCircleAngle*2);
+		}
+		ctx.restore();
+		
+	}
+	
+</script>
+
+<body>
+	<canvas id="canvas" width="400" height="400" ></canvas><br>
+	Radius of big circle <input type="number" id="radiusOfbigCircle" value="60">
+	<br>
+	Number of small circle <input type="number" id="noOfsmallCircle" value="6" min="6" max="12">
+	<input type="button" onClick="draw()" value="Draw Circles">
+</body>
+</html>

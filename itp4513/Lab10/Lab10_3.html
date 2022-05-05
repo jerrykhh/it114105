@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas - Draw Rectangle</title>
+  <script type="text/javascript">
+    function draw() {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        var length = 200; // side length of the square 
+        var num = 8; //number of squares
+        var offset = length / 2 / num;
+
+        for (var i = 0; i < num; i++) {
+          ctx.fillStyle = (i%2==0)? "black" : "white";
+          var x = 10 + offset * i;
+          var y = 10 + offset * i;
+          ctx.fillRect(x, y, length, length);
+		  length -= offset * 2;
+          
+          var logStr = "x = " + x;
+          logStr += ",  y = " + y;
+          logStr += ",  length = " + length;
+          console.log(logStr);
+        }
+      }
+    }
+  </script>
+</head>
+
+<body onload="draw();">
+  <canvas id="canvas" width="300" height="300" />
+</body>
+
+</html>

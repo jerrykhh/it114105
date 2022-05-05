@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+<style>
+	#titleBlock{
+		width: 800px;
+		height: 50px;
+		color: white;
+	}
+	
+</style>
+<script>
+ function changeBG(){
+	 obj = document.getElementById("titleBlock");
+	 if(obj.style.backgroundColor=="green"){
+		 obj.style.backgroundColor = "Coral";
+	 }else{
+		  obj.style.backgroundColor = "green";
+	 }
+ }
+ function Msg(elmnt){
+	 name = document.getElementById("name").value;
+	 selected = elmnt.value;
+	 alert("Hello, "+name+"\nMeet you at this " +selected+"!");
+ }
+</script>
+<body>
+		<div id="titleBlock" style="background-color: Green">
+			<h2>Welcome to Internet &apos; Multimedia Applications</h2>
+		</div>
+		<button onClick="changeBG();">Swap Background between Green and Goral</button><br>
+		<p>Name:<input type="text" id="name" value="Peter Pan"></p>
+		<p>Choose your free time-slots?</p>
+		<table border="1" cellspacing="0" width="100%" >
+			<tr>
+				<td>
+					<p>
+					<input type="radio" name="weekdays" value="Monday" onClick="Msg(this);"> Monday 
+					<input type="radio" name="weekdays" value="Tuesday" onClick="Msg(this);"> Tuesday 
+					<input type="radio" name="weekdays" value="Wednesday" onClick="Msg(this);"> Wednesday
+					<input type="radio" name="weekdays" value="Thursday" onClick="Msg(this);"> Thursday
+					<input type="radio" name="weekdays" value="Friday" onClick="Msg(this);"> Friday
+					</p>
+				</td>
+			</tr>
+		</table>
+</body>
+</html>

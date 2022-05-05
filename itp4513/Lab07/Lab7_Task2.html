@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<link rel="stylesheet" type="text/css" href="styles/layout.css">
+</head>
+<script>
+function showPic(whichpic){
+	document.getElementById("placeholder").setAttribute("src", whichpic.href);
+	document.getElementById("description").innerHTML = whichpic.title;
+}
+	
+</script>
+
+<body>
+	<h1>Photo Gallery</h1>
+	<ul>
+		<li><a href="images/fireworks.jpg" title="A fireworks display" onClick="showPic(this); return false">Fireworks</a></li>
+		<li><a href="images/coffee.jpg" title="A cup of black coffee" onClick="showPic(this); return false">Coffee</a></li>
+		<li><a href="images/rose.jpg" title="A red rose" onClick="showPic(this); return false">Rose</a></li>
+		<li><a href="images/bigben.jpg" title="The famous clock" onClick="showPic(this); return false">Big Ben</a></li>
+	
+	</ul>
+	<img id="placeholder" src="images/placeholder.gif" alt="my image gallery">
+	<p id="description">Choose an image from the above...</p>
+</body>
+</html>

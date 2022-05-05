@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+h2{
+	font-size: 28px;
+	color: orchid;
+	border-bottom: 3px solid #EE82EE;
+}
+table, th, td{
+	font-size: 20px;
+	border: 1px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+}
+#tableID thead{
+	background-color: #ffe4e1;
+	color: orchid;
+}
+

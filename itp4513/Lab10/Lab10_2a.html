@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lab10 Task 2a</title>
+</head>
+<script>
+function draw(){
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	ctx.beginPath();
+	ctx.moveTo(55,55);
+	ctx.lineTo(5,5);
+	ctx.lineTo(5,105);
+	ctx.lineTo(55,55);
+	ctx.arc(155,55, 50, 0, 360);
+	ctx.strokeStyle = 'black';
+	ctx.stroke();
+}
+</script>
+<body onLoad="draw()">
+	<canvas id="canvas" width="300" height="300">
+		
+	</canvas>
+</body>
+</html>

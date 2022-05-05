@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lab10 Task 4</title>
+</head>
+<script>
+function draw(){
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	var val = document.getElementById('name').value;
+	var fontSize = document.getElementById('size').value;
+	ctx.font = fontSize+"px " +"Bodoni MT black";
+	ctx.textAlign = 'center';
+	ctx.textBaseline = 'bottom';
+	ctx.shadowBlur = 8;
+	ctx.shadowColor = 'Black';
+	ctx.shadowOffsetX = 5;
+	ctx.shadowOffsetY = 5;
+	ctx.strokeText(val, canvas.width/2,100);
+	
+	//2nd
+	ctx.font= fontSize*(1.5)+"px " +"Bodoni MT black";
+	ctx.textAlign = "left";
+	ctx.shadowBlur = 0;
+	ctx.shadowColor = 'white';
+	ctx.shadowOffsetX = 0;
+	ctx.shadowOffsetY = 0;
+	var grad = ctx.createLinearGradient(90, 0, 300, 0);
+	grad.addColorStop(0, "yellow");
+	grad.addColorStop(1, "green");
+	ctx.fillStyle = grad;
+	var fontWidth = ctx.measureText(val).width;
+	ctx.fillText(val, (canvas.width-fontWidth)/2,200);
+
+
+
+}
+</script>
+<body onLoad="draw()">
+	<canvas id="canvas" width="500" height="300" style=" border: 1px solid black">
+	</canvas><br>
+	Food Name <input id="name" type="text" value="Cookie" onChange="draw()">
+	<br>Font Size (px) 20<input id="size" type="range" min="20" max="80" onChange="draw()"> 80
+</body>
+</html>

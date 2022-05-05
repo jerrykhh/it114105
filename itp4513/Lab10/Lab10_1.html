@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lab 10 Task 1</title>
+<script type="text/javascript">
+	function draw() {
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		drawGridLines(ctx);		
+	}
+	
+	function drawGridLines(ctx) {
+		var w = ctx.canvas.width;
+		var h = ctx.canvas.height;
+		var dist = 10;
+		ctx.beginPath();
+		for(var i=0.5; i<w; i+=dist) {
+			ctx.moveTo(i, 0);
+			ctx.lineTo(i, h);
+		}
+		for(var i=0.5; i<h; i+=dist) {
+			ctx.moveTo(0, i);
+			ctx.lineTo(w, i);
+		}
+		ctx.strokeStyle = "blue";
+		ctx.stroke();
+	}
+</script>
+</head>
+
+<body onload="draw();">
+	<canvas id="canvas" width="301" height="301"></canvas>
+</body>
+</html>

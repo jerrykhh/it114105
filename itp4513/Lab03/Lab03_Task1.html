@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab03 Task1</title>
+</head>
+<style>
+    .row{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+    <form action="Lab03_Task1.php" method="post">
+        <div class="row">
+            Name: <input type="text" name="name" id="name" value="">
+        </div>
+        <div class="row">
+            Graduate Year: <input type="text" name="year" id="year">
+        </div>
+        <div class="row">
+            <div>Alumi</div>
+            <input type="radio" name="alumi" id="alumi" value="Yes" checked> Yes<br>
+            <input type="radio" name="alumi" id="alumi" value="No"> No
+        </div>
+        <div class="row">
+            <div>Comments</div>
+            <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

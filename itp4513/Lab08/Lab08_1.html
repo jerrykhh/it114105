@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script src="jquery/jquery-2.1.4.js"></script>
+</head>
+<script>
+ function readXML(){
+	 var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange= function(){
+		if(xmlhttp.readyState==4 && xmlhttp.status==200){
+			convertToJSONArray(xmlhttp.responseXML);
+		}
+	}
+	xmlhttp.open("GET","cparts.xml",true);
+	xmlhttp.send();
+ }
+	function convertToJSONArray(xml){
+		var cpartsArray = new Array();
+		var parts = xml.getElementsByTagName("part");
+		for(var i=0; i<parts.length;i++){
+			var item = parts[i].getElementsByTagName("item")[0].childNodes[0].nodeValue;
+			var manufacturer = parts[i].getElementsByTagName("manufacturer")[0].childNodes[0].nodeValue;
+			var model = parts[i].getElementsByTagName("model")[0].childNodes[0].nodeValue;
+			var cost = parts[i].getElementsByTagName("cost")[0].childNodes[0].nodeValue;
+			cpartsArray[i] = new cpart(item,manufacturer,model,cost);
+		}
+		document.getElementById("demo01").innerHTML = JSON.stringify(cpartsArray);
+	}
+	
+	function cpart(item,manufacturer,model,cost){
+		this.item = item;
+		this.manufacturer = manufacturer;
+		this.model= model;
+		this.cost = cost;
+	}
+	function jsonToTable(){
+		var jsonStr = document.getElementById("demo01").innerHTML;
+		var obj = JSON.parse(jsonStr);
+		var table = "<table border=1><tr><th>Item</th><th>Manufacturer</th><th>Model</th><th>Cost</th></tr>";
+		for(var i=0; i<obj.length;i++){
+			table += "<tr><td>"+obj[i].item+"</td><td>"+obj[i].manufacturer+"</td><td>"+obj[i].model+"</td><td>"+obj[i].cost+"</td></tr>";
+		}
+		table+="</table>";
+		document.getElementById("demo02").innerHTML = table;
+	}
+</script>
+<body>
+	<h1>Read from cparts.xml</h1>
+	<button onClick="readXML()">user JSON.stringify()</button>
+	<p id="demo01"></p>
+	<button onClick="jsonToTable()">use JSON.parse()</button>
+	<p id="demo02"></p>
+</body>
+</html>

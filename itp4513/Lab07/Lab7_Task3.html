@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+<script>
+function jsonParse(){
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange= function(){
+		if(xmlhttp.readyState==4 && xmlhttp.status==200){
+			showTable(xmlhttp.responseXML);
+		}
+	}
+	xmlhttp.open("GET","books.xml",true);
+	xmlhttp.send();
+}	
+function showTable(xml){
+	var table = "<tr><th>Title</th><th>Author</th><th>Year</th><th>Price</th></tr>";
+	var books = xml.getElementsByTagName("book");
+			for(var i=0; i< books.length;i++){
+				table +="<tr><td>" + books[i].getElementsByTagName("title")[0].childNodes[0].nodeValue+"</td><td>"+books[i].getElementsByTagName("author")[0].childNodes[0].nodeValue+"</td><td>"+books[i].getElementsByTagName("year")[0].childNodes[0].nodeValue+"</td><td>"+books[i].getElementsByTagName("price")[0].childNodes[0].nodeValue+"</td></tr>";
+			}
+		document.getElementById("btable").innerHTML = table;
+}	
+</script>
+<body>
+	<h1>Read from books.xml</h1>
+	<button onClick="jsonParse()">List ALL books</button>
+	<table id="btable" border="1">
+		
+	</table>
+</body>
+</html>
