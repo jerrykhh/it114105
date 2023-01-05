@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yummy Everywhere</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="index.html" class="brand-logo ">Yummy Everywhere</a>
+            <ul class="right">
+            </ul>
+        </div>
+    </nav>
+	<ul id="slide-out" class="sidenav">
+  	</ul>
+ <!--- Fav Box -->
+	<div id="modal_box" class="bottom-sheet">
+    </div>
+
+    <div class="container" style="min-height:400px; margin-top: 150px;">
+
+        <div class="row center">
+          <div class="row">
+          <div class="col s12">
+            <div class="card grey darken-1">
+              <div class="card-content white-text">
+                <h4 class="card-title">About Us</h4>
+                <p>InnoTech HK Inc  provide a service called “Yummy Everywhere” that provides an online portal for customers to browse takeaway menus of various restaurants in Hong Kong.</p>
+                <br>
+                <p>Through Yummy Everywhere's webpage, you can bring an unforgettable culinary feast to your mobile phone, tablet or computer. hurry up!</p>
+                <br>
+                <p class="row">
+                  Service coverage throughout Hong Kong
+                  <img class="col s12" src="images/map.jpg">
+                </p>
+              </div>
+              <div class="card-action">
+                <a class="waves-effect waves-light btn" href="index.html" class=""> Start to view the MENU</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal" style="width: 400px;">
+        <div class="row center-align">
+            <div class="col s12 modal-content">
+                <span class="flow-text" id="loginInfo">
+					<div id="loginAlert"></div>
+					<h4 style="border-bottom: 1px solid #ebebeb; height: 50px;">LOGIN</h4>
+					<div class="input-field col s12">
+						<i class="material-icons prefix">account_circle</i>
+						<input id="loginEmail" type="text" class="validate" required>
+						<label for="loginEmail">Email</label>
+					</div><br>
+					<div class="input-field col s12">
+						<i class="material-icons prefix">vpn_key</i>
+						<input id="loginPwd" type="password" class="validate" required>
+						<label for="loginPwd">Password</label>
+					</div>
+
+					<a class="waves-effect waves-light btn col s10 offset-s1" style="margin-top: 50px" id="btnSubmitLogin">LOGIN</a>
+					<h6 class=" col s12">Don"t have an account? <a href="#" id="createAccount">Sign up here</a></h6>
+				</span>
+
+                <span class="flow-text" id="createInfo">
+					<div id="pwdAlert"></div>
+					<h4 style='border-bottom: 1px solid #ebebeb; height: 50px;'>REGISTER</h4><div class='input-field col s6'><input id='first_name' type='text' class='validate' required><label for='first_name'>First Name</label></div><div class='input-field col s6'><input id='last_name' type='text' class='validate' required><label for='last_name'>Last Name</label></div><div class='input-field col s12'><input id='regEmail' type='email' class='validate' required><label for='regEmail'>Email</label></div><div class='input-field col s12'><input id='regPassword' type='password' class='validate' required><label for='regPassword'>Password</label></div><div class='input-field col s12'><input id='checkPassword' type='password' class='validate' required><label for='checkPassword'>Confirm Password</label></div><a class='waves-effect waves-light btn col s10 offset-s1' style='margin-top: 50px' id='btnSubmitRegister'>REGISTER</a><h6 class='col s12' id="changeLogin">You have an account?  <a href='#' id='loginAccount'>Login</a></h6>
+				</span>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <footer class="page-footer teal">
+        <div class="container">
+            <div class="row">
+
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="index.html">Search Menu</a></li>
+                        <li><a class="white-text" href="userGuide.html">User Guide</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">Copyright © 2019 InnoTech HK Inc. All rights reserved</div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+
+</body>
+
+</html>

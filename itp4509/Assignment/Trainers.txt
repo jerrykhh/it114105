@@ -1,0 +1,9 @@
+Trainer information:
+*** Confidential ***
+
+Login ID,First Name,Last Name,HKID,Telephone
+slyeung,Sing Lam,Yeung,K914545(3),23842118
+scchan,Siu Chuen,Chan,C342343(7),26903153
+hycheung10,Hok Yau,Cheung,B323416(4),24246484
+lamtt,Tsz Tseng,Lam,A354574(6),23294512
+kamdw,Dai Wok,Kam,G355374(4),23852345

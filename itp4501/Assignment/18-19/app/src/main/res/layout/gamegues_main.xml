@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gamestart_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lyQuestion"
+        android:layout_width="318dp"
+        android:layout_height="197dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/gamestart_cardblue"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="6dp"
+            android:text="What is your guess?"
+            android:textAlignment="center"
+            android:textColor="#332FA2"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/textRound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:lineSpacingExtra="6dp"
+            android:text="Round:"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/lyZero"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/gamestart_cardblue"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:onClick="onClick"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="#332FA2"
+                android:textSize="26sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyFive"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/gamestart_cardblue"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:onClick="onClick"
+                android:text="5"
+                android:textAlignment="center"
+                android:textColor="#332FA2"
+                android:textSize="26sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyTen"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/gamestart_cardblue"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:onClick="onClick"
+                android:text="10"
+                android:textAlignment="center"
+                android:textColor="#332FA2"
+                android:textSize="26sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyfift"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/gamestart_cardblue"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtfift"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:onClick="onClick"
+                android:text="15"
+                android:textAlignment="center"
+                android:textColor="#332FA2"
+                android:textSize="26sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyTwe"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/gamestart_cardblue"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTwe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:onClick="onClick"
+                android:text="20"
+                android:textAlignment="center"
+                android:textColor="#332FA2"
+                android:textSize="26sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

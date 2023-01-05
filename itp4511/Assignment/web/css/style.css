@@ -1,0 +1,355 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2019/10/31, 下午 05:12:58
+    Author     : jerrykwok
+*/
+@font-face {
+    font-family: Raleway-Regular;
+    src: url('../fonts/raleway/Raleway-Regular.ttf');
+}
+
+@font-face {
+    font-family: Raleway-Medium;
+    src: url('../fonts/raleway/Raleway-Medium.ttf');
+}
+
+@font-face {
+    font-family: Raleway-SemiBold;
+    src: url('../fonts/raleway/Raleway-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: Raleway-Bold;
+    src: url('../fonts/raleway/Raleway-Bold.ttf');
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Raleway-Regular, sans-serif;
+}
+
+a {
+    font-family: Raleway-Regular;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+
+a:focus {
+    outline: none !important;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin: 0px;
+}
+
+p {
+    font-family: Raleway-Regular;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0px;
+}
+
+ul, li {
+    margin: 0px;
+    list-style-type: none;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+textarea {
+    outline: none;
+    border: none;
+}
+
+textarea:focus, input:focus {
+    border-color: transparent !important;
+}
+
+
+label {
+    display: block;
+    margin: 0;
+}
+
+button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.card{
+   margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.list-group{
+    margin-bottom: 20px;
+}
+
+
+.card-header {
+    padding: 0.85rem 1.25rem 0;
+}
+
+iframe {
+    border: none !important;
+}
+
+.material-icons {
+    font-size: 20px !important;
+    margin-right: 10px;
+}
+
+.container-login {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #ebebeb;
+}
+
+
+.wrap-login {
+  width: 560px;
+  background: #fff;
+  border-radius: 10px;
+  position: relative;
+  padding: 80px;
+  min-height: 570px;
+}
+
+
+.login-form {
+  width: 100%;
+}
+
+.login-form-title {
+  font-family: Raleway-Medium;
+  font-size: 30px;
+  color: #555555;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: left;
+
+  width: 100%;
+  display: block;
+}
+
+
+
+.wrap-input-login {
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 2px;
+}
+
+.input-login {
+  font-family: Raleway-Medium;
+  color: #555555;
+  line-height: 1.2;
+  font-size: 18px;
+
+  display: block;
+  width: 100%;
+  background: transparent;
+  height: 55px;
+  padding: 0 25px 0 25px;
+}
+
+.container-login-form-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.login-form-btn {
+  font-family: Raleway-Bold;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 150px;
+  height: 55px;
+  background-color: grey;
+  border-radius: 27px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.login-form-btn:hover {
+  background-color: black;
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 30px 0;
+    border: 1px solid #BEBEBE;
+    border-left-width: 5px;
+    border-radius: 0px;
+}
+.bs-callout h5 {
+    margin-top: 0;
+    margin-top: 10px;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    border-radius: 3px;
+}
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+.bs-callout-default {
+    border-left-color: black;
+}
+
+.bs-callout-primary {
+    border-left-color: gray;
+}
+
+.bs-callout-success {
+    border-left-color: #5cb85c;
+}
+
+.bs-callout-danger {
+    border-left-color: #d9534f;
+}
+
+.bs-callout-warning {
+    border-left-color: #f0ad4e;
+}
+
+.bs-callout-info {
+    border-left-color: #5bc0de;
+}
+
+#main{
+    min-height: 746px;
+}
+.main-color-bg{
+  background-color: black !important;
+  color:#ffffff !important;
+}
+.list-group a{
+    font-weight: bold;
+}
+
+.header{
+  background-color: #2D2D2D;
+  color:#fff;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.header .userTitle{
+    margin-top: 10px;
+}
+
+.dash-box{
+  text-align:center;
+}
+
+tr[data-href]{
+    cursor: pointer;
+}
+.tableBtn {
+    width: 35px;
+    height: 35px;
+}
+.tableBtn i{
+    margin-left: -5px;
+}
+.format{
+    display: inline;
+}
+.format-table{
+    margin-top: 50px;
+}
+
+footer{
+  background:#333333;
+  color:#ffffff;
+  text-align:center;
+  padding:30px;
+  margin-top:30px;
+  bottom: 0;
+  width: 100%
+}
+
+
+
+@media (max-width: 576px) {
+  .wrap-login {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+}
+@media (max-width: 767px) {
+
+    #header .userTitle{
+    margin-top: 0;
+}
+}
+
+@media (max-width: 990px){
+    footer{
+      position: relative;  
+      bottom: 0;
+  }
+  #main{
+    min-height: 760px;
+    }
+}
