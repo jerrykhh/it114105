@@ -23,5 +23,10 @@ HD in Software Engineering study resources:
 | [ITE3101](./others/ite3101/) | Introduction to Programming (SWIFT) |
 | [ITE3711](./others/ite3711/) | Programming Concepts and Applications |
 
+## Discord
+
+If you studing the IVE FD/HD in SE/ Cloud/ etc. Please feel free to join my Discord server for interflow. Please let me know if you joined the server after because I need to add the user role to you. Thanks.
+[https://discord.gg/pRw6xkm6ua](https://discord.gg/pRw6xkm6ua)
+
 ## Security issue
 I know there are some security issues in the Web project including SQL Injection, etc. Due to The workload being heavy and not related knowledge at that time but I know that it is not an escape to excuse. Therefore, I am planning to write a reflection to improve the development.
