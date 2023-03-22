@@ -7,7 +7,7 @@ public class Ex8 {
                 mTable[i][j] = i*j;
             }
         }
-        
+        System.out.print("    ");
         for ( int i = 0; i < 10; i++ )
             System.out.printf( "%3d", i );
         System.out.println();

@@ -9,7 +9,7 @@ import java.util.*;
 public class Ex1 { // Validate HKID
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
-        System.out.print("? ";
+        System.out.print("? ");
         String str = kb.next();
         char[] letter;
         int sum;
