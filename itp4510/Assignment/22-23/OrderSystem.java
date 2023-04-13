@@ -30,7 +30,7 @@ public class OrderSystem {
     try {
       int memberId = inputMemberId(false);
 
-      if (memberId == -1) {
+      if (memberId <= -1) {
         System.err.println("Have a nice day!!!");
         System.exit(1);
       }
@@ -79,14 +79,19 @@ public class OrderSystem {
   public static int inputMemberId(boolean isAdmin) throws InvalidInputException {
 
     try {
-      if(isAdmin)
+      if(isAdmin){
         System.out.print("Enter Member ID:");
-      else
+        int memberId = Integer.parseInt(sc.nextLine());
+        if ( memberId > 8000 && memberId < 9999) 
+          return memberId;
+        
+      }else{
         System.out.print("Please input your member ID [input 0 for guest]:");
-      int memberId = Integer.parseInt(sc.nextLine());
-
-      if (memberId == 0 || memberId == -1 || memberId == 9999 || memberId > 8000 && memberId < 8999)
+        int memberId = Integer.parseInt(sc.nextLine());
+        if (memberId <= 0 || memberId == 9999 || memberId > 8000 && memberId < 8999)
         return memberId;
+      }
+
 
     } catch (NumberFormatException e) {
       System.out.println("Input Error");
@@ -142,7 +147,7 @@ public class OrderSystem {
   }
 
   private static boolean isValidAdminFunction(int input) {
-    return (input < 1 && input > 2)? false : true;
+    return (input == 1 || input == 2)? true: false;
   }
 
 }
